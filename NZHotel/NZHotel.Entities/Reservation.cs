@@ -7,20 +7,25 @@ using NZHotel.Common.Enums;
 
 namespace NZHotel.Entities
 {
-    public class Reservation: BaseEntity
+    public class Reservation : BaseEntity
     {
         public int NumberofDays { get; set; }
+        public int RoomNo { get; set; }
+        public Status Status {get; set; }
         public ReservationOptions ReservationOptions { get; set; }
         public DateTime CreateDate { get; set; }
-        //public DateTime StartingDate { get; set; }
-        //public DateTime FinisingDate { get; set; }
+        public DateTime StartingDate { get; set; }
+        public DateTime FinisingDate { get; set; }
+        public DateTime UpdateDate { get; set; }
+        public DateTime DeleteDate { get; set; }
+        public string ContactName { get; set; }
+        public string ContactSurname { get; set; }
+        public string ContactEmail { get; set; }
+        public List<GuestDetails> GuestDetails { get; set; }
 
         //Navigational Prop Begins
-        public List<Room> Rooms { get; set; }
-        public int GuestId { get; set; }
-        public Guest Guest { get; set; }
         public int PaymentId { get; set; }
-        public Payment Payment{ get; set; }
+        //public Payment Payment { get; set; }
         public List<ExtraPayment> ExtraPayments { get; set; }
     }
 }
