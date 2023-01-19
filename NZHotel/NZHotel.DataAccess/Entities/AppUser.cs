@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
-namespace NZHotel.Common.Enums
+namespace NZHotel.DataAccess.Entities
 {
-    public enum PaymentStatus
+    public class AppUser: IdentityUser<int>
     {
-        NonPaid=1,
-        Paid=2
+      
     }
 }

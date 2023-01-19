@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NZHotel.Common.Enums
+namespace NZHotel.DataAccess.UnitOfWork
 {
-    public enum PaymentStatus
+    public class Uow
     {
-        NonPaid=1,
-        Paid=2
     }
 }

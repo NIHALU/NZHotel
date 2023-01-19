@@ -9,9 +9,9 @@ namespace NZHotel.Entities
 {
     public class ExtraPayment: BaseEntity
     {
-        public decimal ExtraAmount { get; set; }
+        //public decimal ExtraAmount { get; set; }
 
-        //Navigational Prop Begins
-        public List<Extras> Extras {get; set; }
+        ////Navigational Prop Begins
+        //public List<Extras> Extras {get; set; }
     }
 }

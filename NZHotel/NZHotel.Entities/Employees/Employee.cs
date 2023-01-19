@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NZHotel.Common.Enums;
+using NZHotel.Entities.Employee;
 
-namespace NZHotel.Entities.Employee
+namespace NZHotel.Entities.Employees
 {
     public class Employee:BaseEntity
     {
@@ -14,9 +15,15 @@ namespace NZHotel.Entities.Employee
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public int  IdentityNumber { get; set; }
+        public string IdentityNumber { get; set; }
         public string Title { get; set; }
+        public Status Status { get; set; }
         public Gender Gender { get; set; }
-        public List<Shift> Shifts { get; set; }
+
+        //Navigational Prop Begins
+        public int EmployeeDetailId { get; set; }
+        public EmployeeDetail EmployeeDetails { get; set; }
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
     }
 }

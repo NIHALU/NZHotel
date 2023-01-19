@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NZHotel.Entities
 {
-    public class RoomDetails: BaseEntity
+    public class RoomDetail: BaseEntity
     {
         public int FloorInfo { get; set; }
         public bool HasWifi { get; set; }

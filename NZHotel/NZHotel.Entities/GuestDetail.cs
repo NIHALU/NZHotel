@@ -7,7 +7,7 @@ using NZHotel.Common.Enums;
 
 namespace NZHotel.Entities
 {
-    public class GuestDetails:BaseEntity
+    public class GuestDetail
     {
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -17,7 +17,6 @@ namespace NZHotel.Entities
         public string PassportNumber { get; set; }
         public string CountryName { get; set; }
         public bool IsTurkish { get; set; }
-
         public GuestType GuestType { get; set; }
         public DateTime BirthDay { get; set; }
     }
