@@ -10,12 +10,11 @@ using System.Windows.Forms;
 
 namespace NZHotel.Management
 {
-    public partial class Form1 : Form
+    public partial class ManagementForm : Form
     {
-        public Form1()
+        public ManagementForm()
         {
             InitializeComponent();
         }
-
     }
 }

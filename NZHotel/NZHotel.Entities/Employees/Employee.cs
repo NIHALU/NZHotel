@@ -22,7 +22,7 @@ namespace NZHotel.Entities.Employees
 
         //Navigational Prop Begins
         public int EmployeeDetailId { get; set; }
-        public EmployeeDetail EmployeeDetails { get; set; }
+        public EmployeeDetail EmployeeDetail { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
     }

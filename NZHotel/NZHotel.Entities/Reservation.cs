@@ -26,11 +26,8 @@ namespace NZHotel.Entities
         public string ContactName { get; set; }
         public string ContactSurname { get; set; }
         public string ContactEmail { get; set; }
-        public string CreditCardNo { get; set; }
-        public string CreditCardHolder { get; set; }
-        public int CreditCardExpire { get; set; }
-        public int CreditCardCVC { get; set; }
         public List<GuestDetail> GuestDetails { get; set; }
+        public List<GuestReservation> GuestReservations { get; set; }
 
         //Navigational Prop Begins
         public int RoomStatusId { get; set; }

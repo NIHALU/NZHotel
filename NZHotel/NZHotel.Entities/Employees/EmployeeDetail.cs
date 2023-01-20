@@ -15,10 +15,10 @@ namespace NZHotel.Entities.Employee
         public decimal? DailyWage { get; set; }
         public decimal? Salary { get; set; }
         public decimal? OvertimeWage { get; set; }
-        public int DailyWorkingHour { get; set; }
-        public int MonthlyWorkingDay{ get; set; }
+        public int? DailyWorkingHour { get; set; }
+        public int? MonthlyWorkingDay{ get; set; }
         public ShiftType ShiftType { get; set; }
-        public string OvertimeNumber { get; set; }
+        public int? OvertimeNumber { get; set; }
 
         //Navigational Prop Begins
         public int EmployeeId { get; set; }

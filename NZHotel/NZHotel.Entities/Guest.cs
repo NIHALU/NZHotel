@@ -20,9 +20,8 @@ namespace NZHotel.Entities
         public string CountryName { get; set; }
         public bool IsTurkish { get; set; }
         public DateTime BirthDay { get; set; }
-        public int ResevationId { get; set; }
 
         //Navigational Prop Begins
-        //public List<Reservation> Reservations { get; set; }
+        public List<GuestReservation> GuestReservations { get; set; }
     }
 }

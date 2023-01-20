@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace NZHotel.Reception
 {
-    public partial class Form1 : Form
+    public partial class ReceptionForm : Form
     {
-        public Form1()
+        public ReceptionForm()
         {
             InitializeComponent();
         }

@@ -15,7 +15,13 @@ namespace NZHotel.Entities
     //    // public string PaymentType { get; set; }
 
     //   // public int CreditCardNo { get; set; }
+    //public string CreditCardNo { get; set; }
+    //public string CreditCardHolder { get; set; }
+    //public int CreditCardExpire { get; set; }
+    //public int CreditCardCVC { get; set; }
 
     //    public Reservation Reservation { get; set; }
+
+
     //}
 }

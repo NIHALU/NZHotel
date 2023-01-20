@@ -1,6 +1,6 @@
-﻿namespace NZHotel.Management
+﻿namespace NZHotel.Reception
 {
-    partial class Form1
+    partial class ReceptionForm
     {
         /// <summary>
         ///  Required designer variable.
