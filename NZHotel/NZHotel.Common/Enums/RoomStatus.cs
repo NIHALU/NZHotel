@@ -11,6 +11,5 @@ namespace NZHotel.Common.Enums
         Free=1,
         Reserved=2,
         Occupied =3,
-        Repairing=4
     }
 }

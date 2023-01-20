@@ -16,6 +16,8 @@ namespace NZHotel.Entities
         public int NumberofDays { get; set; }
         public Status Status {get; set; }
         public ReservationOptions ReservationOptions { get; set; }
+        public int RoomNo { get; set; }
+        public PaymentStatus  PaymentStatus { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime StartingDate { get; set; }
         public DateTime FinisingDate { get; set; }
@@ -31,8 +33,9 @@ namespace NZHotel.Entities
         public List<GuestDetail> GuestDetails { get; set; }
 
         //Navigational Prop Begins
-        public int RoomId { get; set; }
-        public Room Room { get; set; }
+        public int RoomStatusId { get; set; }
+        public RoomStatus RoomStatus { get; set; }
+       
         //public int PaymentId { get; set; }
         //public Payment Payment { get; set; }
         //public List<ExtraPayment> ExtraPayments { get; set; }
