@@ -9,6 +9,6 @@ namespace NZHotel.DataAccess.Entities
 {
     public class AppUser: IdentityUser<int>
     {
-      
+     
     }
 }

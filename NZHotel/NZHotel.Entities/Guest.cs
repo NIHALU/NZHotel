@@ -21,7 +21,6 @@ namespace NZHotel.Entities
         public bool IsTurkish { get; set; }
         public DateTime BirthDay { get; set; }
 
-        //Navigational Prop Begins
-        public List<GuestReservation> GuestReservations { get; set; }
+     
     }
 }

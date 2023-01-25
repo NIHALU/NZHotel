@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NZHotel.DataAccess\NZHotel.DataAccess.csproj" />
+    <ProjectReference Include="..\NZHotel.DTOs\NZHotel.DTOs.csproj" />
+  </ItemGroup>
+
 </Project>

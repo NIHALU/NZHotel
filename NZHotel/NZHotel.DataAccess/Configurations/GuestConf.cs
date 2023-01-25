@@ -24,7 +24,7 @@ namespace NZHotel.DataAccess.Configurations
             builder.Property(x => x.CountryName).HasMaxLength(20);
             builder.Property(x => x.BirthDay).IsRequired();
 
-            builder.HasMany(x => x.GuestReservations).WithOne(x => x.Guest).HasForeignKey(x => x.GuestId);
+        
         }
     }
 }

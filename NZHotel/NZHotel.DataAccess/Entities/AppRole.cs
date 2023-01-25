@@ -9,5 +9,6 @@ namespace NZHotel.DataAccess.Entities
 {
     public class AppRole: IdentityRole<int>
     {
+       
     }
 }
