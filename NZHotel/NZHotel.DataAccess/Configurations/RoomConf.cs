@@ -13,9 +13,11 @@ namespace NZHotel.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Room> builder)
         {
+          builder.Property(x => x.Capacity).IsRequired();
+
           builder.HasOne(x=>x.RoomDetail).WithOne(x=>x.Room).HasForeignKey<RoomDetail>(x=>x.RoomId);
           builder.HasOne(x => x.RoomType).WithMany(x => x.Rooms).HasForeignKey(x => x.RoomTypeId);
-          builder.Property(x => x.Info).HasDefaultValueSql("Check In Time:02:00 pm & Check Out Time:10:00 am");
+           
           //builder.HasMany(x => x.Reservations).WithOne(x => x.Room).HasForeignKey(x=> x.RoomId);
         }
     }

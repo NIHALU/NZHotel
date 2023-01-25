@@ -18,7 +18,7 @@ namespace NZHotel.DataAccess.Contexts
      }
 
         protected override void OnModelCreating(ModelBuilder builder)
-        {
+        {     
             builder.ApplyConfiguration(new RoomConf());
             builder.ApplyConfiguration(new GuestConf());
             builder.ApplyConfiguration(new ReservationConf());
@@ -27,6 +27,7 @@ namespace NZHotel.DataAccess.Contexts
             builder.ApplyConfiguration(new EmployeeDetailConf());
             builder.ApplyConfiguration(new RoomStatusConf());
             builder.ApplyConfiguration(new RoomTypeConf());
+            base.OnModelCreating(builder);
         }
 
 

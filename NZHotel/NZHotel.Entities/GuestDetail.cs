@@ -7,7 +7,7 @@ using NZHotel.Common.Enums;
 
 namespace NZHotel.Entities
 {
-    public class GuestDetail
+    public class GuestDetail:BaseEntity
     {
         public string Name { get; set; }
         public string Surname { get; set; }
