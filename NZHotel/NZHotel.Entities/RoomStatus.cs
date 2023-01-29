@@ -9,6 +9,6 @@ namespace NZHotel.Entities
     public class RoomStatus:BaseEntity
     {
         public string Definition { get; set; }
-        public List<Reservation> Reservations{ get; set; }
+        public List<Room> Rooms { get; set; }
     }
 }

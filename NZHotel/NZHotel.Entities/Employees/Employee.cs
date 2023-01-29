@@ -25,5 +25,8 @@ namespace NZHotel.Entities.Employees
         public EmployeeDetail EmployeeDetail { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
+
+        //public int AppUserId { get; set; }
+        //public AppUser 
     }
 }

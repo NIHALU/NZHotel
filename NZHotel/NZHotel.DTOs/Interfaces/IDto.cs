@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NZHotel.Common.Enums
+namespace NZHotel.DTOs.Interfaces
 {
-    public enum  RoomStatus
+    public interface IDto
     {
-        Free=1,
-        Occupied = 2
     }
 }

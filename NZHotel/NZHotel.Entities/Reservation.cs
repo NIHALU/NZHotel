@@ -23,15 +23,14 @@ namespace NZHotel.Entities
         public DateTime FinisingDate { get; set; }
         public DateTime? UpdateDate { get; set; }
         public DateTime? DeleteDate { get; set; }
-        public string ContactName { get; set; }
-        public string ContactSurname { get; set; }
-        public string ContactEmail { get; set; }
         public List<GuestDetail> GuestDetails { get; set; }
         
 
         //Navigational Prop Begins
-        public int RoomStatusId { get; set; }
-        public RoomStatus RoomStatus { get; set; }
+        //public int RoomStatusId { get; set; }
+        //public RoomStatus RoomStatus { get; set; }
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
        
         //public int PaymentId { get; set; }
         //public Payment Payment { get; set; }

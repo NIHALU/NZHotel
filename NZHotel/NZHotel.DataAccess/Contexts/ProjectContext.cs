@@ -27,6 +27,9 @@ namespace NZHotel.DataAccess.Contexts
             builder.ApplyConfiguration(new EmployeeDetailConf());
             builder.ApplyConfiguration(new RoomStatusConf());
             builder.ApplyConfiguration(new RoomTypeConf());
+            builder.ApplyConfiguration(new RoomTypeConf());
+            builder.ApplyConfiguration(new CustomerConf());
+
             base.OnModelCreating(builder);
         }
 
@@ -40,6 +43,8 @@ namespace NZHotel.DataAccess.Contexts
       public DbSet<Department> Departments { get; set; }
       public DbSet<NZHotel.Entities.Employees.Employee> Employees { get; set; }
       public DbSet<EmployeeDetail> EmployeeDetails { get; set; }
+      public DbSet<Customer> Customer  { get; set; }
+
 
 
 

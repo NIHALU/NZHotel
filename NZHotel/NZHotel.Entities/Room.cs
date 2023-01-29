@@ -22,8 +22,10 @@ namespace NZHotel.Entities
        public RoomDetail RoomDetail { get; set; }
        public int RoomTypeId { get; set; }
        public RoomType RoomType { get; set; }
+       public int RoomStatusId { get; set; }
+       public RoomStatus RoomStatus { get; set; }
     
-       public List<Reservation> Reservations { get; set; }
+      // public List<Reservation> Reservations { get; set; }
        //public int ReservationId { get; set; }
        //public Reservation Reservation { get; set; }
     }
