@@ -12,18 +12,19 @@ namespace NZHotel.Entities
        public int Capacity { get; set; }
        public decimal RoomPrice { get; set; }
        public int RoomNo { get; set; }
+       public string BedInfo { get; set; }
+       public string RoomName { get; set; }
        public string Info { get; set; } // Ch in ch out infor will be shown 
-       public bool IsRepairing { get; set; }
-       public DateTime? ReparingBeginDate { get; set; }
-       public DateTime? ReparingFinishDate { get; set; }
+       //public bool IsRepairing { get; set; }
+       //public DateTime? ReparingBeginDate { get; set; }
+       //public DateTime? ReparingFinishDate { get; set; }
      
        //Navigational Prop Begins
        public int RoomDetailId { get; set; }
        public RoomDetail RoomDetail { get; set; }
        public int RoomTypeId { get; set; }
        public RoomType RoomType { get; set; }
-       public int RoomStatusId { get; set; }
-       public RoomStatus RoomStatus { get; set; }
+      
     
       // public List<Reservation> Reservations { get; set; }
        //public int ReservationId { get; set; }

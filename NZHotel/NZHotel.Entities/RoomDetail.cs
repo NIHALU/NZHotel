@@ -17,6 +17,9 @@ namespace NZHotel.Entities
         public bool HasTV { get; set; }
         public bool HasHairDryer { get; set; }
         public bool HasLivingRoom { get; set; }
+        public bool HasWashingMashine { get; set; }
+        public bool HasSafeDepositBox { get; set; }
+        public bool HasJakuzi { get; set; }
 
         //Navigational Prop Begins
         public int RoomId { get; set; }

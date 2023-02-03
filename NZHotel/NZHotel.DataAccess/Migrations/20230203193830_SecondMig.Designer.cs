@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NZHotel.DataAccess.Contexts;
 
 namespace NZHotel.DataAccess.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20230203193830_SecondMig")]
+    partial class SecondMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -567,9 +569,6 @@ namespace NZHotel.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BedInfo")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
@@ -579,16 +578,13 @@ namespace NZHotel.DataAccess.Migrations
                     b.Property<int>("RoomDetailId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RoomName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("RoomNo")
                         .HasColumnType("int");
 
                     b.Property<decimal>("RoomPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("RoomStatusId")
+                    b.Property<int>("RoomStatusId")
                         .HasColumnType("int");
 
                     b.Property<int>("RoomTypeId")
@@ -622,25 +618,16 @@ namespace NZHotel.DataAccess.Migrations
                     b.Property<bool>("HasHairDryer")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("HasJakuzi")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("HasLivingRoom")
                         .HasColumnType("bit");
 
                     b.Property<bool>("HasMinibar")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("HasSafeDepositBox")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("HasSeaView")
                         .HasColumnType("bit");
 
                     b.Property<bool>("HasTV")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("HasWashingMashine")
                         .HasColumnType("bit");
 
                     b.Property<bool>("HasWifi")
@@ -784,15 +771,19 @@ namespace NZHotel.DataAccess.Migrations
 
             modelBuilder.Entity("NZHotel.Entities.Room", b =>
                 {
-                    b.HasOne("NZHotel.Entities.RoomStatus", null)
+                    b.HasOne("NZHotel.Entities.RoomStatus", "RoomStatus")
                         .WithMany("Rooms")
-                        .HasForeignKey("RoomStatusId");
+                        .HasForeignKey("RoomStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("NZHotel.Entities.RoomType", "RoomType")
                         .WithMany("Rooms")
                         .HasForeignKey("RoomTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("RoomStatus");
 
                     b.Navigation("RoomType");
                 });

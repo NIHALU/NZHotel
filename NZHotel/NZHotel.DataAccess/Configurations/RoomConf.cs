@@ -17,7 +17,7 @@ namespace NZHotel.DataAccess.Configurations
 
           builder.HasOne(x=>x.RoomDetail).WithOne(x=>x.Room).HasForeignKey<RoomDetail>(x=>x.RoomId);
           builder.HasOne(x => x.RoomType).WithMany(x => x.Rooms).HasForeignKey(x => x.RoomTypeId);
-          builder.HasOne(x => x.RoomStatus).WithMany(x => x.Rooms).HasForeignKey(x => x.RoomStatusId);
+          
 
 
             //builder.HasMany(x => x.Reservations).WithOne(x => x.Room).HasForeignKey(x=> x.RoomId);
