@@ -14,6 +14,7 @@ namespace NZHotel.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<RoomStatus> builder)
         {
             builder.Property(x => x.Definition).HasMaxLength(30).IsRequired();
+            builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
         }
     }
 }

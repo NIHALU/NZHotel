@@ -21,6 +21,7 @@ namespace NZHotel.DataAccess.Configurations
             builder.Property(x => x.TurkishIDNo).HasMaxLength(11).IsRequired();
             builder.Property(x => x.PassportNo).HasMaxLength(11).IsRequired();
             builder.Property(x => x.Country).HasMaxLength(20);
+            builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
             builder.HasMany(x=>x.Reservations).WithOne(x=>x.Customer).HasForeignKey(x=>x.CustomerId);
         }
     }

@@ -13,8 +13,10 @@ namespace NZHotel.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
-           // builder.HasOne(x => x.RoomStatus).WithMany(x => x.Reservations).HasForeignKey(x => x.RoomStatusId);
+            builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
+            builder.HasOne(x => x.Room).WithMany(x => x.Reservations).HasForeignKey(x => x.RoomId);
          
+
         }
     }
 }

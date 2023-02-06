@@ -17,16 +17,19 @@ namespace NZHotel.Entities.Employees
         public string Address { get; set; }
         public string IdentityNumber { get; set; }
         public string Title { get; set; }
-        public Status Status { get; set; }
+        public bool IsActive { get; set; } = true;
+
+        //lookuptable
+        public int GenderId { get; set; }
         public Gender Gender { get; set; }
+
 
         //Navigational Prop Begins
         public int EmployeeDetailId { get; set; }
         public EmployeeDetail EmployeeDetail { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
-
-        //public int AppUserId { get; set; }
-        //public AppUser 
+        //
+        
     }
 }

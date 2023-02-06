@@ -17,6 +17,7 @@ namespace NZHotel.Entities
         public string PassportNo { get; set; }
         public string Country { get; set; }
         public string Adress { get; set; }
+        public bool IsActive { get; set; } = true;
 
   
         public List <Reservation> Reservations { get; set; }

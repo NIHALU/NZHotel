@@ -21,6 +21,15 @@ namespace NZHotel.Entities
         public bool IsTurkish { get; set; }
         public DateTime BirthDay { get; set; }
 
+        //lookup
+        public int GuestTypeId { get; set; }
+        public GuestType GuestType { get; set; }
+
+        public int GenderId { get; set; }
+        public Gender Gender { get; set; }
+
+
+
      
     }
 }

@@ -8,7 +8,7 @@ namespace NZHotel.Entities
     {
         public string Title { get; set; }
         public DateTime CreateDate { get; set; }
-        public Status Status { get; set; } = Status.Active; 
+        public bool IsActive { get; set; } = true;
         public List<Employees.Employee> Employees { get; set; }
     }
 }

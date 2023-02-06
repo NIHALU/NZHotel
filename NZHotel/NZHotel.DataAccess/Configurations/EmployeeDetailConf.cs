@@ -20,6 +20,7 @@ namespace NZHotel.DataAccess.Configurations
             builder.Property(x => x.Salary).HasColumnType("decimal(8,2)");
             builder.Property(x => x.OvertimeWage).HasColumnType("decimal(8,2)");
             builder.Property(x => x.ShiftType).IsRequired();
+            builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
         }
     }
 }
