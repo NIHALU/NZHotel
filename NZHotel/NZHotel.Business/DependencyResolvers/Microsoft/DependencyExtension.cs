@@ -1,7 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NZHotel.Business.ValidationRules;
 using NZHotel.DataAccess.Contexts;
+using NZHotel.DataAccess.UnitOfWork;
+using NZHotel.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +24,8 @@ namespace NZHotel.Business.DependencyResolvers.Microsoft
 
             });
 
+            services.AddScoped<IUow, Uow>();
+            services.AddTransient<IValidator<RoomCreateDto>, RoomCreateDtoValidator>();
         }
     }
 }

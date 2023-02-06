@@ -13,15 +13,13 @@ namespace NZHotel.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Room> builder)
         {
-            builder.Property(x => x.MaxAdults).IsRequired();
-            builder.Property(x => x.MaxChildren).IsRequired();
             builder.Property(x => x.BedInfo).HasMaxLength(40).IsRequired();
             builder.Property(x => x.RoomName).HasMaxLength(40).IsRequired();
             builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
             builder.HasOne(x => x.RoomDetail).WithOne(x => x.Room).HasForeignKey<RoomDetail>(x => x.RoomId);
             builder.HasOne(x => x.RoomType).WithMany(x => x.Rooms).HasForeignKey(x => x.RoomTypeId);
             builder.HasOne(x => x.RoomStatus).WithMany(x => x.Rooms).HasForeignKey(x => x.RoomStatusId);
-            builder.HasOne(x => x.CleaningStatus).WithMany(x => x.Rooms).HasForeignKey(x => x.CleaningStatusId);
+          
         }
     }
 }

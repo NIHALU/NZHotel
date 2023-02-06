@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NZHotel.Business.DependencyResolvers.Microsoft;
+using NZHotel.Business.Helpers;
 
 namespace NZHotel.UI
 {
@@ -26,7 +28,17 @@ namespace NZHotel.UI
         {
             services.AddDependencies(Configuration);
             services.AddControllersWithViews();
+
+            var profiles = ProfileHelper.GetProfiles();
+            var configuration = new MapperConfiguration(opt =>
+            {
+                opt.AddProfiles(profiles);
+            });
+            var mapper = configuration.CreateMapper();
+            services.AddSingleton(mapper);
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -7,7 +7,6 @@ namespace NZHotel.Entities
     public class Department:BaseEntity
     {
         public string Title { get; set; }
-        public DateTime CreateDate { get; set; }
         public bool IsActive { get; set; } = true;
         public List<Employees.Employee> Employees { get; set; }
     }
