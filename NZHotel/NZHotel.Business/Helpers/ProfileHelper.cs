@@ -8,12 +8,14 @@ using NZHotel.Business.Mappings.AutoMapper;
 
 namespace NZHotel.Business.Helpers
 {
-    public class ProfileHelper
+    public static class ProfileHelper
     {
         public static List<Profile> GetProfiles()
         {
             return new List<Profile> {
-                new RoomProfile()
+                new RoomProfile(),
+                new RoomStatusProfile(),
+                new RoomTypeProfile()
             };
         }
     }

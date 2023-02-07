@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NZHotel.Business.Interfaces;
+using NZHotel.Business.Services;
 using NZHotel.Business.ValidationRules;
 using NZHotel.DataAccess.Contexts;
 using NZHotel.DataAccess.UnitOfWork;
@@ -26,6 +28,17 @@ namespace NZHotel.Business.DependencyResolvers.Microsoft
 
             services.AddScoped<IUow, Uow>();
             services.AddTransient<IValidator<RoomCreateDto>, RoomCreateDtoValidator>();
+            services.AddTransient<IValidator<RoomUpdateDto>, RoomUpdateDtoValidator>();
+
+            services.AddTransient<IValidator<RoomStatusCreateDto>, RoomStatusCreateDtoValidator>();
+            services.AddTransient<IValidator<RoomStatusUpdateDto>, RoomStatusUpdateDtoValidator>();
+
+            services.AddTransient<IValidator<RoomTypeCreateDto>, RoomTypeCreateDtoValidator>();
+            services.AddTransient<IValidator<RoomTypeUpdateDto>, RoomTypeUpdateDtoValidator>();
+
+            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IRoomStatusService, RoomStatusService>();
+            services.AddScoped<IRoomTypeService, RoomTypeService>();
         }
     }
 }

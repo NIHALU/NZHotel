@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NZHotel.Business.DependencyResolvers.Microsoft;
 using NZHotel.Business.Helpers;
+using NZHotel.UI.Areas.Admin.Models;
+using NZHotel.UI.Mappings.AutoMapper;
+using NZHotel.UI.ValidationRules;
 
 namespace NZHotel.UI
 {
@@ -27,9 +31,11 @@ namespace NZHotel.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDependencies(Configuration);
+            services.AddTransient<IValidator<RoomCreateViewModel>, RoomCreateModelValidator>();
             services.AddControllersWithViews();
 
             var profiles = ProfileHelper.GetProfiles();
+            profiles.Add(new RoomCreateViewModelProfile());
             var configuration = new MapperConfiguration(opt =>
             {
                 opt.AddProfiles(profiles);
