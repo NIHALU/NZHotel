@@ -10,5 +10,6 @@ namespace NZHotel.Business.Interfaces
 {
     public interface IRoomService:IService<RoomCreateDto,RoomUpdateDto,RoomListDto,Room>
     {
+        Task<List<RoomListDto>> Getlist();
     }
 }

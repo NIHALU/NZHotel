@@ -32,10 +32,14 @@ namespace NZHotel.UI
         {
             services.AddDependencies(Configuration);
             services.AddTransient<IValidator<RoomCreateViewModel>, RoomCreateModelValidator>();
+            services.AddTransient<IValidator<RoomUpdateViewModel>, RoomUpdateModelValidator>();
+
             services.AddControllersWithViews();
 
             var profiles = ProfileHelper.GetProfiles();
             profiles.Add(new RoomCreateViewModelProfile());
+            profiles.Add(new RoomUpdateViewModelProfile());
+
             var configuration = new MapperConfiguration(opt =>
             {
                 opt.AddProfiles(profiles);

@@ -16,7 +16,7 @@ namespace NZHotel.Business.ValidationRules
             RuleFor(x=>x.RoomNo).NotEmpty();
             RuleFor(x => x.BedInfo).NotEmpty();
             RuleFor(x => x.MaxAdults).NotEmpty();
-            RuleFor(x => x.MaxChildren).NotEmpty();
+            //RuleFor(x => x.MaxChildren).NotEmpty();
             RuleFor(x => x.RoomPrice).NotEmpty();
             RuleFor(x => x.RoomStatusId).NotEmpty();
             RuleFor(x => x.RoomTypeId).NotEmpty();

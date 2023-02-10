@@ -18,14 +18,16 @@ namespace NZHotel.UI.Areas.Admin.Controllers
         private readonly IRoomTypeService _roomTypeService;
         private readonly IMapper _mapper;
         private readonly IValidator<RoomCreateViewModel> _roomCreateModelValidator;
+        private readonly IValidator<RoomUpdateViewModel> _roomUpdateModelValidator;
 
-        public AdminRoomController(IRoomStatusService roomStatusService, IRoomTypeService roomTypeService,IRoomService roomService, IValidator<RoomCreateViewModel> roomCreateModelValidator, IMapper mapper)
+        public AdminRoomController(IRoomStatusService roomStatusService, IRoomTypeService roomTypeService, IRoomService roomService, IValidator<RoomCreateViewModel> roomCreateModelValidator, IMapper mapper, IValidator<RoomUpdateViewModel> roomUpdateModelValidator)
         {
             _roomService = roomService;
             _roomStatusService = roomStatusService;
             _roomTypeService = roomTypeService;
             _roomCreateModelValidator = roomCreateModelValidator;
             _mapper = mapper;
+            _roomUpdateModelValidator = roomUpdateModelValidator;
         }
 
         public IActionResult Index()
@@ -35,7 +37,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var response1= await _roomTypeService.GetAllAsync();
+            var response1 = await _roomTypeService.GetAllAsync();
             var response2 = await _roomStatusService.GetAllAsync();
             var model = new RoomCreateViewModel()
             {
@@ -51,9 +53,9 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             var result = _roomCreateModelValidator.Validate(model);
             if (result.IsValid)
             {
-                var dto=_mapper.Map<RoomCreateDto>(model);
-                var response= await _roomService.CreateAsync(dto);
-                return this.ResponseRedirectAction(response,"List");
+                var dto = _mapper.Map<RoomCreateDto>(model);
+                var response = await _roomService.CreateAsync(dto);
+                return this.ResponseRedirectAction(response, "List");
             }
             foreach (var item in result.Errors)
             {
@@ -64,13 +66,52 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             var response2 = await _roomStatusService.GetAllAsync();
             model.RoomTypes = new SelectList(response1.Data, "Id", "Definition");
             model.RoomStatuses = new SelectList(response2.Data, "Id", "Definition");
-            return View(model);     
+            return View(model);
         }
 
         public async Task<IActionResult> List()
         {
-            var response = await _roomService.GetAllAsync();
-            return this.ResponseView(response);
+            var list = await _roomService.Getlist();
+            return View(list);
+        }
+
+        public async Task<IActionResult> Update(int roomId)
+        {
+            var response = await _roomService.GetByIdAsync<RoomUpdateDto>(roomId);
+            if (response.ResponseType == ResponseType.NotFound)
+            {
+                return NotFound();
+            }
+            var model = _mapper.Map<RoomUpdateViewModel>(response.Data);
+            var response1 = await _roomTypeService.GetAllAsync();
+            var response2 = await _roomStatusService.GetAllAsync();
+
+            model.RoomTypes = new SelectList(response1.Data, "Id", "Definition");
+            model.RoomStatuses = new SelectList(response2.Data, "Id", "Definition");
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(RoomUpdateViewModel model)
+        {
+            var result = _roomUpdateModelValidator.Validate(model);
+            if (result.IsValid)
+            {
+                var dto = _mapper.Map<RoomUpdateDto>(model);
+                var response = await _roomService.UpdateAsync(dto);
+                return this.ResponseView(response);
+            }
+            foreach (var item in result.Errors)
+            {
+                ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+            }
+            var response1 = await _roomTypeService.GetAllAsync();
+            var response2 = await _roomStatusService.GetAllAsync();
+            model.RoomTypes = new SelectList(response1.Data, "Id", "Definition");
+            model.RoomStatuses = new SelectList(response2.Data, "Id", "Definition");
+            return View(model);
+
         }
 
     }

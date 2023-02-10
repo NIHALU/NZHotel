@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using NZHotel.Business.Interfaces;
 using NZHotel.DataAccess.UnitOfWork;
 using NZHotel.DTOs;
@@ -14,17 +15,19 @@ namespace NZHotel.Business.Services
 {
     public class RoomService : Service<RoomCreateDto, RoomUpdateDto, RoomListDto, Room>,IRoomService
     {
+        private readonly IUow _uow;
+        private readonly IMapper _mapper;
         public RoomService(IMapper mapper, IValidator<RoomCreateDto> createDtoValidator, IValidator<RoomUpdateDto> updateDtoValidator, IUow uow) : base(mapper, createDtoValidator, updateDtoValidator, uow)
         {
-
+            _uow = uow;
+            _mapper=mapper;
         }
 
-
-        //public async Task<List<AdvertisementAppUserListDto>> Getlist(AdvertisementAppUserStatusType type)
-        //{
-        //    var query = _uow.GetRepository<AdvertisementAppUser>().GetQuery();
-        //    var list = await query.Include(x => x.Advertisement).Include(x => x.AdvertisementAppUserStatus).Include(x => x.MilitaryStatus).Include(x => x.AppUser).ThenInclude(x => x.Gender).Where(x => x.AdvertisementAppUserStatusId == (int)type).ToListAsync();
-        //    return _mapper.Map<List<AdvertisementAppUserListDto>>(list);
-        //}
+        public async Task<List<RoomListDto>> Getlist()
+        {
+            var query = _uow.GetRepository<Room>().GetQuery();
+            var list = await query.Include(x => x.RoomStatus).Include(x => x.RoomType).ToListAsync();
+            return _mapper.Map<List<RoomListDto>>(list);
+        }
     }
 }
