@@ -1,7 +1,8 @@
 ﻿@model RoomUpdateViewModel
 <div class="dummy mt-5"></div>
 <div class="mt-4">
-	<form asp-action="Create" asp-controller="AdminRoom" method="post" class="p-5 w-75 mx-auto">
+	<form asp-action="Update" asp-controller="AdminRoom" method="post" class="p-5 w-75 mx-auto">
+		<input type="hidden" asp-for="@Model.Id" />
 		<div class="mb-3">
 			<label>Room Name:</label>
 			<input type="text" class="form-control" asp-for="@Model.RoomName" />
@@ -42,7 +43,7 @@
 		</div>
 
 		<div class="mb-3 text-end">
-			<button type="submit" class="btn btn-primary"> Room Create </button>
+			<button type="submit" class="btn btn-primary"> Room Update </button>
 		</div>
 
 		<div class="text-danger" asp-validation-summary="All"> 

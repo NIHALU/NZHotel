@@ -100,7 +100,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             {
                 var dto = _mapper.Map<RoomUpdateDto>(model);
                 var response = await _roomService.UpdateAsync(dto);
-                return this.ResponseView(response);
+                return this.ResponseRedirectAction(response, "List");
             }
             foreach (var item in result.Errors)
             {
@@ -114,5 +114,13 @@ namespace NZHotel.UI.Areas.Admin.Controllers
 
         }
 
+       
+        public async Task<IActionResult> Remove(int roomId)
+        {
+            var response = await _roomService.RemoveAsync(roomId);
+            return this.ResponseRedirectAction(response, "List");
+        }
+
+        //Open New Controller --- RoomDetail Crud will be next step
     }
 }

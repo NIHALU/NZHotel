@@ -71,7 +71,6 @@ namespace NZHotel.Business.Services
             _uow.GetRepository<T>().Remove(entity);
             await _uow.SaveChangesAsync();
             return new Response(ResponseType.Success);
-
         }
 
         public async Task<IResponse<UpdateDto>> UpdateAsync(UpdateDto dto)
