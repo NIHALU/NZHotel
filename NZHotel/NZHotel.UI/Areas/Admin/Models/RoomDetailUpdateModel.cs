@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NZHotel.DTOs.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace NZHotel.DTOs
+namespace NZHotel.UI.Areas.Admin.Models
 {
-    public class RoomDetailUpdateDto:IUpdateDto
+    public class RoomDetailUpdateModel
     {
         public int Id { get; set; }
         public int FloorInfo { get; set; }
@@ -23,5 +18,6 @@ namespace NZHotel.DTOs
         public bool HasSafeDepositBox { get; set; }
         public bool HasJakuzi { get; set; }
         public int RoomId { get; set; }
+        public SelectList RoomNumbers { get; set; }
     }
 }

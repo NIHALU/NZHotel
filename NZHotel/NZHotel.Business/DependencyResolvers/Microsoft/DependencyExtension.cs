@@ -30,6 +30,9 @@ namespace NZHotel.Business.DependencyResolvers.Microsoft
             services.AddTransient<IValidator<RoomCreateDto>, RoomCreateDtoValidator>();
             services.AddTransient<IValidator<RoomUpdateDto>, RoomUpdateDtoValidator>();
 
+            services.AddTransient<IValidator<RoomDetailCreateDto>, RoomDetailCreateDtoValidator>();
+            services.AddTransient<IValidator<RoomDetailUpdateDto>, RoomDetailUpdateDtoValidator>();
+
             services.AddTransient<IValidator<RoomStatusCreateDto>, RoomStatusCreateDtoValidator>();
             services.AddTransient<IValidator<RoomStatusUpdateDto>, RoomStatusUpdateDtoValidator>();
 
@@ -37,6 +40,7 @@ namespace NZHotel.Business.DependencyResolvers.Microsoft
             services.AddTransient<IValidator<RoomTypeUpdateDto>, RoomTypeUpdateDtoValidator>();
 
             services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IRoomDetailService, RoomDetailService>();
             services.AddScoped<IRoomStatusService, RoomStatusService>();
             services.AddScoped<IRoomTypeService, RoomTypeService>();
         }

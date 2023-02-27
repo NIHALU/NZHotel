@@ -20,7 +20,7 @@ namespace NZHotel.Business.Services
         public RoomService(IMapper mapper, IValidator<RoomCreateDto> createDtoValidator, IValidator<RoomUpdateDto> updateDtoValidator, IUow uow) : base(mapper, createDtoValidator, updateDtoValidator, uow)
         {
             _uow = uow;
-            _mapper=mapper;
+            _mapper = mapper;
         }
 
         public async Task<List<RoomListDto>> Getlist()

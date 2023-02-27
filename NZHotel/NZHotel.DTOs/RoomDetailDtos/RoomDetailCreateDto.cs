@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NZHotel.DTOs.Interfaces;
 
-namespace NZHotel.DTOs.RoomDetailDtos
+namespace NZHotel.DTOs
 {
     public class RoomDetailCreateDto:IDto
     {
@@ -21,5 +21,8 @@ namespace NZHotel.DTOs.RoomDetailDtos
         public bool HasWashingMashine { get; set; }
         public bool HasSafeDepositBox { get; set; }
         public bool HasJakuzi { get; set; }
+        public int RoomNo { get; set; }
+        public int RoomId { get; set; }
+        
     }
 }

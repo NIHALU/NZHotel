@@ -1,0 +1,102 @@
+﻿@model RoomDetailCreateModel
+<div class="dummy mt-5"></div>
+<div class="mt-4">
+	<form asp-action="Create" asp-controller="AdminRoomDetail" method="post" class="p-5 w-75 mx-auto">	
+
+        
+       <div class="mb-3">
+			<select class="form-select" asp-items="@Model.RoomNumbers" asp-for="@Model.RoomId">
+				<option value="0" >Which Room Will Be Detailed?</option>
+			</select>
+		</div>
+
+		<div class="mb-3">
+			<label>Floor Info :</label>
+			<input type="number" class="form-control" asp-for="@Model.FloorInfo" />
+		</div>
+
+
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" asp-for="@Model.HasWifi" id="defaultCheck1">
+  <label class="form-check-label" for="HasWifi">
+    Wifi Exist?
+  </label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" asp-for="@Model.HasMinibar" id="defaultCheck1">
+  <label class="form-check-label" for="HasMinibar">
+    Minibar Exist?
+  </label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" asp-for="@Model.HasBalcony" id="defaultCheck1">
+  <label class="form-check-label" for="HasBalcony">
+    Balcony Exist?
+  </label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" asp-for="@Model.HasSeaView" id="defaultCheck1">
+  <label class="form-check-label" for="HasSeaView">
+    SeaView Exist?
+  </label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" asp-for="@Model.HasAC" id="defaultCheck1">
+  <label class="form-check-label" for="HasAC">
+    AC Exist?
+  </label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" asp-for="@Model.HasTV" id="defaultCheck1">
+  <label class="form-check-label" for="HasTV">
+    TV Exist?
+  </label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" asp-for="@Model.HasHairDryer" id="defaultCheck1">
+  <label class="form-check-label" for="HasHairDryer">
+    HairDryer Exist?
+  </label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" asp-for="@Model.HasLivingRoom" id="defaultCheck1">
+  <label class="form-check-label" for="HasLivingRoom">
+    LivingRoom Exist?
+  </label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" asp-for="@Model.HasWashingMashine" id="defaultCheck1">
+  <label class="form-check-label" for="HasWashingMashine">
+    WashingMashine Exist?
+  </label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" asp-for="@Model.HasSafeDepositBox" id="defaultCheck1">
+  <label class="form-check-label" for="HasSafeDepositBox">
+    SafeDepositBox Exist?
+  </label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" asp-for="@Model.HasJakuzi" id="defaultCheck1">
+  <label class="form-check-label" for="HasJakuzi">
+    Jakuzi Exist?
+  </label>
+</div>
+
+	<div class="mb-3 text-end">
+			<button type="submit" class="btn btn-primary"> Room Detail Create </button>
+		</div>
+
+	</form>
+</div>

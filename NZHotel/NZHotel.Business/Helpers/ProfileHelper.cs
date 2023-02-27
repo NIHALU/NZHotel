@@ -15,7 +15,9 @@ namespace NZHotel.Business.Helpers
             return new List<Profile> {
                 new RoomProfile(),
                 new RoomStatusProfile(),
-                new RoomTypeProfile()
+                new RoomTypeProfile(),
+                new RoomDetailProfile(),
+
             };
         }
     }
