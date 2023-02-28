@@ -85,7 +85,7 @@ namespace NZHotel.UI
             {
                 endpoints.MapControllerRoute(
                    name: "areas",
-                   pattern: "{Area=Admin}/{controller=Home}/{action=Index}/{id?}");
+                   pattern: "{Area=Member}/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",

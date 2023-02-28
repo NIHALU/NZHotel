@@ -50,6 +50,11 @@ namespace NZHotel.DataAccess.Repositories
         {
             return !asNoTracking ? await _context.Set<T>().AsNoTracking().SingleOrDefaultAsync(filter) : await _context.Set<T>().SingleOrDefaultAsync(filter);
         }
+
+        public async Task<T> GetByFilterFirstAsync(Expression<Func<T, bool>> filter, bool asNoTracking = false)
+        {
+            return !asNoTracking ? await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(filter) : await _context.Set<T>().FirstOrDefaultAsync(filter);
+        }
         public IQueryable<T> GetQuery()
         {
             return _context.Set<T>().AsQueryable();

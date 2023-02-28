@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NZHotel.DTOs.Interfaces;
 
-namespace NZHotel.DTOs.ReservationDtos
+namespace NZHotel.DTOs
 {
     public class ReservationCreateDto:IDto
     {      

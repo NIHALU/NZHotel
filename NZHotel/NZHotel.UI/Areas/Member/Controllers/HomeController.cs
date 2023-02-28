@@ -9,6 +9,7 @@ using NZHotel.UI.Models;
 
 namespace NZHotel.UI.Controllers
 {
+    [Area("Member")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

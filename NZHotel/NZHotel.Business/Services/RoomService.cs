@@ -7,6 +7,7 @@ using AutoMapper;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using NZHotel.Business.Interfaces;
+using NZHotel.Common.Enums;
 using NZHotel.DataAccess.UnitOfWork;
 using NZHotel.DTOs;
 using NZHotel.Entities;
@@ -29,5 +30,12 @@ namespace NZHotel.Business.Services
             var list = await query.Include(x => x.RoomStatus).Include(x => x.RoomType).ToListAsync();
             return _mapper.Map<List<RoomListDto>>(list);
         }
+
+        public async Task<RoomListDto> GetFilteredRoom(int number)
+        {
+            var room = await _uow.GetRepository<Room>().GetByFilterFirstAsync(x=>x.RoomTypeId==number);
+            return _mapper.Map<RoomListDto>(room);
+        }
+
     }
 }
