@@ -21,7 +21,7 @@ namespace NZHotel.UI.Controllers
         public async Task< IActionResult> Index()
         {
             List<RoomListDto> filteredRooms = new();
-            var items = Enum.GetValues(typeof(RoomTypes));
+            var items = Enum.GetValues(typeof(RoomType));
             foreach (int item in items)
             {
                 var filteredRoom = await _roomService.GetFilteredRoom(item);

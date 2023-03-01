@@ -15,20 +15,20 @@ namespace NZHotel.Entities
         }
         public int NumberofDays { get; set; }
         public int NumberofGuests { get; set; }
-
-        public ReservationOptions ReservationOptions { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
         public DateTime StartingDate { get; set; }
         public DateTime FinisingDate { get; set; }
+        public DateTime? PaymentDeadline { get; set; }
         public bool IsActive { get; set; } = true;
-        public List<GuestDetail> GuestDetails { get; set; }
-
+        public List<GuestReservation> GuestReservations { get; set; }
 
         //Navigational Prop Begins
         public int RoomId { get; set; }
         public Room Room { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
+        public int ReservationOptionId { get; set; }
+        public ReservationOption ReservationOption { get; set; }
 
         //public int PaymentId { get; set; }
         //public Payment Payment { get; set; }

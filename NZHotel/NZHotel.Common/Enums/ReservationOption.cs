@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NZHotel.Common.Enums
 {
-    public enum ReservationOptions
+    public enum ReservationOption
     {
         FullPansion=1,
         AllInclusive=2

@@ -17,6 +17,9 @@ namespace NZHotel.Business.Helpers
                 new RoomStatusProfile(),
                 new RoomTypeProfile(),
                 new RoomDetailProfile(),
+                new ReservationProfile(),
+                new ReservationOptionProfile()
+
             };
         }
     }

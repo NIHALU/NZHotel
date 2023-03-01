@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NZHotel.Common.Enums
 {
-    public enum RoomTypes
+    public enum RoomType
     {
         SingleBed=1,
         TwoSingleBeds=2,
