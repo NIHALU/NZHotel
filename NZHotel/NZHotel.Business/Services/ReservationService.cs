@@ -23,29 +23,30 @@ namespace NZHotel.Business.Services
             _uow = uow;
         }
 
-        public async Task<List<ReservationListDto>> Getlist(RoomBookCreateDto dto)
-        {
-            Reservation reservation =new Reservation();
+        //public async Task<List<ReservationListDto>> Getlist(RoomBookCreateDto dto)
+        //{
+        //    Reservation reservation =new Reservation();
          
 
-            var reservationlist=await _uow.GetRepository<Reservation>().GetAllAsync();
-            foreach (var item in reservationlist )
-            {
-                var start = reservation.InStart(dto.StartingDate, dto.FinisingDate);
-                var finish = reservation.InFinish(dto.StartingDate, dto.FinisingDate);
+        //    var reservationlist=await _uow.GetRepository<Reservation>().GetAllAsync();
+        //    foreach (var item in reservationlist )
+        //    {
+        //        var start = reservation.InStart(dto.StartingDate, dto.FinisingDate);
+        //        var finish = reservation.InFinish(dto.StartingDate, dto.FinisingDate);
 
-                if (start == true && finish == true)
-                {
-                    var query = _uow.GetRepository<Reservation>().GetQuery();
+        //        if (start == true && finish == true)
+        //        {
+        //            var query = _uow.GetRepository<Reservation>().GetQuery();
 
-                    query.Where(x => x.StartingDate == dto.StartingDate && x.FinisingDate == dto.FinisingDate);
-                }
+        //            query.Where(x => x.StartingDate == dto.StartingDate && x.FinisingDate == dto.FinisingDate);
+        //        }
+        //        return 
 
-            }
+        //    }
 
           
 
         }
 
     }
-}
+

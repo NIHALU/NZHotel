@@ -22,12 +22,8 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             return View(new BookRoomModel());
         }
 
-        [HttpPost]
-        public IActionResult BookRoom(BookRoomModel model)
-        {
-            _reservationService.
-            return View(new BookRoomModel());
-        }
+       
+     
 
     }
 }
