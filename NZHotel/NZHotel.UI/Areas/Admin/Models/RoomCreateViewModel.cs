@@ -2,7 +2,7 @@
 
 namespace NZHotel.UI.Areas.Admin.Models
 {
-    public class RoomCreateViewModel
+    public class ReservationCreateModel
     {
         public int MaxAdults { get; set; }
         public int MaxChildren { get; set; }

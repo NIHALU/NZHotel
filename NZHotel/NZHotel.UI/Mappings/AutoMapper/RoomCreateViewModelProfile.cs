@@ -8,7 +8,7 @@ namespace NZHotel.UI.Mappings.AutoMapper
     {
         public RoomCreateViewModelProfile()
         {
-            CreateMap<RoomCreateViewModel, RoomCreateDto>().ReverseMap();
+            CreateMap<ReservationCreateModel, RoomCreateDto>().ReverseMap();
         }
     }
 }

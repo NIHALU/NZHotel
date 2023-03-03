@@ -1,0 +1,81 @@
+﻿@model BookRoomModel
+<div class="row">
+    <div class="col-sm-8 mt-4 mx-auto">
+        <div class="card ">
+            <div class="card-header">
+                <h5 class="card-title">Book A Room</h5>
+            </div>
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label asp-for="@Model.StartingDate" >Enterance Date</label>
+                        <input asp-for="@Model.StartingDate" class="form-control" placeholder="Enterance Date" />
+                        <span asp-validation-for="@Model.StartingDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.FinisingDate">Exist Date</label>
+                        <input asp-for="@Model.FinisingDate" class="form-control" placeholder="Exist Date" />
+                        <span asp-validation-for="@Model.FinisingDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="@Model.AdultNumber" class="control-label">Adult (12+)</label>
+                       <select asp-for="@Model.AdultNumber"  id="adult" class="form-control" placeholder="Adult Select">
+                                        <option value="0">Adult Select</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="9+">9+</option>
+                                    </select>
+                        <span asp-validation-for="@Model.AdultNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="@Model.ChildNumber" class="control-label">Child(2-12)</label>
+                       <select asp-for="@Model.ChildNumber"  id="adult" class="form-control" placeholder="Adult Select">
+                                        <option value="0">Adult Select</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="9+">9+</option>
+                                    </select>
+                        <span asp-validation-for="@Model.ChildNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                             <label asp-for="@Model.InfantNumber" class="control-label">Infant(0-2)</label>
+                       <select asp-for="@Model.InfantNumber"  id="adult" class="form-control" placeholder="Adult Select">
+                                        <option value="0">Adult Select</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="9+">9+</option>
+                                    </select>
+                        <span asp-validation-for="@Model.InfantNumber" class="text-danger"></span>
+                </div>
+                <div class="card-footer mb-3">
+                    <div class="form-group ">
+                        <input type="submit" value="Check Availability" class="btn btn-outline-success btn-sm float-right" />
+                        <a asp-action="List" class="btn btn-outline-info btn-sm float-left">Back To List</a>
+                    </div>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

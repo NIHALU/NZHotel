@@ -31,7 +31,7 @@ namespace NZHotel.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDependencies(Configuration);
-            services.AddTransient<IValidator<RoomCreateViewModel>, RoomCreateModelValidator>();
+            services.AddTransient<IValidator<ReservationCreateModel>, RoomCreateModelValidator>();
             services.AddTransient<IValidator<RoomUpdateViewModel>, RoomUpdateModelValidator>();
 
             services.AddTransient<IValidator<RoomDetailCreateModel>, RoomDetailCreateModelValidator>();
@@ -85,7 +85,7 @@ namespace NZHotel.UI
             {
                 endpoints.MapControllerRoute(
                    name: "areas",
-                   pattern: "{Area=Member}/{controller=Home}/{action=Index}/{id?}");
+                   pattern: "{Area=Reception}/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",

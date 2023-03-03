@@ -3,7 +3,7 @@ using NZHotel.UI.Areas.Admin.Models;
 
 namespace NZHotel.UI.ValidationRules
 {
-    public class RoomCreateModelValidator : AbstractValidator<RoomCreateViewModel>
+    public class RoomCreateModelValidator : AbstractValidator<ReservationCreateModel>
     {
         public RoomCreateModelValidator()
         {

@@ -30,8 +30,15 @@ namespace NZHotel.Entities
         public int ReservationOptionId { get; set; }
         public ReservationOption ReservationOption { get; set; }
 
-        //public int PaymentId { get; set; }
-        //public Payment Payment { get; set; }
-        //public List<ExtraPayment> ExtraPayments { get; set; }
+        public bool InStart(DateTime enterance, DateTime exit )//False
+        {
+            return (StartingDate < enterance) && (exit <= StartingDate);
+        }
+        public bool InFinish(DateTime enterance, DateTime exit)//False 
+        {
+            return (FinisingDate <= enterance) && (exit < FinisingDate);
+        }
+
+
     }
 }

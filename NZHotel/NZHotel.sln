@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NZHotel.UI", "NZHotel.UI\NZ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NZHotel.Common", "NZHotel.Common\NZHotel.Common.csproj", "{E739E596-CFEF-4830-A87A-BD83AD8ACD7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NZHotel.ReservationAPI", "NZHotel.ReservationAPI\NZHotel.ReservationAPI.csproj", "{29634769-1044-41E1-9F53-4EC20C71E032}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{E739E596-CFEF-4830-A87A-BD83AD8ACD7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E739E596-CFEF-4830-A87A-BD83AD8ACD7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E739E596-CFEF-4830-A87A-BD83AD8ACD7A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{29634769-1044-41E1-9F53-4EC20C71E032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29634769-1044-41E1-9F53-4EC20C71E032}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29634769-1044-41E1-9F53-4EC20C71E032}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29634769-1044-41E1-9F53-4EC20C71E032}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,16 +11,16 @@ using NZHotel.UI.Extensions;
 namespace NZHotel.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class AdminRoomController : Controller
+    public class ReservationController : Controller
     {
         private readonly IRoomService _roomService;
         private readonly IRoomStatusService _roomStatusService;
         private readonly IRoomTypeService _roomTypeService;
         private readonly IMapper _mapper;
-        private readonly IValidator<RoomCreateViewModel> _roomCreateModelValidator;
+        private readonly IValidator<ReservationCreateModel> _roomCreateModelValidator;
         private readonly IValidator<RoomUpdateViewModel> _roomUpdateModelValidator;
 
-        public AdminRoomController(IRoomStatusService roomStatusService, IRoomTypeService roomTypeService, IRoomService roomService, IValidator<RoomCreateViewModel> roomCreateModelValidator, IMapper mapper, IValidator<RoomUpdateViewModel> roomUpdateModelValidator)
+        public ReservationController(IRoomStatusService roomStatusService, IRoomTypeService roomTypeService, IRoomService roomService, IValidator<ReservationCreateModel> roomCreateModelValidator, IMapper mapper, IValidator<RoomUpdateViewModel> roomUpdateModelValidator)
         {
             _roomService = roomService;
             _roomStatusService = roomStatusService;
@@ -39,7 +39,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
         {
             var response1 = await _roomTypeService.GetAllAsync();
             var response2 = await _roomStatusService.GetAllAsync();
-            var model = new RoomCreateViewModel()
+            var model = new ReservationCreateModel()
             {
                 RoomTypes = new SelectList(response1.Data, "Id", "Definition"),
                 RoomStatuses = new SelectList(response2.Data, "Id", "Definition")
@@ -48,7 +48,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(RoomCreateViewModel model)
+        public async Task<IActionResult> Create(ReservationCreateModel model)
         {
             var result = _roomCreateModelValidator.Validate(model);
             if (result.IsValid)
