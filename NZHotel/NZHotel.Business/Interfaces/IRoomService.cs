@@ -14,6 +14,8 @@ namespace NZHotel.Business.Interfaces
         Task<List<RoomListDto>> Getlist();
     
         Task<RoomListDto> GetFilteredRoom(int number);
+
+        Task<List<RoomListDto>> GetNotBookedRoomList(params int[] list);
     }
         
 }

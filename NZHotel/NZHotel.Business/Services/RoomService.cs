@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ using NZHotel.Entities;
 
 namespace NZHotel.Business.Services
 {
-    public class RoomService : Service<RoomCreateDto, RoomUpdateDto, RoomListDto, Room>,IRoomService
+    public class RoomService : Service<RoomCreateDto, RoomUpdateDto, RoomListDto, Room>, IRoomService
     {
         private readonly IUow _uow;
         private readonly IMapper _mapper;
@@ -33,9 +34,21 @@ namespace NZHotel.Business.Services
 
         public async Task<RoomListDto> GetFilteredRoom(int number)
         {
-            var room = await _uow.GetRepository<Room>().GetByFilterFirstAsync(x=>x.RoomTypeId==number);
+            var room = await _uow.GetRepository<Room>().GetByFilterFirstAsync(x => x.RoomTypeId == number);
             return _mapper.Map<RoomListDto>(room);
         }
 
+        public async Task<List<RoomListDto>> GetNotBookedRoomList(params int[] list)
+        {
+            var allRooms = await _uow.GetRepository<Room>().GetAllAsync();
+
+            for (int i = 0; i < list.Length; i++)
+            {
+                var room = await _uow.GetRepository<Room>().FindAsync(list[i]);
+                allRooms.Remove(room);
+            }
+            return _mapper.Map<List<RoomListDto>>(allRooms);
+
+        }
     }
 }

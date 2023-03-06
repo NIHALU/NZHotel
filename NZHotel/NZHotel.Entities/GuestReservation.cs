@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NZHotel.Entities
 {
-    public class GuestReservation
+    public class GuestReservation:BaseEntity
     {
         public int GuestId { get; set; }
         public Guest Guest { get; set; }

@@ -9,10 +9,7 @@ namespace NZHotel.Entities
 {
     public class Reservation : BaseEntity
     {
-        public Reservation()
-        {
-            List<GuestDetail> GuestDetails = new List<GuestDetail>();
-        }
+       
         public int NumberofDays { get; set; }
         public int NumberofGuests { get; set; }
         public PaymentStatus PaymentStatus { get; set; }

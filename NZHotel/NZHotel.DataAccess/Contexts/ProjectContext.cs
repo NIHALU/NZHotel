@@ -31,7 +31,10 @@ namespace NZHotel.DataAccess.Contexts
             builder.ApplyConfiguration(new CustomerConf());
             builder.ApplyConfiguration(new GenderConf());
             builder.ApplyConfiguration(new GuestTypeConf());
-          // builder.ApplyConfiguration(new CleaningStatusConf());
+            builder.ApplyConfiguration(new ReservationOptionConf());
+            builder.ApplyConfiguration(new GuestReservationConf());
+
+            // builder.ApplyConfiguration(new CleaningStatusConf());
             base.OnModelCreating(builder);
         }
 
@@ -48,6 +51,10 @@ namespace NZHotel.DataAccess.Contexts
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<GuestType> GuestTypes { get; set; }
+        public DbSet<GuestReservation> GuestReservations { get; set; }
+        public DbSet<ReservationOption> ReservationOptions { get; set; }
+
+
         //public DbSet<CleaningStatus> CleaningStatuses { get; set; }
     }
 }

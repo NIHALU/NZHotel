@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,6 @@ namespace NZHotel.Business.Interfaces
 {
     public interface IReservationService : IService<ReservationCreateDto, ReservationUpdateDto, ReservationListDto, Reservation>
     {
-        //Task<List<ReservationListDto>> Getlist();
+        Task<ArrayList> GetBokeedRoomList(RoomBookCreateDto dto);
     }
 }

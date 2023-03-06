@@ -19,7 +19,7 @@ namespace NZHotel.Entities
         public string Adress { get; set; }
         public bool IsActive { get; set; } = true;
 
-  
+
         public List <Reservation> Reservations { get; set; }
     }
 }
