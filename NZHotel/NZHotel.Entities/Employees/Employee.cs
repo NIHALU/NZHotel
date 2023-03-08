@@ -17,7 +17,7 @@ namespace NZHotel.Entities.Employees
         public string Address { get; set; }
         public string IdentityNumber { get; set; }
         public string Title { get; set; }
-        public bool IsActive { get; set; } = true;
+        public bool Active { get; set; }
 
         //lookuptable
         public int GenderId { get; set; }

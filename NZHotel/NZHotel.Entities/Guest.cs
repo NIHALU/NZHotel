@@ -10,22 +10,45 @@ namespace NZHotel.Entities
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
-        public bool VisitedBefore { get; set; }
         public string IdentityNumber { get; set; }
         public string PassportNumber { get; set; }
         public string Nationality { get; set; }
         public string CountryName { get; set; }
-        public bool IsTurkish { get; set; }
+        public bool IsNoTurkishCitizen { get; set; } 
         public DateTime BirthDay { get; set; }
+        
 
         //lookup
         public int GuestTypeId { get; set; }
         public GuestType GuestType { get; set; }
         public int GenderId { get; set; }
         public Gender Gender { get; set; }
-        public List<GuestReservation> GuestReservations { get; set; }
+        public List<GuestReservation> GuestReservations { get; set; } = new();
+
+
+        public bool VisitedBefore()
+        {
+            if (GuestReservations?.Count(x =>x.GuestId == Id)>0)
+            {
+                return true;
+            }
+            return false;
+
+        }
+        public int CalculateAge()
+        {
+            DateTime today = DateTime.Today;
+            DateTime birtDate = BirthDay.Date;
+            int age = today.Year - birtDate.Year;
+            if (birtDate > today.AddYears(-age))
+            {
+                age--;
+            }
+            return age;
+
+
+        }
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace NZHotel.Entities
 {
-    public class CleaningStatus : BaseEntity
+    public class PaymentStatus:BaseEntity
     {
         public string Definition { get; set; }
-        public List<Room> Rooms { get; set; }
+        public List<Reservation> Reservations { get; set; }
     }
 }

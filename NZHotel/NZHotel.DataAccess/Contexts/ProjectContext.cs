@@ -21,20 +21,21 @@ namespace NZHotel.DataAccess.Contexts
         {
             builder.ApplyConfiguration(new RoomConf());
             builder.ApplyConfiguration(new RoomDetailConf());
+            builder.ApplyConfiguration(new RoomStatusConf());
+            builder.ApplyConfiguration(new RoomTypeConf());
+            builder.ApplyConfiguration(new CleaningStatusConf());
             builder.ApplyConfiguration(new GuestConf());
-            builder.ApplyConfiguration(new ReservationConf());
+            builder.ApplyConfiguration(new GuestTypeConf());
+            builder.ApplyConfiguration(new CustomerConf());
             builder.ApplyConfiguration(new DepartmentConf());
             builder.ApplyConfiguration(new EmployeeConf());
             builder.ApplyConfiguration(new EmployeeDetailConf());
-            builder.ApplyConfiguration(new RoomStatusConf());
-            builder.ApplyConfiguration(new RoomTypeConf());
-            builder.ApplyConfiguration(new CustomerConf());
             builder.ApplyConfiguration(new GenderConf());
-            builder.ApplyConfiguration(new GuestTypeConf());
+            builder.ApplyConfiguration(new ReservationConf());
             builder.ApplyConfiguration(new ReservationOptionConf());
+            builder.ApplyConfiguration(new ReservationTypeConf());
+            builder.ApplyConfiguration(new PaymentStatusConf());
             builder.ApplyConfiguration(new GuestReservationConf());
-
-            // builder.ApplyConfiguration(new CleaningStatusConf());
             base.OnModelCreating(builder);
         }
 
@@ -53,8 +54,12 @@ namespace NZHotel.DataAccess.Contexts
         public DbSet<GuestType> GuestTypes { get; set; }
         public DbSet<GuestReservation> GuestReservations { get; set; }
         public DbSet<ReservationOption> ReservationOptions { get; set; }
+        public DbSet<ReservationType> ReservationTypes { get; set; }
+        public DbSet<PaymentStatus> PaymentStatuses { get; set; }
+        public DbSet<CleaningStatus> CleaningStatuses { get; set; }
 
 
-        //public DbSet<CleaningStatus> CleaningStatuses { get; set; }
+
+
     }
 }

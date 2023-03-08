@@ -12,12 +12,12 @@ namespace NZHotel.Entities
         public string ContactSurname { get; set; }
         public string ContactEmail { get; set; }
         public string ContactPhone { get; set; }
-        public bool IsTurkish { get; set; }
+        public bool IsNoTurkishCitizen { get; set; }
         public string TurkishIDNo{ get; set; }
         public string PassportNo { get; set; }
         public string Country { get; set; }
         public string Adress { get; set; }
-        public bool IsActive { get; set; } = true;
+        public bool Active { get; set; }
 
 
         public List <Reservation> Reservations { get; set; }

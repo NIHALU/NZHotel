@@ -33,15 +33,15 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         [HttpPost]
         public async Task<IActionResult> BookRoom(RoomBookCreateDto dto)
         {
-            ArrayList liste = new ArrayList();
+            ArrayList bookedRooms = new ArrayList();
             List<RoomListDto> roomListDtos = new();
-            liste = await _reservationService.GetBokeedRoomList(dto);
-            int[] bookedRoomIds = (int[])liste.ToArray(System.Type.GetType("System.Int32"));
+            bookedRooms = await _reservationService.GetBokeedRoomList(dto);
+            int[] bookedRoomIds = (int[])bookedRooms.ToArray(System.Type.GetType("System.Int32"));
             roomListDtos = await _roomService.GetNotBookedRoomList(bookedRoomIds);
             return RedirectToAction("CheckNotBooked",roomListDtos);
         }
 
-        public IActionResult CheckNotBooked(List<RoomListDto> roomListDtos)
+        public IActionResult CheckNotBookedRooms(List<RoomListDto> roomListDtos)
         {
             return View(roomListDtos);
         }

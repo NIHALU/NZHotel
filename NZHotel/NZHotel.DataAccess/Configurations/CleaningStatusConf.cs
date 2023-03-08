@@ -9,15 +9,15 @@ using NZHotel.Entities;
 
 namespace NZHotel.DataAccess.Configurations
 {
-    //public class CleaningStatusConf: IEntityTypeConfiguration<CleaningStatus>
-    //{
-    //    public void Configure(EntityTypeBuilder<CleaningStatus> builder)
-    //    {
-    //        builder.Property(x => x.Definition).IsRequired();
-    //        builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
+    public class CleaningStatusConf : IEntityTypeConfiguration<CleaningStatus>
+    {
+        public void Configure(EntityTypeBuilder<CleaningStatus> builder)
+        {
+            builder.Property(x => x.Definition).IsRequired();
+            builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
 
-    //        //builder.HasMany(x => x.Rooms).WithOne(x => x.CleaningStatus).HasForeignKey(x => x.CleaningStatusId);
+            builder.HasMany(x => x.Rooms).WithOne(x => x.CleaningStatus).HasForeignKey(x => x.CleaningStatusId);
 
-    //    }
-    //}
+        }
+    }
 }

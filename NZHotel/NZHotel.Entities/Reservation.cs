@@ -9,15 +9,13 @@ namespace NZHotel.Entities
 {
     public class Reservation : BaseEntity
     {
-       
-        public int NumberofDays { get; set; }
         public int NumberofGuests { get; set; }
-        public PaymentStatus PaymentStatus { get; set; }
+        public int NumberofDays => (FinishingDate - StartingDate).Days;
+
         public DateTime StartingDate { get; set; }
-        public DateTime FinisingDate { get; set; }
+        public DateTime FinishingDate { get; set; }
         public DateTime? PaymentDeadline { get; set; }
-        public bool IsActive { get; set; } = true;
-        public List<GuestReservation> GuestReservations { get; set; }
+        public bool Active { get; set; }
 
         //Navigational Prop Begins
         public int RoomId { get; set; }
@@ -27,14 +25,26 @@ namespace NZHotel.Entities
         public int ReservationOptionId { get; set; }
         public ReservationOption ReservationOption { get; set; }
 
-        public bool InStart(DateTime enterance, DateTime exit )//False
+        public int PaymentStatusId { get; set; }
+        public PaymentStatus PaymentStatus { get; set; }
+
+        public int ReservationTypeId { get; set; }
+        public ReservationType ReservationType { get; set; }
+        public List<GuestReservation> GuestReservations { get; set; }
+
+
+        public bool InStart(DateTime enterance, DateTime exit)//False
         {
-            return (StartingDate < enterance) && (exit <= StartingDate);
+            return (StartingDate.Date < enterance.Date) && (exit.Date <= StartingDate.Date);
         }
         public bool InFinish(DateTime enterance, DateTime exit)//False 
         {
-            return (FinisingDate <= enterance) && (exit < FinisingDate);
+            return (FinishingDate.Date <= enterance.Date) && (exit.Date < FinishingDate.Date);
         }
+
+
+
+
 
 
     }
