@@ -10,8 +10,8 @@ using NZHotel.DataAccess.Contexts;
 namespace NZHotel.DataAccess.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20230306191135_FifthMig")]
-    partial class FifthMig
+    [Migration("20230313192510_1stMig")]
+    partial class _1stMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -218,6 +218,33 @@ namespace NZHotel.DataAccess.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("NZHotel.Entities.CleaningStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Definition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CleaningStatuses");
+                });
+
             modelBuilder.Entity("NZHotel.Entities.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -262,11 +289,12 @@ namespace NZHotel.DataAccess.Migrations
                     b.Property<DateTime?>("DeleteDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<int>("GeneralStatus")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("IsTurkish")
-                        .HasColumnType("bit");
+                    b.Property<bool>("IsNoTurkishCitizen")
+                        .HasColumnType("bit")
+                        .HasColumnName("NoTurkishCitizen");
 
                     b.Property<string>("PassportNo")
                         .HasMaxLength(11)
@@ -299,8 +327,8 @@ namespace NZHotel.DataAccess.Migrations
                     b.Property<DateTime?>("DeleteDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<int>("GeneralStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -408,13 +436,13 @@ namespace NZHotel.DataAccess.Migrations
                     b.Property<int>("GenderId")
                         .HasColumnType("int");
 
+                    b.Property<int>("GeneralStatus")
+                        .HasColumnType("int");
+
                     b.Property<string>("IdentityNumber")
                         .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -483,7 +511,6 @@ namespace NZHotel.DataAccess.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("ntext");
 
                     b.Property<DateTime>("BirthDay")
@@ -494,17 +521,10 @@ namespace NZHotel.DataAccess.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeleteDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("GenderId")
                         .HasColumnType("int");
@@ -513,12 +533,12 @@ namespace NZHotel.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("IdentityNumber")
-                        .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
-                    b.Property<bool>("IsTurkish")
-                        .HasColumnType("bit");
+                    b.Property<bool>("IsNoTurkishCitizen")
+                        .HasColumnType("bit")
+                        .HasColumnName("NoTurkishCitizen");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -530,12 +550,10 @@ namespace NZHotel.DataAccess.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("PassportNumber")
-                        .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
@@ -546,9 +564,6 @@ namespace NZHotel.DataAccess.Migrations
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("VisitedBefore")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -619,6 +634,33 @@ namespace NZHotel.DataAccess.Migrations
                     b.ToTable("GuestTypes");
                 });
 
+            modelBuilder.Entity("NZHotel.Entities.PaymentStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Definition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentStatuses");
+                });
+
             modelBuilder.Entity("NZHotel.Entities.Reservation", b =>
                 {
                     b.Property<int>("Id")
@@ -637,15 +679,10 @@ namespace NZHotel.DataAccess.Migrations
                     b.Property<DateTime?>("DeleteDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FinisingDate")
+                    b.Property<DateTime>("FinishingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("true");
-
-                    b.Property<int>("NumberofDays")
+                    b.Property<int>("GeneralStatus")
                         .HasColumnType("int");
 
                     b.Property<int>("NumberofGuests")
@@ -654,10 +691,13 @@ namespace NZHotel.DataAccess.Migrations
                     b.Property<DateTime?>("PaymentDeadline")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PaymentStatus")
+                    b.Property<int>("PaymentStatusId")
                         .HasColumnType("int");
 
                     b.Property<int>("ReservationOptionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReservationTypeId")
                         .HasColumnType("int");
 
                     b.Property<int>("RoomId")
@@ -673,7 +713,11 @@ namespace NZHotel.DataAccess.Migrations
 
                     b.HasIndex("CustomerId");
 
+                    b.HasIndex("PaymentStatusId");
+
                     b.HasIndex("ReservationOptionId");
+
+                    b.HasIndex("ReservationTypeId");
 
                     b.HasIndex("RoomId");
 
@@ -708,6 +752,33 @@ namespace NZHotel.DataAccess.Migrations
                     b.ToTable("ReservationOptions");
                 });
 
+            modelBuilder.Entity("NZHotel.Entities.ReservationType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Definition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReservationTypes");
+                });
+
             modelBuilder.Entity("NZHotel.Entities.Room", b =>
                 {
                     b.Property<int>("Id")
@@ -719,6 +790,9 @@ namespace NZHotel.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
+
+                    b.Property<int>("CleaningStatusId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
@@ -737,9 +811,6 @@ namespace NZHotel.DataAccess.Migrations
                     b.Property<int>("MaxChildren")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("ReparingFinishDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("RoomDetailId")
                         .HasColumnType("int");
 
@@ -755,7 +826,8 @@ namespace NZHotel.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("RoomPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 3)
+                        .HasColumnType("decimal(18,3)");
 
                     b.Property<int>("RoomStatusId")
                         .HasColumnType("int");
@@ -767,6 +839,8 @@ namespace NZHotel.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CleaningStatusId");
 
                     b.HasIndex("RoomStatusId");
 
@@ -1023,9 +1097,21 @@ namespace NZHotel.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("NZHotel.Entities.PaymentStatus", "PaymentStatus")
+                        .WithMany("Reservations")
+                        .HasForeignKey("PaymentStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("NZHotel.Entities.ReservationOption", "ReservationOption")
                         .WithMany("Reservations")
                         .HasForeignKey("ReservationOptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NZHotel.Entities.ReservationType", "ReservationType")
+                        .WithMany("Reservations")
+                        .HasForeignKey("ReservationTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1037,13 +1123,23 @@ namespace NZHotel.DataAccess.Migrations
 
                     b.Navigation("Customer");
 
+                    b.Navigation("PaymentStatus");
+
                     b.Navigation("ReservationOption");
+
+                    b.Navigation("ReservationType");
 
                     b.Navigation("Room");
                 });
 
             modelBuilder.Entity("NZHotel.Entities.Room", b =>
                 {
+                    b.HasOne("NZHotel.Entities.CleaningStatus", "CleaningStatus")
+                        .WithMany("Rooms")
+                        .HasForeignKey("CleaningStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("NZHotel.Entities.RoomStatus", "RoomStatus")
                         .WithMany("Rooms")
                         .HasForeignKey("RoomStatusId")
@@ -1055,6 +1151,8 @@ namespace NZHotel.DataAccess.Migrations
                         .HasForeignKey("RoomTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CleaningStatus");
 
                     b.Navigation("RoomStatus");
 
@@ -1070,6 +1168,11 @@ namespace NZHotel.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("NZHotel.Entities.CleaningStatus", b =>
+                {
+                    b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("NZHotel.Entities.Customer", b =>
@@ -1104,12 +1207,22 @@ namespace NZHotel.DataAccess.Migrations
                     b.Navigation("Guests");
                 });
 
+            modelBuilder.Entity("NZHotel.Entities.PaymentStatus", b =>
+                {
+                    b.Navigation("Reservations");
+                });
+
             modelBuilder.Entity("NZHotel.Entities.Reservation", b =>
                 {
                     b.Navigation("GuestReservations");
                 });
 
             modelBuilder.Entity("NZHotel.Entities.ReservationOption", b =>
+                {
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("NZHotel.Entities.ReservationType", b =>
                 {
                     b.Navigation("Reservations");
                 });

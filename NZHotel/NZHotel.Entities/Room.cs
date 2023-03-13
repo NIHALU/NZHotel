@@ -16,7 +16,7 @@ namespace NZHotel.Entities
         public string Info { get; set; } // Ch in ch out infor will be shown 
         public int MaxAdults { get; set; }
         public int MaxChildren { get; set; }
-        public DateTime? RepairEndDate { get; set; }
+        //public DateTime? RepairEndDate { get; set; }
         public string RoomPhotoPath { get; set; }
 
         //Navigational Prop Begins
@@ -27,8 +27,8 @@ namespace NZHotel.Entities
         //lookup
         public int RoomTypeId { get; set; }
         public RoomType RoomType { get; set; }
-        public int CleaningStatusId { get; set; }
-        public CleaningStatus CleaningStatus { get; set; }
+        //public int CleaningStatusId { get; set; }
+        //public CleaningStatus CleaningStatus { get; set; }
         public int RoomStatusId { get; set; }
         public RoomStatus RoomStatus { get; set; }
 

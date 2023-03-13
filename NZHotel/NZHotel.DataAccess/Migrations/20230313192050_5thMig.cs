@@ -3,10 +3,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NZHotel.DataAccess.Migrations
 {
-    public partial class _7th : Migration
+    public partial class _5thMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "GuestDetail");
+
+            migrationBuilder.DropColumn(
+                name: "ReparingFinishDate",
+                table: "Rooms");
+
             migrationBuilder.DropColumn(
                 name: "IsActive",
                 table: "Reservations");
@@ -20,26 +27,26 @@ namespace NZHotel.DataAccess.Migrations
                 table: "Guests");
 
             migrationBuilder.DropColumn(
-                name: "VisitedBefore",
-                table: "Guests");
+                name: "IsActive",
+                table: "Employees");
 
             migrationBuilder.DropColumn(
                 name: "IsActive",
-                table: "Employees");
+                table: "Departments");
 
             migrationBuilder.DropColumn(
                 name: "IsActive",
                 table: "Customers");
 
             migrationBuilder.RenameColumn(
-                name: "ReparingFinishDate",
-                table: "Rooms",
-                newName: "RepairEndDate");
+                name: "ReservationOptions",
+                table: "Reservations",
+                newName: "ReservationTypeId");
 
             migrationBuilder.RenameColumn(
                 name: "PaymentStatus",
                 table: "Reservations",
-                newName: "ReservationTypeId");
+                newName: "ReservationOptionId");
 
             migrationBuilder.RenameColumn(
                 name: "NumberofDays",
@@ -52,9 +59,24 @@ namespace NZHotel.DataAccess.Migrations
                 newName: "FinishingDate");
 
             migrationBuilder.RenameColumn(
+                name: "VisitedBefore",
+                table: "Guests",
+                newName: "NoTurkishCitizen");
+
+            migrationBuilder.RenameColumn(
                 name: "IsTurkish",
                 table: "Customers",
-                newName: "IsNoTurkishCitizen");
+                newName: "NoTurkishCitizen");
+
+            migrationBuilder.AlterColumn<decimal>(
+                name: "RoomPrice",
+                table: "Rooms",
+                type: "decimal(18,3)",
+                precision: 18,
+                scale: 3,
+                nullable: false,
+                oldClrType: typeof(decimal),
+                oldType: "decimal(18,2)");
 
             migrationBuilder.AddColumn<int>(
                 name: "CleaningStatusId",
@@ -63,12 +85,18 @@ namespace NZHotel.DataAccess.Migrations
                 nullable: false,
                 defaultValue: 0);
 
-            migrationBuilder.AddColumn<bool>(
-                name: "Active",
+            migrationBuilder.AddColumn<int>(
+                name: "GeneralStatus",
                 table: "Reservations",
-                type: "bit",
+                type: "int",
                 nullable: false,
-                defaultValueSql: "1");
+                defaultValue: 0);
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "PaymentDeadline",
+                table: "Reservations",
+                type: "datetime2",
+                nullable: true);
 
             migrationBuilder.AlterColumn<string>(
                 name: "PhoneNumber",
@@ -117,26 +145,58 @@ namespace NZHotel.DataAccess.Migrations
                 oldClrType: typeof(string),
                 oldType: "ntext");
 
-            migrationBuilder.AddColumn<bool>(
-                name: "IsNoTurkishCitizen",
-                table: "Guests",
-                type: "bit",
-                nullable: false,
-                defaultValueSql: "0");
-
-            migrationBuilder.AddColumn<bool>(
-                name: "Active",
+            migrationBuilder.AddColumn<int>(
+                name: "GeneralStatus",
                 table: "Employees",
-                type: "bit",
+                type: "int",
                 nullable: false,
-                defaultValueSql: "1");
+                defaultValue: 0);
 
-            migrationBuilder.AddColumn<bool>(
-                name: "Active",
-                table: "Customers",
-                type: "bit",
+            migrationBuilder.AddColumn<int>(
+                name: "GeneralStatus",
+                table: "Departments",
+                type: "int",
                 nullable: false,
-                defaultValueSql: "1");
+                defaultValue: 0);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "TurkishIDNo",
+                table: "Customers",
+                type: "nvarchar(11)",
+                maxLength: 11,
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(11)",
+                oldMaxLength: 11);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "PassportNo",
+                table: "Customers",
+                type: "nvarchar(11)",
+                maxLength: 11,
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(11)",
+                oldMaxLength: 11);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Country",
+                table: "Customers",
+                type: "nvarchar(20)",
+                maxLength: 20,
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(20)",
+                oldMaxLength: 20,
+                oldNullable: true);
+
+            migrationBuilder.AddColumn<int>(
+                name: "GeneralStatus",
+                table: "Customers",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
 
             migrationBuilder.CreateTable(
                 name: "CleaningStatuses",
@@ -155,6 +215,35 @@ namespace NZHotel.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GuestReservations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GuestId = table.Column<int>(type: "int", nullable: false),
+                    ReservationId = table.Column<int>(type: "int", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeleteDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GuestReservations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GuestReservations_Guests_GuestId",
+                        column: x => x.GuestId,
+                        principalTable: "Guests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GuestReservations_Reservations_ReservationId",
+                        column: x => x.ReservationId,
+                        principalTable: "Reservations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PaymentStatuses",
                 columns: table => new
                 {
@@ -168,6 +257,22 @@ namespace NZHotel.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PaymentStatuses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReservationOptions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Definition = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeleteDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReservationOptions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -197,15 +302,39 @@ namespace NZHotel.DataAccess.Migrations
                 column: "PaymentStatusId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reservations_ReservationOptionId",
+                table: "Reservations",
+                column: "ReservationOptionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservations_ReservationTypeId",
                 table: "Reservations",
                 column: "ReservationTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GuestReservations_GuestId_ReservationId",
+                table: "GuestReservations",
+                columns: new[] { "GuestId", "ReservationId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GuestReservations_ReservationId",
+                table: "GuestReservations",
+                column: "ReservationId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Reservations_PaymentStatuses_PaymentStatusId",
                 table: "Reservations",
                 column: "PaymentStatusId",
                 principalTable: "PaymentStatuses",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Reservations_ReservationOptions_ReservationOptionId",
+                table: "Reservations",
+                column: "ReservationOptionId",
+                principalTable: "ReservationOptions",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
@@ -233,6 +362,10 @@ namespace NZHotel.DataAccess.Migrations
                 table: "Reservations");
 
             migrationBuilder.DropForeignKey(
+                name: "FK_Reservations_ReservationOptions_ReservationOptionId",
+                table: "Reservations");
+
+            migrationBuilder.DropForeignKey(
                 name: "FK_Reservations_ReservationTypes_ReservationTypeId",
                 table: "Reservations");
 
@@ -244,7 +377,13 @@ namespace NZHotel.DataAccess.Migrations
                 name: "CleaningStatuses");
 
             migrationBuilder.DropTable(
+                name: "GuestReservations");
+
+            migrationBuilder.DropTable(
                 name: "PaymentStatuses");
+
+            migrationBuilder.DropTable(
+                name: "ReservationOptions");
 
             migrationBuilder.DropTable(
                 name: "ReservationTypes");
@@ -258,6 +397,10 @@ namespace NZHotel.DataAccess.Migrations
                 table: "Reservations");
 
             migrationBuilder.DropIndex(
+                name: "IX_Reservations_ReservationOptionId",
+                table: "Reservations");
+
+            migrationBuilder.DropIndex(
                 name: "IX_Reservations_ReservationTypeId",
                 table: "Reservations");
 
@@ -266,28 +409,32 @@ namespace NZHotel.DataAccess.Migrations
                 table: "Rooms");
 
             migrationBuilder.DropColumn(
-                name: "Active",
+                name: "GeneralStatus",
                 table: "Reservations");
 
             migrationBuilder.DropColumn(
-                name: "IsNoTurkishCitizen",
-                table: "Guests");
+                name: "PaymentDeadline",
+                table: "Reservations");
 
             migrationBuilder.DropColumn(
-                name: "Active",
+                name: "GeneralStatus",
                 table: "Employees");
 
             migrationBuilder.DropColumn(
-                name: "Active",
+                name: "GeneralStatus",
+                table: "Departments");
+
+            migrationBuilder.DropColumn(
+                name: "GeneralStatus",
                 table: "Customers");
 
             migrationBuilder.RenameColumn(
-                name: "RepairEndDate",
-                table: "Rooms",
-                newName: "ReparingFinishDate");
+                name: "ReservationTypeId",
+                table: "Reservations",
+                newName: "ReservationOptions");
 
             migrationBuilder.RenameColumn(
-                name: "ReservationTypeId",
+                name: "ReservationOptionId",
                 table: "Reservations",
                 newName: "PaymentStatus");
 
@@ -302,9 +449,30 @@ namespace NZHotel.DataAccess.Migrations
                 newName: "FinisingDate");
 
             migrationBuilder.RenameColumn(
-                name: "IsNoTurkishCitizen",
+                name: "NoTurkishCitizen",
+                table: "Guests",
+                newName: "VisitedBefore");
+
+            migrationBuilder.RenameColumn(
+                name: "NoTurkishCitizen",
                 table: "Customers",
                 newName: "IsTurkish");
+
+            migrationBuilder.AlterColumn<decimal>(
+                name: "RoomPrice",
+                table: "Rooms",
+                type: "decimal(18,2)",
+                nullable: false,
+                oldClrType: typeof(decimal),
+                oldType: "decimal(18,3)",
+                oldPrecision: 18,
+                oldScale: 3);
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "ReparingFinishDate",
+                table: "Rooms",
+                type: "datetime2",
+                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "IsActive",
@@ -384,13 +552,6 @@ namespace NZHotel.DataAccess.Migrations
                 defaultValue: false);
 
             migrationBuilder.AddColumn<bool>(
-                name: "VisitedBefore",
-                table: "Guests",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
-
-            migrationBuilder.AddColumn<bool>(
                 name: "IsActive",
                 table: "Employees",
                 type: "bit",
@@ -399,10 +560,99 @@ namespace NZHotel.DataAccess.Migrations
 
             migrationBuilder.AddColumn<bool>(
                 name: "IsActive",
+                table: "Departments",
+                type: "bit",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "TurkishIDNo",
+                table: "Customers",
+                type: "nvarchar(11)",
+                maxLength: 11,
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(11)",
+                oldMaxLength: 11,
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "PassportNo",
+                table: "Customers",
+                type: "nvarchar(11)",
+                maxLength: 11,
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(11)",
+                oldMaxLength: 11,
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Country",
+                table: "Customers",
+                type: "nvarchar(20)",
+                maxLength: 20,
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(20)",
+                oldMaxLength: 20);
+
+            migrationBuilder.AddColumn<bool>(
+                name: "IsActive",
                 table: "Customers",
                 type: "bit",
                 nullable: false,
                 defaultValue: false);
+
+            migrationBuilder.CreateTable(
+                name: "GuestDetail",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BirthDay = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CountryName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeleteDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    GuestTypeId = table.Column<int>(type: "int", nullable: true),
+                    IdentityNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsTurkish = table.Column<bool>(type: "bit", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PassportNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReservationId = table.Column<int>(type: "int", nullable: true),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GuestDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GuestDetail_GuestTypes_GuestTypeId",
+                        column: x => x.GuestTypeId,
+                        principalTable: "GuestTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_GuestDetail_Reservations_ReservationId",
+                        column: x => x.ReservationId,
+                        principalTable: "Reservations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GuestDetail_GuestTypeId",
+                table: "GuestDetail",
+                column: "GuestTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GuestDetail_ReservationId",
+                table: "GuestDetail",
+                column: "ReservationId");
         }
     }
 }

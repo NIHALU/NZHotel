@@ -15,6 +15,8 @@ namespace NZHotel.DataAccess.Configurations
         {
             builder.Property(x => x.BedInfo).HasMaxLength(40).IsRequired();
             builder.Property(x => x.RoomName).HasMaxLength(40).IsRequired();
+            builder.Property(x => x.RoomPrice).HasPrecision(18,3);
+
             builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
             builder.HasOne(x => x.RoomDetail).WithOne(x => x.Room).HasForeignKey<RoomDetail>(x => x.RoomId);
             builder.HasOne(x => x.RoomType).WithMany(x => x.Rooms).HasForeignKey(x => x.RoomTypeId);

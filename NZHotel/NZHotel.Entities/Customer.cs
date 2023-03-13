@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NZHotel.Common.Enums;
 
 namespace NZHotel.Entities
 {
@@ -17,7 +18,8 @@ namespace NZHotel.Entities
         public string PassportNo { get; set; }
         public string Country { get; set; }
         public string Adress { get; set; }
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
+
 
 
         public List <Reservation> Reservations { get; set; }

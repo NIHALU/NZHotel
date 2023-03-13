@@ -15,7 +15,7 @@ namespace NZHotel.Entities
         public DateTime StartingDate { get; set; }
         public DateTime FinishingDate { get; set; }
         public DateTime? PaymentDeadline { get; set; }
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
 
         //Navigational Prop Begins
         public int RoomId { get; set; }

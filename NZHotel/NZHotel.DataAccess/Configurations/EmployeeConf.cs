@@ -22,7 +22,7 @@ namespace NZHotel.DataAccess.Configurations
             builder.Property(x => x.IdentityNumber).HasMaxLength(11).IsRequired();
             builder.Property(x => x.Title).HasMaxLength(10).IsRequired();
             builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
-            builder.Property(x => x.Active).IsRequired().HasDefaultValueSql("1");
+       
 
 
             builder.HasOne(x => x.EmployeeDetail).WithOne(x => x.Employee).HasForeignKey<EmployeeDetail>(x => x.EmployeeId);

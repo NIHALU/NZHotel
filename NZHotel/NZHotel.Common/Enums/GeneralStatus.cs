@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace NZHotel.Common.Enums
 {
-    public enum  RoomStatus
+    public enum GeneralStatus
     {
-        Free=1,
-        Occupied = 2,
+        Active,
+        Inactive,
+        Updated
     }
 }
