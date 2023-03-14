@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NZHotel.Business.Interfaces;
-using NZHotel.Common.Enums;
 using NZHotel.DTOs;
-using NZHotel.UI;
 
 namespace NZHotel.UI.Areas.Reception.Controllers
 {
@@ -38,12 +36,9 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             List<RoomListDto> roomListDtos = new();
             bookedRooms = await _reservationService.GetBokeedRoomList(dto);
             int[] bookedRoomIds = (int[])bookedRooms.ToArray(System.Type.GetType("System.Int32"));
-            roomListDtos = await _roomService.GetNotBookedRoomList(bookedRoomIds);
+            roomListDtos = await _roomService.GetNotBookedRoomList(dto, bookedRoomIds);
 
-       
-
-            
-            return RedirectToAction("CheckNotBooked",roomListDtos);
+            return RedirectToAction("CheckNotBookedRooms", "Reservation", roomListDtos);
         }
 
         public IActionResult CheckNotBookedRooms(List<RoomListDto> roomListDtos)
@@ -52,6 +47,6 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         }
 
 
-
+      
     }
 }

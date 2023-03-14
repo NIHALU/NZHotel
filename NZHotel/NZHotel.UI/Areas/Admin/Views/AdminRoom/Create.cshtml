@@ -24,6 +24,10 @@
 			<input type="number" class="form-control" asp-for="@Model.MaxChildren" />
 		</div>
 		<div class="mb-3">
+			<label>Max Infants:</label>
+			<input type="number" class="form-control" asp-for="@Model.MaxInfants" />
+		</div>
+		<div class="mb-3">
 			<select class="form-select" asp-items="@Model.RoomTypes" asp-for="@Model.RoomTypeId">
 				<option value="0" >Choose Room Type</option>
 			</select>

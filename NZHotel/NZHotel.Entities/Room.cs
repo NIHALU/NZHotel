@@ -15,8 +15,8 @@ namespace NZHotel.Entities
         public string RoomName { get; set; }
         public string Info { get; set; } // Ch in ch out infor will be shown 
         public int MaxAdults { get; set; }
-        public int MaxChildren { get; set; }
-        public int MaxInfants { get; set; }
+        public int? MaxChildren { get; set; }
+        public int? MaxInfants { get; set; }
         //public DateTime? RepairEndDate { get; set; }
         public string RoomPhotoPath { get; set; }
 
@@ -24,7 +24,7 @@ namespace NZHotel.Entities
         public int? RoomDetailId { get; set; }
         public RoomDetail RoomDetail { get; set; }
 
-        public List<Reservation> Reservations { get; set; } = new();
+        public List<Reservation> Reservations { get; set; } 
         //lookup
         public int RoomTypeId { get; set; }
         public RoomType RoomType { get; set; }

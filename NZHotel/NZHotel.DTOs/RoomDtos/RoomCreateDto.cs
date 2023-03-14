@@ -11,7 +11,6 @@ namespace NZHotel.DTOs
     {
         public int MaxAdults { get; set; }
         public int MaxChildren { get; set; }
-
         public int MaxInfants { get; set; }
         public decimal RoomPrice { get; set; }
         public int RoomNo { get; set; }
