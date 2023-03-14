@@ -11,7 +11,7 @@ using NZHotel.UI.Extensions;
 namespace NZHotel.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ReservationController : Controller
+    public class AdminRoomController : Controller
     {
         private readonly IRoomService _roomService;
         private readonly IRoomStatusService _roomStatusService;
@@ -20,7 +20,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
         private readonly IValidator<ReservationCreateModel> _roomCreateModelValidator;
         private readonly IValidator<RoomUpdateViewModel> _roomUpdateModelValidator;
 
-        public ReservationController(IRoomStatusService roomStatusService, IRoomTypeService roomTypeService, IRoomService roomService, IValidator<ReservationCreateModel> roomCreateModelValidator, IMapper mapper, IValidator<RoomUpdateViewModel> roomUpdateModelValidator)
+        public AdminRoomController(IRoomStatusService roomStatusService, IRoomTypeService roomTypeService, IRoomService roomService, IValidator<ReservationCreateModel> roomCreateModelValidator, IMapper mapper, IValidator<RoomUpdateViewModel> roomUpdateModelValidator)
         {
             _roomService = roomService;
             _roomStatusService = roomStatusService;
@@ -46,6 +46,8 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             };
             return View(model);
         }
+
+  
 
         [HttpPost]
         public async Task<IActionResult> Create(ReservationCreateModel model)
@@ -114,7 +116,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
 
         }
 
-       
+
         public async Task<IActionResult> Remove(int roomId)
         {
             var response = await _roomService.RemoveAsync(roomId);

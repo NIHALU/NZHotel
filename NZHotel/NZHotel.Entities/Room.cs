@@ -27,8 +27,8 @@ namespace NZHotel.Entities
         //lookup
         public int RoomTypeId { get; set; }
         public RoomType RoomType { get; set; }
-        //public int CleaningStatusId { get; set; }
-        //public CleaningStatus CleaningStatus { get; set; }
+        public int? CleaningStatusId { get; set; }
+        public CleaningStatus CleaningStatus { get; set; }
         public int RoomStatusId { get; set; }
         public RoomStatus RoomStatus { get; set; }
 

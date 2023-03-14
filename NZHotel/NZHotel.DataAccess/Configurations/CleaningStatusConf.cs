@@ -16,7 +16,7 @@ namespace NZHotel.DataAccess.Configurations
             builder.Property(x => x.Definition).IsRequired();
             builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
 
-            //builder.HasMany(x => x.Rooms).WithOne(x => x.CleaningStatus).HasForeignKey(x => x.CleaningStatusId);
+            builder.HasMany(x => x.Rooms).WithOne(x => x.CleaningStatus).HasForeignKey(x => x.CleaningStatusId);
 
         }
     }
