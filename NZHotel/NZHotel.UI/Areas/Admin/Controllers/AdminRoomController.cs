@@ -16,11 +16,12 @@ namespace NZHotel.UI.Areas.Admin.Controllers
         private readonly IRoomService _roomService;
         private readonly IRoomStatusService _roomStatusService;
         private readonly IRoomTypeService _roomTypeService;
+        private readonly ICleaningStatusService _cleaningStatusService;
         private readonly IMapper _mapper;
         private readonly IValidator<ReservationCreateModel> _roomCreateModelValidator;
         private readonly IValidator<RoomUpdateViewModel> _roomUpdateModelValidator;
 
-        public AdminRoomController(IRoomStatusService roomStatusService, IRoomTypeService roomTypeService, IRoomService roomService, IValidator<ReservationCreateModel> roomCreateModelValidator, IMapper mapper, IValidator<RoomUpdateViewModel> roomUpdateModelValidator)
+        public AdminRoomController(IRoomStatusService roomStatusService, IRoomTypeService roomTypeService, IRoomService roomService, IValidator<ReservationCreateModel> roomCreateModelValidator, IMapper mapper, IValidator<RoomUpdateViewModel> roomUpdateModelValidator, ICleaningStatusService cleaningStatusService)
         {
             _roomService = roomService;
             _roomStatusService = roomStatusService;
@@ -28,6 +29,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             _roomCreateModelValidator = roomCreateModelValidator;
             _mapper = mapper;
             _roomUpdateModelValidator = roomUpdateModelValidator;
+            _cleaningStatusService = cleaningStatusService;
         }
 
         public IActionResult Index()
@@ -39,10 +41,12 @@ namespace NZHotel.UI.Areas.Admin.Controllers
         {
             var response1 = await _roomTypeService.GetAllAsync();
             var response2 = await _roomStatusService.GetAllAsync();
+            var response3 = await _cleaningStatusService.GetAllAsync();
             var model = new ReservationCreateModel()
             {
                 RoomTypes = new SelectList(response1.Data, "Id", "Definition"),
-                RoomStatuses = new SelectList(response2.Data, "Id", "Definition")
+                RoomStatuses = new SelectList(response2.Data, "Id", "Definition"),
+                CleaningStatuses= new SelectList(response3.Data,"Id","Definition")
             };
             return View(model);
         }
@@ -66,8 +70,10 @@ namespace NZHotel.UI.Areas.Admin.Controllers
 
             var response1 = await _roomTypeService.GetAllAsync();
             var response2 = await _roomStatusService.GetAllAsync();
+            var response3 = await _cleaningStatusService.GetAllAsync();
             model.RoomTypes = new SelectList(response1.Data, "Id", "Definition");
             model.RoomStatuses = new SelectList(response2.Data, "Id", "Definition");
+            model.CleaningStatuses = new SelectList(response3.Data, "Id", "Definition");
             return View(model);
         }
 
@@ -87,9 +93,12 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             var model = _mapper.Map<RoomUpdateViewModel>(response.Data);
             var response1 = await _roomTypeService.GetAllAsync();
             var response2 = await _roomStatusService.GetAllAsync();
+            var response3 = await _cleaningStatusService.GetAllAsync();
+
 
             model.RoomTypes = new SelectList(response1.Data, "Id", "Definition");
             model.RoomStatuses = new SelectList(response2.Data, "Id", "Definition");
+            model.CleaningStatuses = new SelectList(response3.Data, "Id", "Definition");
 
             return View(model);
         }
@@ -110,8 +119,11 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             }
             var response1 = await _roomTypeService.GetAllAsync();
             var response2 = await _roomStatusService.GetAllAsync();
+            var response3 = await _cleaningStatusService.GetAllAsync();
+
             model.RoomTypes = new SelectList(response1.Data, "Id", "Definition");
             model.RoomStatuses = new SelectList(response2.Data, "Id", "Definition");
+            model.CleaningStatuses = new SelectList(response3.Data, "Id", "Definition");
             return View(model);
 
         }

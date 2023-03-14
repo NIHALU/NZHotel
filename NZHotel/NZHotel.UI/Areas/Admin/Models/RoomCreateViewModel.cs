@@ -13,7 +13,9 @@ namespace NZHotel.UI.Areas.Admin.Models
         public string BedInfo { get; set; }
         public string RoomName { get; set; }
         public int RoomStatusId { get; set; }
+        public int CleaningStatusId { get; set; }
         public SelectList RoomTypes { get; set; }
         public SelectList RoomStatuses { get; set; }
+        public SelectList CleaningStatuses { get; set; }
     }
 }

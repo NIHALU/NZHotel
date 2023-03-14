@@ -24,22 +24,25 @@ namespace NZHotel.Business.Services
 
         public async Task<ArrayList> GetBokeedRoomList(RoomBookCreateDto dto)
         {
-
-            var reservationlist = await _uow.GetRepository<Reservation>().GetAllAsync();
-            ArrayList liste = new ArrayList();
-            foreach (var reservation in reservationlist)
+            ArrayList bookedRooms = new ArrayList();
+            var reservationlist = await _uow.GetRepository<Reservation>().GetAllAsync(x =>x.Active==true);
+            if (reservationlist.Count>0)
             {
-                var start = reservation.InStart(dto.StartingDate, dto.FinisingDate);
-                var finish = reservation.InFinish(dto.StartingDate, dto.FinisingDate);
-
-                if (start == true && finish == true)
+                
+                foreach (var reservation in reservationlist)
                 {
-                    liste.Add(reservation.RoomId);
+                    var start = reservation.InStart(dto.StartingDate, dto.FinisingDate);
+                    var finish = reservation.InFinish(dto.StartingDate, dto.FinisingDate);
 
+                    if (start == true && finish == true)
+                    {
+                        bookedRooms.Add(reservation.RoomId);
+
+                    }
                 }
+                return bookedRooms;
             }
-            return liste;
-
+            return bookedRooms;
         }
 
         

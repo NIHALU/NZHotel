@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NZHotel.Business.Interfaces;
+using NZHotel.Common.Enums;
 using NZHotel.DTOs;
 using NZHotel.UI;
 
@@ -38,6 +39,10 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             bookedRooms = await _reservationService.GetBokeedRoomList(dto);
             int[] bookedRoomIds = (int[])bookedRooms.ToArray(System.Type.GetType("System.Int32"));
             roomListDtos = await _roomService.GetNotBookedRoomList(bookedRoomIds);
+
+       
+
+            
             return RedirectToAction("CheckNotBooked",roomListDtos);
         }
 

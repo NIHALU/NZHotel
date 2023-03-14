@@ -28,6 +28,7 @@
 				<option value="0" >Choose Room Type</option>
 			</select>
 		</div>
+
 		<div class="mb-3">
 			<label>Bed Info:</label>
 			<input type="text" class="form-control" asp-for="@Model.BedInfo" />
@@ -37,6 +38,13 @@
 				<option value="0" >Choose Room Status</option>
 			</select>
 		</div>
+
+		<div class="mb-3">
+			<select class="form-select" asp-items="@Model.CleaningStatuses" asp-for="@Model.CleaningStatusId">
+				<option value="0" >Choose Cleaning Status</option>
+			</select>
+		</div>
+
 		<div class="mb-3">
 			<label>Info:</label>
 			<input type="text" class="form-control" asp-for="@Model.Info" />

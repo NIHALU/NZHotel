@@ -38,17 +38,46 @@ namespace NZHotel.Business.Services
             return _mapper.Map<RoomListDto>(room);
         }
 
-        public async Task<List<RoomListDto>> GetNotBookedRoomList(params int[] list)
+
+
+        public async Task<List<RoomListDto>> GetNotBookedRoomList(RoomBookCreateDto dto,params int[] list)
         {
             var allRooms = await _uow.GetRepository<Room>().GetAllAsync();
-
-            for (int i = 0; i < list.Length; i++)
+            List<Room> availableRooms = new();
+            if(list.Length>0)
             {
-                var room = await _uow.GetRepository<Room>().FindAsync(list[i]);
-                allRooms.Remove(room);
-            }
-            return _mapper.Map<List<RoomListDto>>(allRooms);
+                for (int i = 0; i < list.Length; i++)
+                {
+                    var room = await _uow.GetRepository<Room>().GetByFilterAsync(x => x.Id == list[i]);
+                    allRooms.Remove(room);   //we will get notbookedrooms
+                }
 
+                //şimdi gelen parametrelere göre(max adults vs ) kontrol etme
+                foreach (var item in allRooms)
+                {
+                    if (item.MaxAdults >= dto.AdultNumber && item.MaxChildren >= dto.ChildNumber && item.MaxInfants >= dto.InfantNumber )
+                    {
+                        availableRooms.Add(item);
+                    }
+                }
+                return _mapper.Map<List<RoomListDto>>(availableRooms);
+            }
+            else
+            {
+                foreach (var item in allRooms)
+                {
+                    if (item.MaxAdults >= dto.AdultNumber && item.MaxChildren >= dto.ChildNumber && item.MaxInfants >= dto.InfantNumber )
+                    {
+                        availableRooms.Add(item);
+                    }
+                }
+                return _mapper.Map<List<RoomListDto>>(availableRooms);
+            }
+          
         }
+
+     
+
+
     }
 }
