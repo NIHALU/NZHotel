@@ -31,7 +31,7 @@ namespace NZHotel.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDependencies(Configuration);
-            services.AddTransient<IValidator<ReservationCreateModel>, RoomCreateModelValidator>();
+            services.AddTransient<IValidator<RoomCreateViewModel>, RoomCreateModelValidator>();
             services.AddTransient<IValidator<RoomUpdateViewModel>, RoomUpdateModelValidator>();
 
             services.AddTransient<IValidator<RoomDetailCreateModel>, RoomDetailCreateModelValidator>();

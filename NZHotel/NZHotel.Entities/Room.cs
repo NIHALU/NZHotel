@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using NZHotel.Common.Enums;
 
 namespace NZHotel.Entities
@@ -17,10 +19,13 @@ namespace NZHotel.Entities
         public int MaxAdults { get; set; }
         public int? MaxChildren { get; set; }
         public int? MaxInfants { get; set; }
-        //public DateTime? RepairEndDate { get; set; }
-        public string RoomPhotoPath { get; set; }
+     
+        [NotMapped]
+        public IEnumerable<IFormFile> Image { get; set; }
+
 
         //Navigational Prop Begins
+        public List<Image> Images { get; set; }
         public int? RoomDetailId { get; set; }
         public RoomDetail RoomDetail { get; set; }
 

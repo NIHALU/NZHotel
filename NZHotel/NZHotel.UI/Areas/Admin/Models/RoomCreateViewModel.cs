@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace NZHotel.UI.Areas.Admin.Models
 {
-    public class ReservationCreateModel
+    public class RoomCreateViewModel
     {
         public int MaxAdults { get; set; }
         public int MaxChildren { get; set; }
@@ -19,5 +21,6 @@ namespace NZHotel.UI.Areas.Admin.Models
         public SelectList RoomTypes { get; set; }
         public SelectList RoomStatuses { get; set; }
         public SelectList CleaningStatuses { get; set; }
+        public List<IFormFile> Images { get; set; }
     }
 }

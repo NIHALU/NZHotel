@@ -36,6 +36,7 @@ namespace NZHotel.DataAccess.Contexts
             builder.ApplyConfiguration(new ReservationTypeConf());
             builder.ApplyConfiguration(new PaymentStatusConf());
             builder.ApplyConfiguration(new GuestReservationConf());
+            builder.ApplyConfiguration(new ImageConf());
             base.OnModelCreating(builder);
         }
 
@@ -57,6 +58,7 @@ namespace NZHotel.DataAccess.Contexts
         public DbSet<ReservationType> ReservationTypes { get; set; }
         public DbSet<PaymentStatus> PaymentStatuses { get; set; }
         public DbSet<CleaningStatus> CleaningStatuses { get; set; }
+        public DbSet<Image> Images { get; set; }
 
 
 

@@ -18,10 +18,10 @@ namespace NZHotel.UI.Areas.Admin.Controllers
         private readonly IRoomTypeService _roomTypeService;
         private readonly ICleaningStatusService _cleaningStatusService;
         private readonly IMapper _mapper;
-        private readonly IValidator<ReservationCreateModel> _roomCreateModelValidator;
+        private readonly IValidator<RoomCreateViewModel> _roomCreateModelValidator;
         private readonly IValidator<RoomUpdateViewModel> _roomUpdateModelValidator;
 
-        public AdminRoomController(IRoomStatusService roomStatusService, IRoomTypeService roomTypeService, IRoomService roomService, IValidator<ReservationCreateModel> roomCreateModelValidator, IMapper mapper, IValidator<RoomUpdateViewModel> roomUpdateModelValidator, ICleaningStatusService cleaningStatusService)
+        public AdminRoomController(IRoomStatusService roomStatusService, IRoomTypeService roomTypeService, IRoomService roomService, IValidator<RoomCreateViewModel> roomCreateModelValidator, IMapper mapper, IValidator<RoomUpdateViewModel> roomUpdateModelValidator, ICleaningStatusService cleaningStatusService)
         {
             _roomService = roomService;
             _roomStatusService = roomStatusService;
@@ -42,7 +42,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             var response1 = await _roomTypeService.GetAllAsync();
             var response2 = await _roomStatusService.GetAllAsync();
             var response3 = await _cleaningStatusService.GetAllAsync();
-            var model = new ReservationCreateModel()
+            var model = new RoomCreateViewModel()
             {
                 RoomTypes = new SelectList(response1.Data, "Id", "Definition"),
                 RoomStatuses = new SelectList(response2.Data, "Id", "Definition"),
@@ -54,7 +54,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
   
 
         [HttpPost]
-        public async Task<IActionResult> Create(ReservationCreateModel model)
+        public async Task<IActionResult> Create(RoomCreateViewModel model)
         {
             var result = _roomCreateModelValidator.Validate(model);
             if (result.IsValid)
