@@ -18,5 +18,6 @@ namespace NZHotel.DTOs.CustomerDtos
         public string PassportNo { get; set; }
         public string Country { get; set; }
         public string Adress { get; set; }
+
     }
 }

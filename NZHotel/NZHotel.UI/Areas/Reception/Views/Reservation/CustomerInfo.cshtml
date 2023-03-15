@@ -1,0 +1,103 @@
+﻿@model CustomerCreateModel
+
+<div class="dummy mt-5"></div>
+<div class="mt-4">
+	<form asp-action="CustomerInfo" asp-controller="Reservation" method="post" class="p-5 w-75 mx-auto">
+		<div class="mb-3">
+			<label> Name:</label>
+			<input type="text" class="form-control" asp-for="@Model.ContactName" />
+		</div>
+		<div class="mb-3">
+			<label> Surname:</label>
+			<input type="number" class="form-control" asp-for="@Model.ContactSurname" />
+		</div>
+		<div class="mb-3">
+			<label>Email:</label>
+			<input type="email" class="form-control" asp-for="@Model.ContactEmail" />
+		</div>
+		<div class="mb-3">
+			<label>Phone:</label>
+			<input type="tel" class="form-control" asp-for="@Model.ContactPhone" />
+		</div>
+		<div class="mb-3">
+			<label>Country:</label>
+			<input type="text" class="form-control" asp-for="@Model.Country" />
+		</div>
+		<div class="mb-3">
+			<label>Adress:</label>
+			<input type="text" class="form-control" asp-for="@Model.Adress" />
+		</div>
+
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" asp-for="@Model.IsNoTurkishCitizen" id="defaultCheck1">
+			<label class="form-check-label" for="IsNoTurkishCitizen">
+				Is Foreign Citizen?
+			</label>
+		</div>
+
+		<div class="mb-3" id="TCDiv">
+			<label>TC No:</label>
+			<input type="number" class="form-control" asp-for="@Model.TurkishIDNo" />
+		</div>
+		<div class="mb-3" style="display:none" id="PassportDiv">
+			<label>Passport No:</label>
+			<input type="number" class="form-control" asp-for="@Model.PassportNo" />
+		</div>
+
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" asp-for="@Model.TermsConditions" id="defaultCheck1">
+			<label class="form-check-label" for="TermsConditions">
+				I accept all Terms & Conditions!
+			</label>
+		</div>
+
+
+		<div class="mb-3 text-end">
+			<button type="submit" class="btn btn-primary"> Create Customer </button>
+		</div>
+
+		<div class="text-danger" asp-validation-summary="All">
+		</div>
+
+	</form>
+
+
+	@section script{
+	<script>
+
+		const checkBox = document.querySelector("#defaultCheck1");
+		const tcDivElement= document.getElementById("TCDiv");
+		const passportDivElement= document.getElementById("PassportDiv");
+
+		checkBox.addEventListener("change",function(element){
+			if(checkBox.checked)
+			{
+				passportDivElement.style.display="block";
+				tcDivElement.style.display="none";
+			}else{
+				passportDivElement.style.display="none";
+		        tcDivElement.style.display="block";
+			}
+			
+		});
+
+		//function setInputVisibility(){
+		//	var element=document.querySelector("#defaultCheck1")
+		//	var tcDivElement= document.getElementById("TCDiv");
+		//	var passportDivElement= document.getElementById("PassportDiv");
+
+		//	if (element.checked=true)
+		//	{
+		//		passportDivElement.style.display="block";
+		//		tcDivElement.style.display="none";
+		//	}
+		//	else
+		//	{
+		//		passportDivElement.style.display="none";
+		//		tcDivElement.style.display="block";
+		//	}
+
+
+	</script>
+	}
+</div>

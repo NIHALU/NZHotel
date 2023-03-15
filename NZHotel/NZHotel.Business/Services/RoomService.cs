@@ -42,7 +42,8 @@ namespace NZHotel.Business.Services
 
         public async Task<List<RoomListDto>> GetNotBookedRoomList(RoomBookCreateDto dto,params int[] list)
         {
-            var allRooms = await _uow.GetRepository<Room>().GetAllAsync();
+            var query = _uow.GetRepository<Room>().GetQuery();
+            var allRooms = await query.Include(x => x.RoomStatus).Include(x => x.RoomType).Include(x => x.CleaningStatus).ToListAsync();
             List<Room> availableRooms = new();
             if(list.Length>0)
             {
@@ -66,9 +67,16 @@ namespace NZHotel.Business.Services
             {
                 foreach (var item in allRooms)
                 {
-                    if (item.MaxAdults >= dto.AdultNumber && item.MaxChildren >= dto.ChildNumber && item.MaxInfants >= dto.InfantNumber )
+                    if (item.MaxAdults >= dto.AdultNumber && dto.ChildNumber == 0 && item.MaxInfants>=dto.InfantNumber)
                     {
                         availableRooms.Add(item);
+                    }
+                    else if (dto.ChildNumber > 0 && item.MaxAdults >= dto.AdultNumber && item.MaxInfants >= dto.InfantNumber)
+                    {
+                        if (item.MaxAdults >= (dto.ChildNumber + dto.AdultNumber))
+                        {
+                            availableRooms.Add(item);
+                        }
                     }
                 }
                 return _mapper.Map<List<RoomListDto>>(availableRooms);

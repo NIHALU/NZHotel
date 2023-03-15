@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using NZHotel.Business.Interfaces;
 using NZHotel.DTOs;
+using NZHotel.UI.Areas.Reception.Models;
 
 namespace NZHotel.UI.Areas.Reception.Controllers
 {
@@ -38,15 +41,23 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             int[] bookedRoomIds = (int[])bookedRooms.ToArray(System.Type.GetType("System.Int32"));
             roomListDtos = await _roomService.GetNotBookedRoomList(dto, bookedRoomIds);
 
-            return RedirectToAction("CheckNotBookedRooms", "Reservation", roomListDtos);
+            HttpContext.Session.SetString("sessionNotBookedRooms", JsonConvert.SerializeObject(roomListDtos));
+            return RedirectToAction("CheckNotBookedRooms");
         }
 
-        public IActionResult CheckNotBookedRooms(List<RoomListDto> roomListDtos)
+        public IActionResult CheckNotBookedRooms()
         {
-            return View(roomListDtos);
+            var value = HttpContext.Session.GetString("sessionNotBookedRooms");
+            var result=JsonConvert.DeserializeObject<List<RoomListDto>>(value);
+            return View(result);
         }
 
+        public IActionResult CustomerInfo(int roomId)
+        {
+            HttpContext.Session.SetString("selectedRoomId", JsonConvert.SerializeObject(roomId));
+            return View(new CustomerCreateModel());
 
-      
+        }
+
     }
 }

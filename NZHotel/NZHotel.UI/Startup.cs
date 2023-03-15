@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using NZHotel.Business.DependencyResolvers.Microsoft;
 using NZHotel.Business.Helpers;
 using NZHotel.UI.Areas.Admin.Models;
+using NZHotel.UI.Areas.Reception.Models;
 using NZHotel.UI.Mappings.AutoMapper;
 using NZHotel.UI.ValidationRules;
 
@@ -37,6 +38,8 @@ namespace NZHotel.UI
             services.AddTransient<IValidator<RoomDetailCreateModel>, RoomDetailCreateModelValidator>();
             services.AddTransient<IValidator<RoomDetailUpdateModel>, RoomDetailUpdateModelValidator>();
 
+            services.AddTransient<IValidator<CustomerCreateModel>, CustomerCreateModelValidator>();
+
 
 
             services.AddControllersWithViews();
@@ -48,6 +51,8 @@ namespace NZHotel.UI
             profiles.Add(new RoomDetailCreateModelProfile());
             profiles.Add(new RoomDetailUpdateModelProfile());
 
+            profiles.Add(new CustomerCreateModelProfile());
+
 
 
             var configuration = new MapperConfiguration(opt =>
@@ -56,6 +61,11 @@ namespace NZHotel.UI
             });
             var mapper = configuration.CreateMapper();
             services.AddSingleton(mapper);
+
+            services.AddSession(option =>
+            {
+                option.IdleTimeout = TimeSpan.FromMinutes(50);
+            });
         }
 
 
@@ -76,6 +86,7 @@ namespace NZHotel.UI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthentication();
@@ -85,7 +96,7 @@ namespace NZHotel.UI
             {
                 endpoints.MapControllerRoute(
                    name: "areas",
-                   pattern: "{Area=Admin}/{controller=Home}/{action=Index}/{id?}");
+                   pattern: "{Area=Reception}/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",
