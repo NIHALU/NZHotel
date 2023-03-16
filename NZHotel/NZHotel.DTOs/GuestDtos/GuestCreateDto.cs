@@ -21,5 +21,7 @@ namespace NZHotel.DTOs.GuestDtos
         public string CountryName { get; set; }
         public bool IsTurkish { get; set; }
         public DateTime BirthDay { get; set; }
+        public int GuestTypeId { get; set; }
+        public int GenderId { get; set; }
     }
 }

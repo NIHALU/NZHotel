@@ -1,54 +1,138 @@
-﻿@model CustomerCreateModel
+﻿@model (List<GuestInfoCreateModel> adults,List<GuestInfoCreateModel> children,List<GuestInfoCreateModel> infants,CustomerCreateModel customer)
 
 <div class="dummy mt-5"></div>
 <div class="mt-4">
 	<form asp-action="CustomerInfo" asp-controller="Reservation" method="post" class="p-5 w-75 mx-auto">
+
+		@for (var i = 0; i < Model.adults.Count; i++)
+		{
+			<span class="mb-3 d-block p-2 bg-primary text-white">Adults Info:</span>
+			<div class="mb-3">
+				<label>Guest Name:</label>
+				<input type="text" class="form-control" asp-for="adults[i].Name" />
+				<span asp-validation-for="adults[i].Name" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label>Guest Surname:</label>
+				<input type="text" class="form-control" asp-for="adults[i].Surname" />
+				<span asp-validation-for="adults[i].Surname" class="text-danger"></span>
+			</div>
+			<div class="form-group mb-3">
+				<label asp-for="adults[i].BirthDay">Birth Date:</label>
+				<input type="date" asp-for="adults[i].BirthDay" class="form-control" placeholder="Birth Date" />
+				<span asp-validation-for="adults[i].BirthDay" class="text-danger"></span>
+			</div>
+
+
+		}
+
+			@for (var i = 0; i < Model.children.Count; i++)
+		{
+			<span class="mb-3 d-block p-2 bg-primary text-white">Children Info:</span>
+			<div class="mb-3">
+				<label>Guest Name:</label>
+				<input type="text" class="form-control" asp-for="children[i].Name" />
+				<span asp-validation-for="children[i].Name" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label>Guest Surname:</label>
+				<input type="text" class="form-control" asp-for="children[i].Surname" />
+				<span asp-validation-for="children[i].Surname" class="text-danger"></span>
+			</div>
+			<div class="form-group mb-3">
+				<label asp-for="children[i].BirthDay">Birth Date:</label>
+				<input type="date" asp-for="children[i].BirthDay" class="form-control" placeholder="Birth Date" />
+				<span asp-validation-for="children[i].BirthDay" class="text-danger"></span>
+			</div>
+
+
+		}
+
+					@for (var i = 0; i < Model.infants.Count; i++)
+		{
+			<span class="mb-3 d-block p-2 bg-primary text-white">Infants Info:</span>
+			<div class="mb-3">
+				<label>Guest Name:</label>
+				<input type="text" class="form-control" asp-for="infants[i].Name" />
+				<span asp-validation-for="infants[i].Name" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label>Guest Surname:</label>
+				<input type="text" class="form-control" asp-for="infants[i].Surname" />
+				<span asp-validation-for="infants[i].Surname" class="text-danger"></span>
+
+			</div>
+			<div class="form-group mb-3">
+				<label asp-for="infants[i].BirthDay">Birth Date:</label>
+				<input type="date" asp-for="infants[i].BirthDay" class="form-control" placeholder="Birth Date" />
+				<span asp-validation-for="infants[i].BirthDay" class="text-danger"></span>
+			</div>
+
+
+		}
+
+
+		
+		<hr />
+
+		<span class="mb-3 d-block p-2 bg-primary text-white">Adults Info:</span>
 		<div class="mb-3">
 			<label> Name:</label>
-			<input type="text" class="form-control" asp-for="@Model.ContactName" />
+			<input type="text" class="form-control" asp-for="customer.ContactName" />
+				<span asp-validation-for="customer.ContactName" class="text-danger"></span>
+
 		</div>
 		<div class="mb-3">
 			<label> Surname:</label>
-			<input type="number" class="form-control" asp-for="@Model.ContactSurname" />
+			<input type="text" class="form-control" asp-for="customer.ContactSurname" />
+			<span asp-validation-for="customer.ContactSurname" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
 			<label>Email:</label>
-			<input type="email" class="form-control" asp-for="@Model.ContactEmail" />
+			<input type="email" class="form-control" asp-for="customer.ContactEmail" />
+			<span asp-validation-for="customer.ContactEmail" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
 			<label>Phone:</label>
-			<input type="tel" class="form-control" asp-for="@Model.ContactPhone" />
+			<input type="tel" class="form-control" asp-for="customer.ContactPhone" />
+			<span asp-validation-for="customer.ContactPhone" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
 			<label>Country:</label>
-			<input type="text" class="form-control" asp-for="@Model.Country" />
+			<input type="text" class="form-control" asp-for="customer.Country" />
+			<span asp-validation-for="customer.Country" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
 			<label>Adress:</label>
-			<input type="text" class="form-control" asp-for="@Model.Adress" />
+			<input type="text" class="form-control" asp-for="customer.Adress" />
+			<span asp-validation-for="customer.Adress" class="text-danger"></span>
 		</div>
 
 		<div class="form-check">
-			<input class="form-check-input" type="checkbox" asp-for="@Model.IsNoTurkishCitizen" id="defaultCheck1">
+			<input class="form-check-input" type="checkbox" asp-for="customer.IsNoTurkishCitizen" id="defaultCheck1">
 			<label class="form-check-label" for="IsNoTurkishCitizen">
 				Is Foreign Citizen?
 			</label>
+			<span asp-validation-for="customer.IsNoTurkishCitizen" class="text-danger"></span>
 		</div>
 
 		<div class="mb-3" id="TCDiv">
 			<label>TC No:</label>
-			<input type="number" class="form-control" asp-for="@Model.TurkishIDNo" />
+			<input type="number" class="form-control" asp-for="customer.TurkishIDNo" />
+			<span asp-validation-for="customer.TurkishIDNo" class="text-danger"></span>
 		</div>
 		<div class="mb-3" style="display:none" id="PassportDiv">
 			<label>Passport No:</label>
-			<input type="number" class="form-control" asp-for="@Model.PassportNo" />
+			<input type="number" class="form-control" asp-for="customer.PassportNo" />
+			<span asp-validation-for="customer.PassportNo" class="text-danger"></span>
 		</div>
 
 		<div class="form-check">
-			<input class="form-check-input" type="checkbox" asp-for="@Model.TermsConditions" id="defaultCheck1">
+			<input class="form-check-input" type="checkbox" asp-for="customer.TermsConditions" id="defaultCheck1">
 			<label class="form-check-label" for="TermsConditions">
 				I accept all Terms & Conditions!
 			</label>
+			<span asp-validation-for="customer.TermsConditions" class="text-danger"></span>
 		</div>
 
 
@@ -76,27 +160,10 @@
 				tcDivElement.style.display="none";
 			}else{
 				passportDivElement.style.display="none";
-		        tcDivElement.style.display="block";
+				tcDivElement.style.display="block";
 			}
-			
+
 		});
-
-		//function setInputVisibility(){
-		//	var element=document.querySelector("#defaultCheck1")
-		//	var tcDivElement= document.getElementById("TCDiv");
-		//	var passportDivElement= document.getElementById("PassportDiv");
-
-		//	if (element.checked=true)
-		//	{
-		//		passportDivElement.style.display="block";
-		//		tcDivElement.style.display="none";
-		//	}
-		//	else
-		//	{
-		//		passportDivElement.style.display="none";
-		//		tcDivElement.style.display="block";
-		//	}
-
 
 	</script>
 	}
