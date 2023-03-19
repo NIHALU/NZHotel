@@ -87,5 +87,6 @@ namespace NZHotel.Business.Services
             }
             return new Response<UpdateDto>(dto, result.ConvertToCustomValidationError());
         }
+        
     }
 }

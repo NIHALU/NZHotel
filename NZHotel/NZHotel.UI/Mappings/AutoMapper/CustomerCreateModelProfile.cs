@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using NZHotel.DTOs.CustomerDtos;
+using NZHotel.DTOs;
 using NZHotel.UI.Areas.Reception.Models;
 
 namespace NZHotel.UI.Mappings.AutoMapper

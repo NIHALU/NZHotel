@@ -6,7 +6,8 @@
 
 		@for (var i = 0; i < Model.adults.Count; i++)
 		{
-			<span class="mb-3 d-block p-2 bg-primary text-white">Adults Info:</span>
+			<input type="hidden" asp-for="adults[i].GuestTypeId" />
+			<span class="mb-3 d-block p-2 bg-secondary text-white text-center ">ADULTS INFO</span>
 			<div class="mb-3">
 				<label>Guest Name:</label>
 				<input type="text" class="form-control" asp-for="adults[i].Name" />
@@ -28,7 +29,8 @@
 
 			@for (var i = 0; i < Model.children.Count; i++)
 		{
-			<span class="mb-3 d-block p-2 bg-primary text-white">Children Info:</span>
+			<input type="hidden" asp-for="children[i].GuestTypeId" />
+			<span class="mb-3 d-block p-2 bg-primary text-white">CHILDREN INFO</span>
 			<div class="mb-3">
 				<label>Guest Name:</label>
 				<input type="text" class="form-control" asp-for="children[i].Name" />
@@ -50,7 +52,8 @@
 
 					@for (var i = 0; i < Model.infants.Count; i++)
 		{
-			<span class="mb-3 d-block p-2 bg-primary text-white">Infants Info:</span>
+			<input type="hidden" asp-for="infants[i].GuestTypeId" />
+			<span class="mb-3 d-block p-2 bg-primary text-white">INFANTS INFO</span>
 			<div class="mb-3">
 				<label>Guest Name:</label>
 				<input type="text" class="form-control" asp-for="infants[i].Name" />
@@ -75,7 +78,7 @@
 		
 		<hr />
 
-		<span class="mb-3 d-block p-2 bg-primary text-white">Adults Info:</span>
+		<span class="mb-5 d-block p-2 bg-secondary text-white text-center">CUSTOMER INFO</span>
 		<div class="mb-3">
 			<label> Name:</label>
 			<input type="text" class="form-control" asp-for="customer.ContactName" />
@@ -137,7 +140,7 @@
 
 
 		<div class="mb-3 text-end">
-			<button type="submit" class="btn btn-primary"> Create Customer </button>
+			<button type="submit" class="btn btn-primary"> Continue Booking </button>
 		</div>
 
 		<div class="text-danger" asp-validation-summary="All">

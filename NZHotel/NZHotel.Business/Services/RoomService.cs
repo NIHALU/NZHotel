@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using NZHotel.Business.Interfaces;
-using NZHotel.Common.Enums;
 using NZHotel.DataAccess.UnitOfWork;
 using NZHotel.DTOs;
 using NZHotel.Entities;
@@ -40,7 +35,7 @@ namespace NZHotel.Business.Services
 
 
 
-        public async Task<List<RoomListDto>> GetNotBookedRoomList(RoomBookCreateDto dto,params int[] list)
+        public async Task<List<RoomListDto>> GetNotBookedRoomList(BookRoomCreateDto dto,params int[] list)
         {
             var query = _uow.GetRepository<Room>().GetQuery();
             var allRooms = await query.Include(x => x.RoomStatus).Include(x => x.RoomType).Include(x => x.CleaningStatus).ToListAsync();

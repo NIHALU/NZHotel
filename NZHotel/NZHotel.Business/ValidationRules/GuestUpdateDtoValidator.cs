@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace NZHotel.Business.ValidationRules
 {
-    public class RoomBookCreateDtoValidator:AbstractValidator<RoomBookCreateDto>
+    public class GuestUpdateDtoValidator:AbstractValidator<GuestUpdateDto>
     {
-        public RoomBookCreateDtoValidator()
+        public GuestUpdateDtoValidator()
         {
-            RuleFor(x=>x.AdultNumber).NotEmpty();
+
         }
     }
 }

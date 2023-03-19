@@ -11,6 +11,6 @@ namespace NZHotel.Business.Interfaces
 {
     public interface IReservationService : IService<ReservationCreateDto, ReservationUpdateDto, ReservationListDto, Reservation>
     {
-        Task<ArrayList> GetBokeedRoomList(RoomBookCreateDto dto);
+        Task<ArrayList> GetBookedRoomList(BookRoomCreateDto dto);
     }
 }

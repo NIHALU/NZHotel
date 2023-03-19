@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NZHotel.DTOs.Interfaces;
 
-namespace NZHotel.DTOs.CustomerDtos
+namespace NZHotel.DTOs
 {
     public class CustomerUpdateDto:IUpdateDto
     {
@@ -14,7 +14,7 @@ namespace NZHotel.DTOs.CustomerDtos
         public string ContactSurname { get; set; }
         public string ContactEmail { get; set; }
         public string ContactPhone { get; set; }
-        public bool IsTurkish { get; set; }
+        public bool IsNoTurkishCitizen { get; set; }
         public string TurkishIDNo { get; set; }
         public string PassportNo { get; set; }
         public string Country { get; set; }

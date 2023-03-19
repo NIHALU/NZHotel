@@ -22,7 +22,7 @@ namespace NZHotel.Business.Services
             _uow = uow;
         }
 
-        public async Task<ArrayList> GetBokeedRoomList(RoomBookCreateDto dto)
+        public async Task<ArrayList> GetBookedRoomList(BookRoomCreateDto dto)
         {
             ArrayList bookedRooms = new ArrayList();
             var reservationlist = await _uow.GetRepository<Reservation>().GetAllAsync(x =>x.Active==true);
