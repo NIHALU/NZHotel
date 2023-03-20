@@ -73,12 +73,15 @@ namespace NZHotel.UI.Areas.Reception.Controllers
                 bookedRooms = await _reservationService.GetBookedRoomList(dto);
                 int[] bookedRoomIds = (int[])bookedRooms.ToArray(System.Type.GetType("System.Int32"));
                 roomListDtos = await _roomService.GetNotBookedRoomList(dto, bookedRoomIds);
-
-                HttpContext.Session.SetString("adultNumber", dto.AdultNumber.ToString());
-                HttpContext.Session.SetString("childrenNumber", dto.ChildNumber.ToString());
-                HttpContext.Session.SetString("infantNumber", dto.InfantNumber.ToString());
-                HttpContext.Session.SetString("reservationOption", dto.ReservationOptionId.ToString());
-                HttpContext.Session.SetString("sessionNotBookedRooms", JsonConvert.SerializeObject(roomListDtos));
+                
+                foreach (var item in roomListDtos)
+                {
+                    item.MainAmount = item.CalculateMainAmount(dto.ChildNumber, dto.InfantNumber, dto.NumberofDays);
+                    item.EarlyBookingDisRate = dto.CalculateDiscountRate();
+                }
+                
+                HttpContext.Session.SetString("bookRoomDto",JsonConvert.SerializeObject(dto));
+                HttpContext.Session.SetString("NotBookedRooms", JsonConvert.SerializeObject(roomListDtos));
                 return RedirectToAction("CheckNotBookedRooms",dto.ReservationOptionId);
             }
             foreach (var item in result.Errors)
@@ -95,7 +98,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         public IActionResult CheckNotBookedRooms(int reservationOptionId)
         {
 
-            var value = HttpContext.Session.GetString("sessionNotBookedRooms");
+            var value = HttpContext.Session.GetString("NotBookedRooms");
             var result = JsonConvert.DeserializeObject<List<RoomListDto>>(value);
             return View(result);
         }
@@ -103,9 +106,14 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         public IActionResult CustomerInfo(int roomId)
         {
             HttpContext.Session.SetString("selectedRoomId", roomId.ToString());
-            int adultCount = Convert.ToInt32(HttpContext.Session.GetString("adultNumber"));
-            int childrenCount = Convert.ToInt32(HttpContext.Session.GetString("childrenNumber"));
-            int infantCount = Convert.ToInt32(HttpContext.Session.GetString("infantNumber"));
+            var result = JsonConvert.DeserializeObject<BookRoomCreateDto>(HttpContext.Session.GetString("bookRoomModel"));
+
+            //int adultCount = Convert.ToInt32(HttpContext.Session.GetString("adultNumber"));
+            //int childrenCount = Convert.ToInt32(HttpContext.Session.GetString("childrenNumber"));
+            //int infantCount = Convert.ToInt32(HttpContext.Session.GetString("infantNumber"));
+            int adultCount = result.AdultNumber;
+            int childrenCount = result.ChildNumber;
+            int infantCount = result.InfantNumber;
             List<GuestInfoCreateModel> adultList = new();
             List<GuestInfoCreateModel> childrenList = new();
             List<GuestInfoCreateModel> infantList = new();

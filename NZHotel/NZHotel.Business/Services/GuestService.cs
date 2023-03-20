@@ -25,7 +25,7 @@ namespace NZHotel.Business.Services
         public async Task Create(List<GuestCreateDto> dtos)
         {
             foreach (var item in dtos)
-            {
+            { 
                 var createdEntity = _mapper.Map<Guest>(item);
                 await _uow.GetRepository<Guest>().CreateAsync(createdEntity);
                 await _uow.SaveChangesAsync();

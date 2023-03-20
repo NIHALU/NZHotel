@@ -10,6 +10,7 @@ namespace NZHotel.Entities
     {
         public string Name { get; set; }
         public string Surname { get; set; }
+        public int Age { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         public string IdentityNumber { get; set; }
@@ -18,6 +19,7 @@ namespace NZHotel.Entities
         public string CountryName { get; set; }
         public bool IsNoTurkishCitizen { get; set; } 
         public DateTime BirthDay { get; set; }
+
         
 
         //lookup
@@ -37,18 +39,6 @@ namespace NZHotel.Entities
             return false;
 
         }
-        public int CalculateAge()
-        {
-            DateTime today = DateTime.Today;
-            DateTime birtDate = BirthDay.Date;
-            int age = today.Year - birtDate.Year;
-            if (birtDate > today.AddYears(-age))
-            {
-                age--;
-            }
-            return age;
-
-
-        }
+  
     }
 }

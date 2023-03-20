@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NZHotel.Common.Enums;
 
 namespace NZHotel.UI
 {
@@ -10,8 +11,14 @@ namespace NZHotel.UI
         public int AdultNumber { get; set; }
         public int ChildNumber { get; set; }
         public int InfantNumber { get; set; }
+        public int NumberofDays => (FinisingDate - StartingDate).Days;
+        public int EarlyBookingDays => (DateTime.Now - StartingDate).Days;
 
         public int ReservationOptionId { get; set; }
         public SelectList ReservationOptions { get; set; }
+
+
+        
+      
     }
 }

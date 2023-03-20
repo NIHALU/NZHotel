@@ -9,7 +9,9 @@
 				   <th>Id</th>
 				   <th>Name</th>
 				   <th>No</th>
-				   <th>Price</th>
+				   <th>Early Booking Discount Rate</th>
+				   <th>Total Price</th>
+				   <th>Discounted Total Price</th>
 				   <th>Max ADT</th>
 				   <th>Max CHD</th>
 				   <th>Max INF</th>
@@ -30,7 +32,18 @@
 				   <td>@room.Id</td>
 				   <td> @room.RoomName</td>
 				   <td> @room.RoomNo</td>
-				   <td> @room.RoomPrice.ToString("C2")</td>
+				   <td>@(room.EarlyBookingDisRate.ToString() + " %")</td>
+				   @if (room.EarlyBookingDisRate !=0)
+				  {
+					  <td><del>@room.MainAmount</del></td>
+					  <td> @room.DiscountedAmount</td>
+				  }
+				  else
+				  {
+					  <td>@room.MainAmount</td>
+					  <td> @room.DiscountedAmount</td>
+				  }
+				   
 				   <td> @room.MaxAdults</td>
 				   <td> @room.MaxChildren</td>
 				   <td> @room.MaxInfants</td>

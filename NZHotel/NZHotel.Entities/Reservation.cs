@@ -10,7 +10,7 @@ namespace NZHotel.Entities
     public class Reservation : BaseEntity
     {
         public int NumberofGuests { get; set; }
-        public int NumberofDays => (FinishingDate - StartingDate).Days;
+        public int NumberofDays { get; set; }
         public DateTime StartingDate { get; set; }
         public DateTime FinishingDate { get; set; }
         public DateTime? PaymentDeadline { get; set; }
