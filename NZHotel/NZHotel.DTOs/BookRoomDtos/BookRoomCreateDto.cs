@@ -14,5 +14,6 @@ namespace NZHotel.DTOs
         public int AdultNumber { get; set; }
         public int ChildNumber { get; set; }
         public int InfantNumber { get; set; }
+        public int ReservationOptionId { get; set; }
     }
 }

@@ -11,10 +11,10 @@ namespace NZHotel.Entities
     {
         public int NumberofGuests { get; set; }
         public int NumberofDays => (FinishingDate - StartingDate).Days;
-
         public DateTime StartingDate { get; set; }
         public DateTime FinishingDate { get; set; }
         public DateTime? PaymentDeadline { get; set; }
+        public decimal TotalAmount { get; set; }
         public bool Active { get; set; } = true;
 
         //Navigational Prop Begins
@@ -24,10 +24,8 @@ namespace NZHotel.Entities
         public Customer Customer { get; set; }
         public int ReservationOptionId { get; set; }
         public ReservationOption ReservationOption { get; set; }
-
         public int PaymentStatusId { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
-
         public int ReservationTypeId { get; set; }
         public ReservationType ReservationType { get; set; }
         public List<GuestReservation> GuestReservations { get; set; }

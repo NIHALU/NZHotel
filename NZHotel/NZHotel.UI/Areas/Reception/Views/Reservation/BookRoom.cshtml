@@ -44,9 +44,7 @@
                                         <option value="5">5</option>
                                         <option value="6">6</option>
                                         <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="9+">9+</option>
+                                        
                                     </select>
                         <span asp-validation-for="@Model.ChildNumber" class="text-danger"></span>
                     </div>
@@ -57,16 +55,16 @@
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="9+">9+</option>
                                     </select>
                         <span asp-validation-for="@Model.InfantNumber" class="text-danger"></span>
                 </div>
+
+                	<div class="mb-3">
+			<select class="form-select" asp-items="@Model.ReservationOptions" asp-for="@Model.ReservationOptionId">
+				<option value="0">Choose Reservation Option</option>
+			</select>
+               <span asp-validation-for="@Model.ReservationOptionId" class="text-danger"></span>
+		</div>
                 <div class="card-footer mb-3">
                     <div class="form-group ">
                         <input type="submit" value="Check Availability" class="btn btn-outline-success btn-sm float-right" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace NZHotel.UI
 {
@@ -9,5 +10,8 @@ namespace NZHotel.UI
         public int AdultNumber { get; set; }
         public int ChildNumber { get; set; }
         public int InfantNumber { get; set; }
+
+        public int ReservationOptionId { get; set; }
+        public SelectList ReservationOptions { get; set; }
     }
 }

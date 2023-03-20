@@ -14,7 +14,7 @@ using NZHotel.Entities;
 
 namespace NZHotel.Business.Services
 {
-    public class Service<CreateDto,UpdateDto, ListDto,T>: IService<CreateDto, UpdateDto, ListDto, T>
+    public class Service<CreateDto, UpdateDto, ListDto, T> : IService<CreateDto, UpdateDto, ListDto, T>
         where CreateDto : class, IDto, new()
         where UpdateDto : class, IUpdateDto, new()
         where ListDto : class, IDto, new()
@@ -68,6 +68,7 @@ namespace NZHotel.Business.Services
             var entity = await _uow.GetRepository<T>().FindAsync(id);
             if (entity == null)
                 return new Response(ResponseType.NotFound, $"Data which has {id} cannot be found!");
+            entity.DeleteDate = DateTime.Now;
             _uow.GetRepository<T>().Remove(entity);
             await _uow.SaveChangesAsync();
             return new Response(ResponseType.Success);
@@ -81,12 +82,13 @@ namespace NZHotel.Business.Services
                 var unchangedData = await _uow.GetRepository<T>().FindAsync(dto.Id);
                 if (unchangedData == null)
                     return new Response<UpdateDto>(ResponseType.NotFound, $"Data which has {dto.Id} cannot be found!");
+                unchangedData.UpdateDate = DateTime.Now;
                 _uow.GetRepository<T>().Update(_mapper.Map<T>(dto), unchangedData);
                 await _uow.SaveChangesAsync();
                 return new Response<UpdateDto>(ResponseType.Success, dto);
             }
             return new Response<UpdateDto>(dto, result.ConvertToCustomValidationError());
         }
-        
+
     }
 }

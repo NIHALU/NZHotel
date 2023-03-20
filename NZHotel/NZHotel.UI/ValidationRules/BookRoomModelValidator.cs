@@ -16,6 +16,8 @@ namespace NZHotel.UI.ValidationRules
           .NotEmpty().WithMessage("Exist date is required")
           .GreaterThan(m => m.StartingDate)
                    .WithMessage("Exist date must after Enterance date");
+
+            RuleFor(x => x.ReservationOptionId).NotEmpty().WithMessage("Please choose reservation option.");
                 
         }
         protected bool BeAValidDate(DateTime date)

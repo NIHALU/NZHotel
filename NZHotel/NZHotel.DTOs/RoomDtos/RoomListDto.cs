@@ -21,5 +21,8 @@ namespace NZHotel.DTOs
 
         public CleaningStatusListDto CleaningStatus { get; set; }
         public int CleaningStatusId { get; set; }
+
+        public decimal MainAmount { get; set; }
+        public decimal DiscountedAmount { get; set;}
     }
 }

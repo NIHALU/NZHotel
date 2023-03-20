@@ -8,6 +8,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using NZHotel.Business.Interfaces;
 using NZHotel.Common.Enums;
@@ -27,8 +28,8 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         private readonly IValidator<CustomerCreateModel> _customerValidator;
         private readonly ICustomerService _customerService;
         private readonly IGuestService _guestService;
-
-        public ReservationController(IReservationService reservationService, IRoomService roomService, IMapper mapper, IValidator<BookRoomModel> bookRoomModelValidator, IValidator<GuestInfoCreateModel> guestInfoValidator, IValidator<CustomerCreateModel> customerValidator, ICustomerService customerService, IGuestService guestService)
+        private readonly IReservationOptionService _reservationOptionService;
+        public ReservationController(IReservationService reservationService, IRoomService roomService, IMapper mapper, IValidator<BookRoomModel> bookRoomModelValidator, IValidator<GuestInfoCreateModel> guestInfoValidator, IValidator<CustomerCreateModel> customerValidator, ICustomerService customerService, IGuestService guestService, IReservationOptionService reservationOptionService)
         {
             _reservationService = reservationService;
             _roomService = roomService;
@@ -38,6 +39,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             _customerValidator = customerValidator;
             _customerService = customerService;
             _guestService = guestService;
+            _reservationOptionService = reservationOptionService;
         }
 
         public IActionResult Index()
@@ -45,9 +47,18 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             return View();
         }
 
-        public IActionResult BookRoom()
+        public async Task<IActionResult> BookRoom()
         {
-            return View(new BookRoomModel { StartingDate = DateTime.Today, FinisingDate = DateTime.Today.AddDays(1) });
+            var response = await _reservationOptionService.GetAllAsync();
+            var model = new BookRoomModel()
+            {
+                ReservationOptions = new SelectList(response.Data, "Id", "Definition"),
+                StartingDate=DateTime.Today,
+                FinisingDate = DateTime.Today.AddDays(1),
+
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -66,20 +77,24 @@ namespace NZHotel.UI.Areas.Reception.Controllers
                 HttpContext.Session.SetString("adultNumber", dto.AdultNumber.ToString());
                 HttpContext.Session.SetString("childrenNumber", dto.ChildNumber.ToString());
                 HttpContext.Session.SetString("infantNumber", dto.InfantNumber.ToString());
+                HttpContext.Session.SetString("reservationOption", dto.ReservationOptionId.ToString());
                 HttpContext.Session.SetString("sessionNotBookedRooms", JsonConvert.SerializeObject(roomListDtos));
-                return RedirectToAction("CheckNotBookedRooms");
+                return RedirectToAction("CheckNotBookedRooms",dto.ReservationOptionId);
             }
             foreach (var item in result.Errors)
             {
                 ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
             }
+            var response = await _reservationOptionService.GetAllAsync();
+            model.ReservationOptions = new SelectList(response.Data, "Id", "Definition");
 
             return View(model);
 
         }
 
-        public IActionResult CheckNotBookedRooms()
+        public IActionResult CheckNotBookedRooms(int reservationOptionId)
         {
+
             var value = HttpContext.Session.GetString("sessionNotBookedRooms");
             var result = JsonConvert.DeserializeObject<List<RoomListDto>>(value);
             return View(result);
@@ -169,8 +184,20 @@ namespace NZHotel.UI.Areas.Reception.Controllers
 
         }
 
-        public IActionResult CreateReservation()
+        public IActionResult Payment()
         {
+            /*
+             * numberofDays=finishingdate-startingdate 
+             * if startingdate-datetime >=90 alloptions %23 discount
+             * if startingdate-datetime>=30 if fullpansion %16 disc if allinc  %16 disc
+             * 
+             * mainprice= roomprice*numberofdays
+             * if selectedAdt = room.MaxAdult
+             *     totalamount=mainprice
+             * if child infant 
+             * ------
+             * 
+             */
             return View();
         }
 
