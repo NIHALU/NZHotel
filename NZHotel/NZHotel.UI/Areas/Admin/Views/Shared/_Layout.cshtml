@@ -90,13 +90,15 @@
         </footer>
         <!-- Footer Finishes-->
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
         <!-- Core theme JS-->
+        <script src="~/lib/jquery/dist/jquery.js"> </script>
         <script src="~/lib/jquery/dist/jquery.min.js"> </script>
         <script src="~/theme/admin/DataTable/jquery.dataTables.js"> </script>
         <script src="~/theme/admin/DataTable/jquery.dataTables.min.js"> </script>
-        <script src="~/theme/admin/js/scripts.js"></script>
+                <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/theme/admin/js/scripts.js" asp-append-version="true"></script>
        
          @await RenderSectionAsync("script", required: false)
     </body>
