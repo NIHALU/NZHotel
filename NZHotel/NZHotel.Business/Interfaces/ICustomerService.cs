@@ -11,5 +11,6 @@ namespace NZHotel.Business.Interfaces
      public interface ICustomerService:IService<CustomerCreateDto, CustomerUpdateDto, CustomerListDto, Customer>
     {
         Task Create(CustomerCreateDto dto);
+        Task<CustomerListDto> GetCustomer(string customerID);
     }
 }

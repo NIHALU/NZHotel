@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using NZHotel.Business.Extensions;
 using NZHotel.Business.Interfaces;
+using NZHotel.Common;
 using NZHotel.DataAccess.UnitOfWork;
 using NZHotel.DTOs;
 using NZHotel.Entities;
@@ -14,12 +16,15 @@ namespace NZHotel.Business.Services
     {
         private readonly IUow _uow;
         private readonly IMapper _mapper;
+        
         public RoomService(IMapper mapper, IValidator<RoomCreateDto> createDtoValidator, IValidator<RoomUpdateDto> updateDtoValidator, IUow uow) : base(mapper, createDtoValidator, updateDtoValidator, uow)
         {
             _uow = uow;
             _mapper = mapper;
+        
         }
 
+      
         public async Task<List<RoomListDto>> Getlist()
         {
             var query = _uow.GetRepository<Room>().GetQuery();

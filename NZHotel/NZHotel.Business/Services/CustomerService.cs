@@ -28,5 +28,11 @@ namespace NZHotel.Business.Services
             await _uow.GetRepository<Customer>().CreateAsync(createdEntity);
             await _uow.SaveChangesAsync();
         }
+
+        public async Task<CustomerListDto> GetCustomer(string customerID)
+        {
+            var customer = await _uow.GetRepository<Customer>().GetByFilterFirstAsync(x => x.PassportNo == customerID || x.PassportNo==customerID );
+            return _mapper.Map<CustomerListDto>(customer);
+        }
     }
 }

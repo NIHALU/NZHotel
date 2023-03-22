@@ -21,6 +21,6 @@ namespace NZHotel.UI.Areas.Admin.Models
         public SelectList RoomTypes { get; set; }
         public SelectList RoomStatuses { get; set; }
         public SelectList CleaningStatuses { get; set; }
-        public List<IFormFile> Images { get; set; }
+       
     }
 }

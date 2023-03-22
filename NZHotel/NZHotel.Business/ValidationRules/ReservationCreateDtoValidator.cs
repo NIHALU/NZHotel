@@ -16,11 +16,13 @@ namespace NZHotel.Business.ValidationRules
             RuleFor(x => x.NumberofDays).NotEmpty();
             RuleFor(x => x.NumberofGuests).NotEmpty();
             RuleFor(x => x.StartingDate).NotEmpty();
-            RuleFor(x => x.FinisingDate).NotEmpty();
-            RuleFor(x => x.PaymentDeadline).NotEmpty().When(x => x.PaymentStatus== PaymentStatus.NonPaid).WithMessage("Payment deadline cannot be empty");
+            RuleFor(x => x.FinishingDate).NotEmpty();
             RuleFor(x => x.CustomerId).NotEmpty();
             RuleFor(x => x.RoomId).NotEmpty();
             RuleFor(x => x.ReservationOptionId).NotEmpty();
+            RuleFor(x => x.ReservationTypeId).NotEmpty();
+            RuleFor(X => X.TotalAmount).NotEmpty();
+            RuleFor(x =>x.PaymentStatusId).NotEmpty();
         }
     }
 }

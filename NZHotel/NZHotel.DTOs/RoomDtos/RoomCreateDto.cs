@@ -21,6 +21,5 @@ namespace NZHotel.DTOs
         public int CleaningStatusId { get; set; }
         public int RoomStatusId { get; set; }
 
-        public List<string> PhotoPaths { get; set; }
     }
 }

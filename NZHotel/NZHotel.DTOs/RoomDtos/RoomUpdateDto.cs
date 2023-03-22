@@ -18,8 +18,8 @@ namespace NZHotel.DTOs
         public string Info { get; set; }
         public int RoomTypeId { get; set; }
         public string BedInfo { get; set; }
-        public string RoomName { get; set; }
-        //public int CleaningStatusId { get; set; }
+        public string RoomName { get; set; } 
+        public int CleaningStatusId { get; set; }
         public int RoomStatusId { get; set; }
     }
 }

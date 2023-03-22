@@ -47,12 +47,12 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             {
                 RoomTypes = new SelectList(response1.Data, "Id", "Definition"),
                 RoomStatuses = new SelectList(response2.Data, "Id", "Definition"),
-                CleaningStatuses= new SelectList(response3.Data,"Id","Definition")
+                CleaningStatuses = new SelectList(response3.Data, "Id", "Definition")
             };
             return View(model);
         }
 
-  
+
 
         [HttpPost]
         public async Task<IActionResult> Create(RoomCreateViewModel model)
@@ -61,29 +61,9 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             var result = _roomCreateModelValidator.Validate(model);
             if (result.IsValid)
             {
-                if(model.Images != null)
-				{
-					foreach (var item in model.Images)
-					{
-                        var fileName = System.Guid.NewGuid().ToString();
-                        var extName = Path.GetExtension(item.FileName);
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "roomphotos", fileName + extName);
-                        var stream = new FileStream(path, FileMode.Create);
-                        await item.CopyToAsync(stream);
-                        dto1.PhotoPaths.Add(path);
-                    }
-				}
-
-				//dto1.BedInfo = model.BedInfo;
-				//dto1.CleaningStatusId = model.CleaningStatusId;
-				//dto1.Info = model.Info;
-				//dto1.MaxAdults = model.MaxAdults;
-				//dto1.MaxChildren = model.MaxChildren;
-				//dto1.1
-
-				var dto = _mapper.Map<RoomCreateDto>(model);
-				var response = await _roomService.CreateAsync(dto);
-				return this.ResponseRedirectAction(response, "List");
+                var dto = _mapper.Map<RoomCreateDto>(model);
+                var response = await _roomService.CreateAsync(dto);
+                return this.ResponseRedirectAction(response, "List");
             }
             foreach (var item in result.Errors)
             {
