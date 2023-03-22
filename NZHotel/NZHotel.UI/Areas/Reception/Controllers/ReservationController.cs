@@ -82,7 +82,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
                 
                 HttpContext.Session.SetString("bookRoomDto",JsonConvert.SerializeObject(dto));
                 HttpContext.Session.SetString("NotBookedRooms", JsonConvert.SerializeObject(roomListDtos));
-                return RedirectToAction("CheckNotBookedRooms",dto.ReservationOptionId);
+                return RedirectToAction("CheckNotBookedRooms");
             }
             foreach (var item in result.Errors)
             {
@@ -95,7 +95,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
 
         }
 
-        public IActionResult CheckNotBookedRooms(int reservationOptionId)
+        public IActionResult CheckNotBookedRooms()
         {
 
             var value = HttpContext.Session.GetString("NotBookedRooms");
@@ -103,14 +103,12 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             return View(result);
         }
 
-        public IActionResult CustomerInfo(int roomId)
+        public IActionResult CustomerInfo(decimal totalAmount,int roomId)
         {
             HttpContext.Session.SetString("selectedRoomId", roomId.ToString());
-            var result = JsonConvert.DeserializeObject<BookRoomCreateDto>(HttpContext.Session.GetString("bookRoomModel"));
+            HttpContext.Session.SetString("totalAmount", totalAmount.ToString());
+            var result = JsonConvert.DeserializeObject<BookRoomCreateDto>(HttpContext.Session.GetString("bookRoomDto"));
 
-            //int adultCount = Convert.ToInt32(HttpContext.Session.GetString("adultNumber"));
-            //int childrenCount = Convert.ToInt32(HttpContext.Session.GetString("childrenNumber"));
-            //int infantCount = Convert.ToInt32(HttpContext.Session.GetString("infantNumber"));
             int adultCount = result.AdultNumber;
             int childrenCount = result.ChildNumber;
             int infantCount = result.InfantNumber;
@@ -194,18 +192,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
 
         public IActionResult Payment()
         {
-            /*
-             * numberofDays=finishingdate-startingdate 
-             * if startingdate-datetime >=90 alloptions %23 discount
-             * if startingdate-datetime>=30 if fullpansion %16 disc if allinc  %16 disc
-             * 
-             * mainprice= roomprice*numberofdays
-             * if selectedAdt = room.MaxAdult
-             *     totalamount=mainprice
-             * if child infant 
-             * ------
-             * 
-             */
+          
             return View();
         }
 

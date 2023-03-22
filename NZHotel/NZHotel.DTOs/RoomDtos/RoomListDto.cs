@@ -25,40 +25,43 @@ namespace NZHotel.DTOs
         public int CleaningStatusId { get; set; }
 
         public decimal MainAmount { get; set; }
-        public int EarlyBookingDisRate { get; set; }
+        public decimal EarlyBookingDisRate { get; set; }
         public decimal DiscountedAmount => MainAmount - (MainAmount * (EarlyBookingDisRate / 100));
 
 
         public decimal CalculateMainAmount(int childrenCount, int infantCount, int numberofDays)
         {
             decimal roomPrice = RoomPrice;
-            decimal perChildDiscount = roomPrice * 10 / 100;
+            decimal perChildDiscount = 10;
             decimal totalChildDiscount = 0;
-            decimal perInfantPrice = roomPrice * 8 / 100;
+            decimal perInfantPrice = 8;
             decimal totalInfantPrice = 0;
 
 
-            if (childrenCount > 0)
+            if (childrenCount > 0 && infantCount >= 1) //hem çocuk hem infant oldugu durum
             {
                 totalChildDiscount = perChildDiscount * childrenCount;
-                roomPrice -= roomPrice * totalChildDiscount;
+                totalInfantPrice = perInfantPrice * (infantCount - 1);
+                roomPrice = roomPrice - (roomPrice * (totalChildDiscount / 100)) + (roomPrice * (totalInfantPrice / 100));
 
             }
-            if (infantCount > 0)
+            else if (childrenCount>0 && infantCount <1)   //çocuk var infant yok
             {
-                if (infantCount > 1)
-                {
-                    totalInfantPrice = perInfantPrice * infantCount - 1;
-                    roomPrice += totalInfantPrice;
-                }
-
+                totalChildDiscount = perChildDiscount * childrenCount;
+                roomPrice = roomPrice - (roomPrice * (totalChildDiscount / 100));
+            }
+            else if(childrenCount==0 && infantCount>=1 )  //çocuk yok infsnt var
+			{
+                totalInfantPrice = perInfantPrice * (infantCount - 1);
+                roomPrice = roomPrice + (roomPrice * (totalInfantPrice / 100));
             }
 
+            //ne çocuk ne infant var sadece adult
             return roomPrice * numberofDays;
 
         }
 
-        
+
 
 
     }

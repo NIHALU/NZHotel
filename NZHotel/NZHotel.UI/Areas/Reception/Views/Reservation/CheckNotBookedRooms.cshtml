@@ -35,13 +35,13 @@
 				   <td>@(room.EarlyBookingDisRate.ToString() + " %")</td>
 				   @if (room.EarlyBookingDisRate !=0)
 				  {
-					  <td><del>@room.MainAmount</del></td>
-					  <td> @room.DiscountedAmount</td>
+					  <td><del>@(room.MainAmount.ToString() + " $")</del></td>
+					  <td>@(room.DiscountedAmount.ToString() + " $")</td>
 				  }
 				  else
 				  {
-					  <td>@room.MainAmount</td>
-					  <td> @room.DiscountedAmount</td>
+					  <td>@(room.MainAmount.ToString() + " $")</td>
+					  <td> @(room.DiscountedAmount.ToString() + " $")</td>
 				  }
 				   
 				   <td> @room.MaxAdults</td>
@@ -54,7 +54,7 @@
 				   <td> @room.CleaningStatus.Definition</td>
 
 				   <td>
-				       <a asp-action="CustomerInfo" asp-controller="Reservation" asp-route-roomId="@room.Id"> Select Room </a>
+				       <a asp-action="CustomerInfo" asp-controller="Reservation" asp-route-totalAmount="@room.DiscountedAmount" asp-route-roomId="@room.Id"> Select Room </a>
 				       <a asp-action="RoomDetail" asp-controller="AdminRoomDetail" asp-route-roomId="@room.Id" > See Details </a>
 
 				   </td>

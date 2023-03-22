@@ -12,7 +12,7 @@ namespace NZHotel.UI
         public int ChildNumber { get; set; }
         public int InfantNumber { get; set; }
         public int NumberofDays => (FinisingDate - StartingDate).Days;
-        public int EarlyBookingDays => (DateTime.Now - StartingDate).Days;
+        public int EarlyBookingDay => (StartingDate - DateTime.Now).Days*(-1);
 
         public int ReservationOptionId { get; set; }
         public SelectList ReservationOptions { get; set; }

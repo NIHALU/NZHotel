@@ -82,7 +82,6 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             var list = await _roomService.Getlist();
             return View(list);
         }
-
         public async Task<IActionResult> Update(int roomId)
         {
             var response = await _roomService.GetByIdAsync<RoomUpdateDto>(roomId);
