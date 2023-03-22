@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
@@ -56,12 +57,33 @@ namespace NZHotel.UI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(RoomCreateViewModel model)
         {
+            RoomCreateDto dto1 = new();
             var result = _roomCreateModelValidator.Validate(model);
             if (result.IsValid)
             {
-                var dto = _mapper.Map<RoomCreateDto>(model);
-                var response = await _roomService.CreateAsync(dto);
-                return this.ResponseRedirectAction(response, "List");
+                if(model.Images != null)
+				{
+					foreach (var item in model.Images)
+					{
+                        var fileName = System.Guid.NewGuid().ToString();
+                        var extName = Path.GetExtension(item.FileName);
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "roomphotos", fileName + extName);
+                        var stream = new FileStream(path, FileMode.Create);
+                        await item.CopyToAsync(stream);
+                        dto1.PhotoPaths.Add(path);
+                    }
+				}
+
+				//dto1.BedInfo = model.BedInfo;
+				//dto1.CleaningStatusId = model.CleaningStatusId;
+				//dto1.Info = model.Info;
+				//dto1.MaxAdults = model.MaxAdults;
+				//dto1.MaxChildren = model.MaxChildren;
+				//dto1.1
+
+				var dto = _mapper.Map<RoomCreateDto>(model);
+				var response = await _roomService.CreateAsync(dto);
+				return this.ResponseRedirectAction(response, "List");
             }
             foreach (var item in result.Errors)
             {
