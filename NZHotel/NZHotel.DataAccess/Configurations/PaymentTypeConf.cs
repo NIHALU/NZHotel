@@ -14,6 +14,8 @@ namespace NZHotel.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<PaymentType> builder)
         {
             builder.Property(x => x.Definition).IsRequired();
+            builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
+            builder.HasMany(x =>x.Reservations).WithOne(x => x.PaymentType).HasForeignKey(x => x.PaymentTypeId);
         }
     }
 }

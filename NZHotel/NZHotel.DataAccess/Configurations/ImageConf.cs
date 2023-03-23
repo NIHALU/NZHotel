@@ -16,6 +16,7 @@ namespace NZHotel.DataAccess.Configurations
         {
             builder.Property(x => x.ImageName).IsRequired();
             builder.HasOne(x => x.Room).WithMany(x => x.Images).HasForeignKey(x => x.RoomId);
+            builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
         }
     }
 }

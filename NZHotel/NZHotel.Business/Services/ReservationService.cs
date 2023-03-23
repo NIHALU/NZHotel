@@ -107,6 +107,14 @@ namespace NZHotel.Business.Services
         }
 
 
+        public async Task<ReservationListDto> GetReservation(BookRoomCreateDto dto,int roomId)
+        {
+            var reservation = await _uow.GetRepository<Reservation>().GetByFilterFirstAsync(x => x.StartingDate==dto.StartingDate && x.FinishingDate==dto.FinisingDate && x.RoomId==roomId);
+            return _mapper.Map<ReservationListDto>(reservation);
+        }
+
+
+
     }
 }
 

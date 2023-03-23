@@ -23,6 +23,7 @@ namespace NZHotel.DataAccess.Configurations
             builder.Property(x => x.CountryName).HasMaxLength(20);
             builder.Property(x => x.BirthDay).IsRequired();
             builder.Property(x => x.IsNoTurkishCitizen).IsRequired().HasColumnName("NoTurkishCitizen");
+            builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
 
             builder.HasOne(x => x.GuestType).WithMany(x => x.Guests).HasForeignKey(x => x.GuestTypeId);
             builder.HasOne(x => x.Gender).WithMany(x => x.Guests).HasForeignKey(x => x.GenderId);

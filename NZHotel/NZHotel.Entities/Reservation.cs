@@ -28,7 +28,11 @@ namespace NZHotel.Entities
         public PaymentStatus PaymentStatus { get; set; }
         public int ReservationTypeId { get; set; }
         public ReservationType ReservationType { get; set; }
+
+        public PaymentType PaymentType { get; set; }
+        public int PaymentTypeId { get; set; }
         public List<GuestReservation> GuestReservations { get; set; }
+        public List<GuestInfo> GuestInformation { get; set; }
 
 
         public bool InStart(DateTime enterance, DateTime exit)//False

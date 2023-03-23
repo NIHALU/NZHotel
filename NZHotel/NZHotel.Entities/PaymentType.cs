@@ -10,6 +10,7 @@ namespace NZHotel.Entities
     {
         public string Definition { get; set; }
         public List<Payment> Payments { get; set; }
-       // public List<ExtraPayment> ExtraPayments { get; set; }
+        public List<Reservation> Reservations { get; set; }
+      
     }
 }

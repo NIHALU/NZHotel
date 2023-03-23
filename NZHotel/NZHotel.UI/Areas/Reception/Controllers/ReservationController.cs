@@ -28,11 +28,11 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         private readonly IValidator<GuestInfoCreateModel> _guestInfoValidator;
         private readonly IValidator<CustomerCreateModel> _customerValidator;
         private readonly ICustomerService _customerService;
-        private readonly IGuestService _guestService;
+        private readonly IGuestInfoService _guestInfoService;
         private readonly IReservationOptionService _reservationOptionService;
         private readonly IValidator<PaymentCreateModel> _paymentCreateModelValidator;
 
-        public ReservationController(IReservationService reservationService, IRoomService roomService, IMapper mapper, IValidator<BookRoomModel> bookRoomModelValidator, IValidator<GuestInfoCreateModel> guestInfoValidator, IValidator<CustomerCreateModel> customerValidator, ICustomerService customerService, IGuestService guestService, IReservationOptionService reservationOptionService, IValidator<PaymentCreateModel> paymentCreateModelValidator)
+        public ReservationController(IReservationService reservationService, IRoomService roomService, IMapper mapper, IValidator<BookRoomModel> bookRoomModelValidator, IValidator<GuestInfoCreateModel> guestInfoValidator, IValidator<CustomerCreateModel> customerValidator, ICustomerService customerService, IGuestInfoService guestInfoService, IReservationOptionService reservationOptionService, IValidator<PaymentCreateModel> paymentCreateModelValidator)
         {
             _reservationService = reservationService;
             _roomService = roomService;
@@ -41,7 +41,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             _guestInfoValidator = guestInfoValidator;
             _customerValidator = customerValidator;
             _customerService = customerService;
-            _guestService = guestService;
+            _guestInfoService = guestInfoService;
             _reservationOptionService = reservationOptionService;
             _paymentCreateModelValidator = paymentCreateModelValidator;
         }
@@ -152,8 +152,8 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         {
             List<ValidationResult> guestValidResults = new();
             List<ValidationResult> guestNotValidResults = new();
-            List<GuestInfoCreateModel> guests = adults.Concat(children).Concat(infants).ToList();
-            foreach (var item in guests)
+            List<GuestInfoCreateModel> guestInformation = adults.Concat(children).Concat(infants).ToList();
+            foreach (var item in guestInformation)
             {
                 item.Age = item.CalculateAge();
                 var result1 = _guestInfoValidator.Validate(item);
@@ -168,7 +168,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
 
             }
             var result2 = _customerValidator.Validate(customer);
-            if (guests.Count == guestValidResults.Count && result2.IsValid)
+            if (guestInformation.Count == guestValidResults.Count && result2.IsValid)
             {
                 if (customer.IsNoTurkishCitizen==false)
                 {
@@ -176,7 +176,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
                 }
                 HttpContext.Session.SetString("customerID", customer.PassportNo);
                 await _customerService.Create(_mapper.Map<CustomerCreateDto>(customer));
-                await _guestService.Create(_mapper.Map<List<GuestCreateDto>>(guests));
+                HttpContext.Session.SetString("guestInformation", JsonConvert.SerializeObject(_mapper.Map<List<GuestInfoCreateDto>>(guestInformation)));
                 return RedirectToAction("CreateReservation");
             }
             else
@@ -214,11 +214,13 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             if (result.IsValid)
             {
                var customer = await _customerService.GetCustomer(HttpContext.Session.GetString("customerID"));
-                if (payment.ExpectedPaymentDate != null)
+                if (payment.PaymentTypeId==(int)PaymentType.PayLater)
                 {
                     reservation.PaymentStatusId = (int)PaymentStatus.NonPaid;
+                  
                 }
                 reservation.PaymentStatusId=(int)PaymentStatus.Paid;
+                reservation.PaymentTypeId = payment.PaymentTypeId;
                 var selectedRoomId = Convert.ToInt32(HttpContext.Session.GetString("selectedRoomId"));
                 var value = HttpContext.Session.GetString("BookRoomDto");
                 var bookRoom = JsonConvert.DeserializeObject<BookRoomCreateDto>(value);
@@ -247,9 +249,20 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         }
           
 
-        public IActionResult CreatedReservation()
+        public async Task<IActionResult> CreatedReservation()
         {
-
+            var selectedRoomId = Convert.ToInt32(HttpContext.Session.GetString("selectedRoomId"));
+            var value1 = HttpContext.Session.GetString("BookRoomDto");
+            var bookRoom = JsonConvert.DeserializeObject<BookRoomCreateDto>(value1);
+            var reservation = await _reservationService.GetReservation(bookRoom, selectedRoomId);
+            var value2 = HttpContext.Session.GetString("guestInformation");
+            var guestInformation = JsonConvert.DeserializeObject<List<GuestInfoCreateDto>>(value2);
+            foreach (var guestInfo in guestInformation)
+            {
+                guestInfo.ReservationId = reservation.Id;
+                await _guestInfoService.Create(guestInfo);
+            }
+            HttpContext.Session.Clear();
             return View();
         }
 

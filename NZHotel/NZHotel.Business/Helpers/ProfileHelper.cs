@@ -21,7 +21,8 @@ namespace NZHotel.Business.Helpers
                 new ReservationOptionProfile(),
                 new CleaningStatusProfile(),
                 new CustomerProfile(),
-                new GuestProfile()
+                new GuestProfile(),
+                new GuestInfoProfile()
 
             };
         }

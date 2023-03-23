@@ -12,5 +12,8 @@ namespace NZHotel.Entities
         public Guest Guest { get; set; }
         public int ReservationId { get; set; }
         public Reservation Reservation { get; set; }
+
+        public DateTime? CheckInTime { get; set;}
+        public DateTime? CheckOutTime { get; set;}
     }
 }

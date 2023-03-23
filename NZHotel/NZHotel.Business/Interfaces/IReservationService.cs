@@ -15,5 +15,6 @@ namespace NZHotel.Business.Interfaces
         Task<ArrayList> GetBookedRoomList(BookRoomCreateDto dto);
         Task<IResponse<ReservationCreateDto>> CreateReservation(ReservationCreateDto dto);
         Task<bool> CheckReservation(ReservationCreateDto dto);
+        Task<ReservationListDto> GetReservation(BookRoomCreateDto dto, int roomId);
     }
 }

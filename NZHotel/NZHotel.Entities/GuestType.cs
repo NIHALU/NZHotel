@@ -11,5 +11,7 @@ namespace NZHotel.Entities
         public string Definiton { get; set; }
 
         public List<Guest> Guests { get; set; }
+
+        public List<GuestInfo> GuestInformation { get; set; }
     }
 }
