@@ -30,7 +30,7 @@
 			@for (var i = 0; i < Model.children.Count; i++)
 		{
 			<input type="hidden" asp-for="children[i].GuestTypeId" />
-			<span class="mb-3 d-block p-2 bg-primary text-white">CHILDREN INFO</span>
+			<span class="mb-3 d-block p-2 bg-primary text-white">CHILDREN @i INFO</span>
 			<div class="mb-3">
 				<label>Guest Name:</label>
 				<input type="text" class="form-control" asp-for="children[i].Name" />

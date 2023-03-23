@@ -57,6 +57,8 @@ namespace NZHotel.UI
             profiles.Add(new CustomerCreateModelProfile());
             profiles.Add(new BookRoomCreateModelProfile());
 
+            profiles.Add(new GuestInfoCreateModelProfile());
+
 
 
             var configuration = new MapperConfiguration(opt =>

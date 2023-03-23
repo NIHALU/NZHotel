@@ -9,8 +9,8 @@ namespace NZHotel.UI.Areas.Reception.Models
         public decimal TotalAmount { get; set; }
         public string CreditCardNo { get; set; }
         public string CreditCardHolder { get; set; }
-        public int CreditCardExpire { get; set; }
-        public int CreditCardCVC { get; set; }
+        public string CreditCardExpire { get; set; }
+        public string CreditCardCVC { get; set; }
         public DateTime? ExpectedPaymentDate { get; set; }
         
         public SelectList PaymentTypes { get; set; }

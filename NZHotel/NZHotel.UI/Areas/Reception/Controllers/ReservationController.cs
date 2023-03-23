@@ -31,8 +31,9 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         private readonly IGuestInfoService _guestInfoService;
         private readonly IReservationOptionService _reservationOptionService;
         private readonly IValidator<PaymentCreateModel> _paymentCreateModelValidator;
+        private readonly IPaymentTypeService _paymentTypeService;
 
-        public ReservationController(IReservationService reservationService, IRoomService roomService, IMapper mapper, IValidator<BookRoomModel> bookRoomModelValidator, IValidator<GuestInfoCreateModel> guestInfoValidator, IValidator<CustomerCreateModel> customerValidator, ICustomerService customerService, IGuestInfoService guestInfoService, IReservationOptionService reservationOptionService, IValidator<PaymentCreateModel> paymentCreateModelValidator)
+        public ReservationController(IReservationService reservationService, IRoomService roomService, IMapper mapper, IValidator<BookRoomModel> bookRoomModelValidator, IValidator<GuestInfoCreateModel> guestInfoValidator, IValidator<CustomerCreateModel> customerValidator, ICustomerService customerService, IGuestInfoService guestInfoService, IReservationOptionService reservationOptionService, IValidator<PaymentCreateModel> paymentCreateModelValidator, IPaymentTypeService paymentTypeService)
         {
             _reservationService = reservationService;
             _roomService = roomService;
@@ -44,6 +45,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             _guestInfoService = guestInfoService;
             _reservationOptionService = reservationOptionService;
             _paymentCreateModelValidator = paymentCreateModelValidator;
+            _paymentTypeService = paymentTypeService;
         }
 
         public IActionResult Index()
@@ -174,10 +176,14 @@ namespace NZHotel.UI.Areas.Reception.Controllers
                 {
                     HttpContext.Session.SetString("customerID",customer.TurkishIDNo);
                 }
-                HttpContext.Session.SetString("customerID", customer.PassportNo);
+                else
+                {
+                    HttpContext.Session.SetString("customerID", customer.PassportNo);
+                }
+               
                 await _customerService.Create(_mapper.Map<CustomerCreateDto>(customer));
                 HttpContext.Session.SetString("guestInformation", JsonConvert.SerializeObject(_mapper.Map<List<GuestInfoCreateDto>>(guestInformation)));
-                return RedirectToAction("CreateReservation");
+                return RedirectToAction("Payment");
             }
             else
             {
@@ -199,12 +205,24 @@ namespace NZHotel.UI.Areas.Reception.Controllers
 
         }
 
-        public IActionResult Payment()
+        public async Task<IActionResult> Payment()
         {
-           var totalAmount =Convert.ToDecimal( HttpContext.Session.GetString("totalAmount"));
+            var totalAmount = Convert.ToDecimal(HttpContext.Session.GetString("totalAmount"));
+            ViewBag.TotalAmount = totalAmount;
+            var items = Enum.GetValues(typeof(PaymentType));
+            var list = new List<PaymentTypeListDto>();
+            foreach (int item in items)   //3,4,5
+            {
+                list.Add(new PaymentTypeListDto
+                {
+                    Id = item,
+                    Definition = Enum.GetName(typeof(PaymentType), item) //return card, cash ,paylater
+                });
+            }
+            ViewBag.PaymentTypes = new SelectList(list,"Id","Definition");
 
-            var tuble = (new PaymentCreateModel { TotalAmount = totalAmount }, new ReservationCreateDto());
-            return View(tuble);
+            var tuble2 = (new PaymentCreateModel { TotalAmount=totalAmount}, new ReservationCreateDto());
+            return View(tuble2);
         }
 
         [HttpPost]
@@ -245,6 +263,11 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             {
                 ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
             }
+
+            var response1 = await _paymentTypeService.GetAllAsync();
+            ViewBag.PaymentTypes = new SelectList(response1.Data.AsEnumerable(), "Id", "Definition");
+            ViewBag.TotalAmount = payment.TotalAmount;
+
             return View(payment);
         }
           
