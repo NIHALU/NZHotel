@@ -205,7 +205,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
 
         }
 
-        public async Task<IActionResult> Payment()
+        public IActionResult Payment()
         {
             var totalAmount = Convert.ToDecimal(HttpContext.Session.GetString("totalAmount"));
             ViewBag.TotalAmount = totalAmount;
@@ -221,12 +221,12 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             }
             ViewBag.PaymentTypes = new SelectList(list,"Id","Definition");
 
-            var tuble2 = (new PaymentCreateModel { TotalAmount=totalAmount}, new ReservationCreateDto());
-            return View(tuble2);
+            var tuble = (new PaymentCreateModel { TotalAmount=totalAmount}, new ReservationCreateDto());
+            return View(tuble);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Payment([Bind(Prefix = "Item1")]PaymentCreateModel payment, [Bind(Prefix = "Item2")]ReservationCreateDto reservation)
+        public async Task<IActionResult> Payment([Bind(Prefix = "Item1")] PaymentCreateModel payment, [Bind(Prefix = "Item2")] ReservationCreateDto reservation)
         {
             var result = _paymentCreateModelValidator.Validate(payment);
             if (result.IsValid)
@@ -268,7 +268,21 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             ViewBag.PaymentTypes = new SelectList(response1.Data.AsEnumerable(), "Id", "Definition");
             ViewBag.TotalAmount = payment.TotalAmount;
 
-            return View(payment);
+            var items = Enum.GetValues(typeof(PaymentType));
+            var list = new List<PaymentTypeListDto>();
+            foreach (int item in items)   //3,4,5
+            {
+                list.Add(new PaymentTypeListDto
+                {
+                    Id = item,
+                    Definition = Enum.GetName(typeof(PaymentType), item) //return card, cash ,paylater
+                });
+            }
+            ViewBag.PaymentTypes = new SelectList(list, "Id", "Definition");
+            var tuple = (payment,reservation);
+
+
+            return View(tuple);
         }
           
 

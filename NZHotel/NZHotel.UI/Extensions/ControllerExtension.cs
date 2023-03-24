@@ -36,7 +36,7 @@ namespace NZHotel.UI.Extensions
             if (response.ResponseType == ResponseType.ValidationError)
             {
                 controller.TempData["errorMessage"] = "Reservation creation time has expired.PLEASE TRY AGAIN.";
-                return controller.View(response.Data);
+                return controller.View();
             }
             if (string.IsNullOrWhiteSpace(controllerName))
             {

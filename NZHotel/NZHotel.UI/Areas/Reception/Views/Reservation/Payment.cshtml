@@ -1,7 +1,18 @@
-﻿@model (PaymentCreateModel Item1,ReservationCreateDto Item2)
+﻿@model (PaymentCreateModel payment,ReservationCreateDto reservation)
 
 
 <div class="container mt-5 px-5">
+	@{
+		if(TempData["errorMessage"] != null)
+		{
+			<div class="alert alert-danger d-flex align-items-center" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+  <div>
+     @TempData["errorMessage"]
+  </div>
+</div>
+		}
+	}
 
 	<div class="mb-4">
 
@@ -20,60 +31,66 @@
 		<div class="row">
 			<div class="col-md-8">
 				<div class="card p-3">
-					<h6 class="text-uppercase">Payment details</h6>
-					<div id="creditCardDiv">
-					<div class="inputbox mt-3"> <input type="text" name="name" class="form-control" asp-for=Item1.CreditCardHolder > <span>Name on card</span> </div>
-
-
-					<div class="row">
+					<h6 class="text-uppercase">Select Payment Type</h6>
+					<div class="row mt-3">
 						<div class="col-md-6">
-							<div class="inputbox mt-3 mr-2">
-								<input type="text" name="name" class="form-control" asp-for=Item1.CreditCardNo required="required"> <i class="fa fa-credit-card"></i> <span>Card Number</span>
-							</div>
+							<select onchange="setInputVisibility()" class="form-select" asp-items="@ViewBag.PaymentTypes" asp-for="payment.PaymentTypeId">
+								<option value="0">Choose Payment Option</option>
+							</select>
+							<span asp-validation-for="payment.PaymentTypeId" class="text-danger"></span>
 						</div>
 
-						<div class="col-md-6">
-							<div class="d-flex flex-row">
-								<div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" asp-for="Item1.CreditCardExpire" > <span>Expiry</span> </div>
 
-								<div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" asp-for="Item1.CreditCardCVC"> <span>CVV</span> </div>
-							</div>
+						<div class="col-md-6">
 						</div>
 					</div>
+
+					<div class="row mt-2">
+
+						<div id="dateDiv" class="col-md-6"  style="display:none">
+							<label>Expected Payment Date</label>
+							<div class="inputbox mt-3 mr-2"> <input type="date" asp-for="payment.ExpectedPaymentDate" class="form-control">  </div>
+						</div>
+
+
+						<div class="col-md-6">
+						</div>
+
+
+
+
 					</div>
 
 
 
 					<div class="mt-4 mb-4">
-						<h6 class="text-uppercase">Select Payment Type</h6>
-						<div class="row mt-3">
-							<div class="col-md-6">
-								<select onchange="setInputVisibility()" class="form-select" asp-items="@ViewBag.PaymentTypes" asp-for="Item1.PaymentTypeId" >
-									<option value="0">Choose Payment Option</option>
-								</select>
-								<span asp-validation-for="Item1.PaymentTypeId" class="text-danger"></span>
-							</div>
+						<h6 class="text-uppercase">Payment details</h6>
+						<div id="creditCardDiv" style="display:none">
+							<div class="inputbox mt-3"> <input type="text" class="form-control" asp-for="payment.CreditCardHolder"> <span>Name on card</span> </div>
+							 	<span asp-validation-for="payment.CreditCardHolder" class="text-danger"></span>
 
+							<div class="row">
+								<div class="col-md-6">
+									<div class="inputbox mt-3 mr-2">
+										<input type="text" class="form-control" asp-for="payment.CreditCardNo"> <i class="fa fa-credit-card"></i> <span>Card Number</span>
+											<span asp-validation-for="payment.CreditCardNo" class="text-danger"></span>
+									</div>
+									<span asp-validation-for="payment.CreditCardNo" class="text-danger"></span>
+								</div>
 
-							<div class="col-md-6">
+								<div class="col-md-6">
+									<div class="d-flex flex-row">
+										<div class="inputbox mt-3 mr-2"> <input type="text" class="form-control" asp-for="payment.CreditCardExpire"> <span>Expiry</span> </div>
+											<span asp-validation-for="payment.CreditCardExpire" class="text-danger"></span>
+
+										<div class="inputbox mt-3 mr-2"> <input type="text" class="form-control" asp-for="payment.CreditCardCVC"> <span>CVV</span> </div>
+											<span asp-validation-for="payment.CreditCardCVC" class="text-danger"></span>
+									</div>
+								</div>
 							</div>
 						</div>
 
-						<div  class="row mt-2">
 
-							<div id="dateDiv" class="col-md-6" style="display:none">
-								<label>Expected Payment Date</label>
-								<div class="inputbox mt-3 mr-2"> <input type="date" asp-for="Item1.ExpectedPaymentDate" name="name" class="form-control">  </div>
-							</div>
-
-
-							<div class="col-md-6">
-							</div>
-
-
-
-
-						</div>
 
 					</div>
 
@@ -112,32 +129,43 @@
 		</div>
 	</form>
 </div>
+
+<div class="text-danger" asp-validation-summary="All">
+		</div>
 <link href="~/css/payment.css" rel="stylesheet" />
 
 @section script{
 <script>
 	setInputVisibility();
 	function setInputVisibility(){
-		
-		var selectElement =document.getElementById("Item1_PaymentTypeId");
+
+		var selectElement =document.getElementById("Item1_PaymentTypeId");  //cash=3 card=4 paylater=5
 		var paymentStatusId= selectElement.value;
 		var dateDivElement= document.getElementById("dateDiv");
 		var cardDivElement=document.getElementById("creditCardDiv");
 		if(paymentStatusId==5)
 		{
 			dateDivElement.style.display="block";
+			cardDivElement.style.display="block";
+		}
+		
+		else if(paymentStatusId==4)
+		{
+            
+			cardDivElement.style.display="block";
+			dateDivElement.style.display="none";
+		}
+		
+		else if(paymentStatusId==3)
+		{
+			cardDivElement.style.display="none";
+			dateDivElement.style.display="none";
 		}
 		else{
 			dateDivElement.style.display="none";
-		}
-
-		if(paymentStatusId==3)
-		{
 			cardDivElement.style.display="none";
 		}
-		else{
-			cardDivElement.style.display="block";
-		}
+		
 	}
 </script>
 }

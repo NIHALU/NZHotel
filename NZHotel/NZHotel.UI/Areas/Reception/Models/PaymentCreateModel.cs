@@ -12,6 +12,7 @@ namespace NZHotel.UI.Areas.Reception.Models
         public string CreditCardExpire { get; set; }
         public string CreditCardCVC { get; set; }
         public DateTime? ExpectedPaymentDate { get; set; }
+        public string  Info { get; set; }
         
         public SelectList PaymentTypes { get; set; }
     }
