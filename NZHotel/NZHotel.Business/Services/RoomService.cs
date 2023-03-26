@@ -8,6 +8,7 @@ using NZHotel.Business.Interfaces;
 using NZHotel.Common;
 using NZHotel.DataAccess.UnitOfWork;
 using NZHotel.DTOs;
+using NZHotel.DTOs.BookRoomDtos;
 using NZHotel.Entities;
 
 namespace NZHotel.Business.Services
@@ -49,8 +50,8 @@ namespace NZHotel.Business.Services
             {
                 for (int i = 0; i < list.Length; i++)
                 {
-                    var room = await _uow.GetRepository<Room>().GetByFilterAsync(x => x.Id == list[i]);
-                    allRooms.Remove(room);   //we will get notbookedrooms
+                    Room room = await _uow.GetRepository<Room>().GetByFilterAsync(x => x.Id == list[i]);
+                    allRooms.RemoveAll(x=> x.Id==room.Id);   //we will get notbookedrooms
                 }
 
                 //şimdi gelen parametrelere göre(max adults vs ) kontrol etme
@@ -84,7 +85,51 @@ namespace NZHotel.Business.Services
           
         }
 
-     
+        public async Task<List<RoomListDto>> GetNotBookedRoomListForUpdate(BookRoomUpdateDto dto, params int[] list)
+        {
+            var query = _uow.GetRepository<Room>().GetQuery();
+            var allRooms = await query.Include(x => x.RoomStatus).Include(x => x.RoomType).Include(x => x.CleaningStatus).ToListAsync();
+            List<Room> availableRooms = new();
+            if (list.Length > 0)
+            {
+                for (int i = 0; i < list.Length; i++)
+                {
+                    Room room = await _uow.GetRepository<Room>().GetByFilterAsync(x => x.Id == list[i]);
+                    allRooms.RemoveAll(x => x.Id == room.Id);   //we will get notbookedrooms
+                }
+
+                //şimdi gelen parametrelere göre(max adults vs ) kontrol etme
+                foreach (var item in allRooms)
+                {
+                    if (item.MaxAdults >= dto.AdultNumber && item.MaxChildren >= dto.ChildNumber && item.MaxInfants >= dto.InfantNumber)
+                    {
+                        availableRooms.Add(item);
+                    }
+                }
+                return _mapper.Map<List<RoomListDto>>(availableRooms);
+            }
+            else
+            {
+                foreach (var item in allRooms)
+                {
+                    if (item.MaxAdults >= dto.AdultNumber && dto.ChildNumber == 0 && item.MaxInfants >= dto.InfantNumber)
+                    {
+                        availableRooms.Add(item);
+                    }
+                    else if (dto.ChildNumber > 0 && item.MaxAdults >= dto.AdultNumber && item.MaxInfants >= dto.InfantNumber)
+                    {
+                        if (item.MaxAdults >= (dto.ChildNumber + dto.AdultNumber))
+                        {
+                            availableRooms.Add(item);
+                        }
+                    }
+                }
+                return _mapper.Map<List<RoomListDto>>(availableRooms);
+            }
+
+        }
+
+
 
 
     }

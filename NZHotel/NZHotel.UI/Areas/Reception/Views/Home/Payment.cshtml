@@ -1,4 +1,4 @@
-﻿@model (PaymentCreateModel payment,ReservationCreateDto reservation)
+﻿@model (PaymentCreateModel payment,ReservationUpdateDto reservation)
 
 
 <div class="container mt-5 px-5">
@@ -26,8 +26,24 @@
 
 
 
-	<form asp-action="Payment" asp-controller="Reservation" method="post">
+	<form asp-action="Payment" asp-controller="Home" method="post">
 		<input type="hidden" asp-for="payment.TotalAmount" />
+		<input type="hidden" asp-for="payment.PaymentTypeId" />
+		<input type="hidden" asp-for="reservation.Id" />
+		<input type="hidden" asp-for="reservation.RoomId" />
+		<input type="hidden" asp-for="reservation.CustomerId" />
+		<input type="hidden" asp-for="reservation.TotalAmount" />
+		<input type="hidden" asp-for="reservation.PaymentStatusId" />
+		<input type="hidden" asp-for="reservation.PaymentTypeId" />
+		<input type="hidden" asp-for="reservation.StartingDate" />
+		<input type="hidden" asp-for="reservation.FinishingDate" />
+		<input type="hidden" asp-for="reservation.NumberofGuests" />
+		<input type="hidden" asp-for="reservation.PaymentDeadline" />
+		<input type="hidden" asp-for="reservation.ReservationCode" />
+		<input type="hidden" asp-for="reservation.NumberofDays" />
+		
+		
+
 		<div class="row">
 			<div class="col-md-8">
 				<div class="card p-3">
@@ -103,7 +119,7 @@
 					<span>Previous step</span>
 
 
-					<button type="submit" class="btn btn-success px-3">Pay $ @ViewBag.TotalAmount</button>
+					<button type="submit" class="btn btn-success px-3">Pay $ @ViewBag.DifferenceAmount</button>
 
 				</div>
 
@@ -169,3 +185,4 @@
 	}
 </script>
 }
+

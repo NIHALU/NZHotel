@@ -1,0 +1,78 @@
+﻿@model List<RoomListDto>
+<div class="container-fluid">
+	@{
+		if (Model?.Count > 0)
+		{
+			<table class="mt-3 table table-sm table-hover table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>No</th>
+						<th>Early Booking Discount Rate</th>
+						<th>New Total Amount</th>
+						<th>Discounted Total Price</th>
+						<th>Previous Total Amount</th>
+						<th>Paymet Difference</th>
+						<th>Max ADT</th>
+						<th>Max CHD</th>
+						<th>Max INF</th>
+						<th>Type </th>
+						<th>Bed Info</th>
+						<th>Status</th>
+						<th>Info</th>
+						<th>Cleaning</th>
+
+						<th>Process</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@foreach (var room in Model)
+					{
+						<tr>
+							<td>@room.Id</td>
+							<td> @room.RoomName</td>
+							<td> @room.RoomNo</td>
+							<td>@(room.EarlyBookingDisRate.ToString() + " %")</td>
+							@if (room.EarlyBookingDisRate != 0)
+							{
+								<td><del>@(room.MainAmount.ToString() + " $")</del></td>
+								<td>@(room.DiscountedAmount.ToString() + " $")</td>
+							}
+							else
+							{
+								<td>@(room.MainAmount.ToString() + " $")</td>
+								<td> @(room.DiscountedAmount.ToString() + " $")</td>
+							}
+							<td> @(ViewBag.OldAmount.ToString() + " $")</td>
+		                    <td> <span> @(room.PaymentDifference.ToString() + " $")</span> </td>
+							<td> @room.MaxAdults</td>
+							<td> @room.MaxChildren</td>
+							<td> @room.MaxInfants</td>
+							<td> @room.RoomType.Definition</td>
+							<td> @room.BedInfo</td>
+							<td> @room.RoomStatus.Definition</td>
+							<td> @room.Info</td>
+							<td> @room.CleaningStatus.Definition</td>
+
+							<td>
+								<a asp-action="Payment" asp-controller="Home" asp-route-differenceAmount="@room.PaymentDifference" asp-route-roomId="@room.Id"> Select Room </a>
+
+							</td>
+
+
+						</tr>
+					}
+				</tbody>
+
+			</table>
+		}
+		else
+		{
+			<div class="text-center my-3 p-1">
+				There is No Room Data For Now.
+			</div>
+		}
+	}
+</div>

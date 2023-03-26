@@ -18,6 +18,8 @@ namespace NZHotel.DTOs
         public int Age { get; set; }
 
         public int GuestTypeId { get; set; }
+        public GuestTypeListDto GuestType { get; set; }
         public int ReservationId { get; set; }
+        public ReservationListDto Reservation{ get; set; }
     }
 }

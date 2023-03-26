@@ -16,9 +16,10 @@ namespace NZHotel.DTOs
         public DateTime FinishingDate { get; set; }
         public DateTime? PaymentDeadline { get; set; }
         public decimal TotalAmount { get; set; }
-        public bool Active { get; set; } 
+        public bool Active { get; set; }
+        public string ReservationCode { get; set; }
 
-       
+
         public int RoomId { get; set; }
     
         public int CustomerId { get; set; }

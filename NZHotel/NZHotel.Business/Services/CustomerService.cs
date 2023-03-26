@@ -31,7 +31,7 @@ namespace NZHotel.Business.Services
 
         public async Task<CustomerListDto> GetCustomer(string customerID)
         {
-            var customer = await _uow.GetRepository<Customer>().GetByFilterFirstAsync(x => x.PassportNo == customerID || x.PassportNo==customerID );
+            var customer = await _uow.GetRepository<Customer>().GetByFilterFirstAsync(x => x.TurkishIDNo == customerID || x.PassportNo==customerID );
             return _mapper.Map<CustomerListDto>(customer);
         }
     }

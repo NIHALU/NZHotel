@@ -60,7 +60,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             {
                 ReservationOptions = new SelectList(response.Data, "Id", "Definition"),
                 StartingDate = DateTime.Today,
-                FinisingDate = DateTime.Today.AddDays(1),
+                FinishingDate = DateTime.Today.AddDays(1),
 
             };
 
@@ -142,9 +142,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
 
                 }
             }
-
             var tuple = (adultList, childrenList, infantList, new CustomerCreateModel());
-
             return View(tuple);
 
         }
@@ -172,15 +170,14 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             var result2 = _customerValidator.Validate(customer);
             if (guestInformation.Count == guestValidResults.Count && result2.IsValid)
             {
-                if (customer.IsNoTurkishCitizen==false)
+                if (customer.IsNoTurkishCitizen == false)
                 {
-                    HttpContext.Session.SetString("customerID",customer.TurkishIDNo);
+                    HttpContext.Session.SetString("customerID", customer.TurkishIDNo);
                 }
                 else
                 {
                     HttpContext.Session.SetString("customerID", customer.PassportNo);
                 }
-               
                 await _customerService.Create(_mapper.Map<CustomerCreateDto>(customer));
                 HttpContext.Session.SetString("guestInformation", JsonConvert.SerializeObject(_mapper.Map<List<GuestInfoCreateDto>>(guestInformation)));
                 return RedirectToAction("Payment");
@@ -198,7 +195,6 @@ namespace NZHotel.UI.Areas.Reception.Controllers
 
                 }
             }
-
             var tuple = (adults, children, infants, customer);
             return View(tuple);
 
@@ -219,9 +215,9 @@ namespace NZHotel.UI.Areas.Reception.Controllers
                     Definition = Enum.GetName(typeof(PaymentType), item) //return card, cash ,paylater
                 });
             }
-            ViewBag.PaymentTypes = new SelectList(list,"Id","Definition");
+            ViewBag.PaymentTypes = new SelectList(list, "Id", "Definition");
 
-            var tuble = (new PaymentCreateModel { TotalAmount=totalAmount}, new ReservationCreateDto());
+            var tuble = (new PaymentCreateModel { TotalAmount = totalAmount }, new ReservationCreateDto());
             return View(tuble);
         }
 
@@ -231,29 +227,31 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             var result = _paymentCreateModelValidator.Validate(payment);
             if (result.IsValid)
             {
-               var customer = await _customerService.GetCustomer(HttpContext.Session.GetString("customerID"));
-                if (payment.PaymentTypeId==(int)PaymentType.PayLater)
+                var customer = await _customerService.GetCustomer(HttpContext.Session.GetString("customerID").ToString());
+                if (payment.PaymentTypeId == (int)PaymentType.PayLater)
                 {
                     reservation.PaymentStatusId = (int)PaymentStatus.NonPaid;
-                  
+
                 }
-                reservation.PaymentStatusId=(int)PaymentStatus.Paid;
+                reservation.PaymentStatusId = (int)PaymentStatus.Paid;
                 reservation.PaymentTypeId = payment.PaymentTypeId;
                 var selectedRoomId = Convert.ToInt32(HttpContext.Session.GetString("selectedRoomId"));
-                var value = HttpContext.Session.GetString("BookRoomDto");
-                var bookRoom = JsonConvert.DeserializeObject<BookRoomCreateDto>(value);
+
+                var bookRoom = JsonConvert.DeserializeObject<BookRoomCreateDto>(HttpContext.Session.GetString("bookRoomDto"));
+
                 reservation.RoomId = selectedRoomId;
                 reservation.StartingDate = bookRoom.StartingDate;
-                reservation.FinishingDate = bookRoom.FinisingDate;
-                reservation.NumberofDays=bookRoom.NumberofDays;
+                reservation.FinishingDate = bookRoom.FinishingDate;
+                reservation.NumberofDays = bookRoom.NumberofDays;
                 reservation.NumberofGuests = bookRoom.AdultNumber + bookRoom.ChildNumber + bookRoom.InfantNumber;
                 reservation.PaymentDeadline = payment.ExpectedPaymentDate;
                 reservation.ReservationOptionId = bookRoom.ReservationOptionId;
                 reservation.TotalAmount = payment.TotalAmount;
                 reservation.ReservationTypeId = (int)ReservationType.CallCenter;
-                reservation.CustomerId=customer.Id;
+                reservation.CustomerId = customer.Id;
+                reservation.ReservationCode = bookRoom.StartingDate.Day.ToString() + bookRoom.StartingDate.Month.ToString() + bookRoom.StartingDate.Year.ToString() + reservation.RoomId.ToString();
                 reservation.Active = true;
-                
+
 
                 var response = await _reservationService.CreateReservation(reservation);
                 return this.ResponseRedirectActionForReservation(response, "CreatedReservation");
@@ -264,8 +262,6 @@ namespace NZHotel.UI.Areas.Reception.Controllers
                 ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
             }
 
-            var response1 = await _paymentTypeService.GetAllAsync();
-            ViewBag.PaymentTypes = new SelectList(response1.Data.AsEnumerable(), "Id", "Definition");
             ViewBag.TotalAmount = payment.TotalAmount;
 
             var items = Enum.GetValues(typeof(PaymentType));
@@ -279,30 +275,44 @@ namespace NZHotel.UI.Areas.Reception.Controllers
                 });
             }
             ViewBag.PaymentTypes = new SelectList(list, "Id", "Definition");
-            var tuple = (payment,reservation);
+            var tuple = (payment, reservation);
 
 
             return View(tuple);
         }
-          
+
 
         public async Task<IActionResult> CreatedReservation()
         {
             var selectedRoomId = Convert.ToInt32(HttpContext.Session.GetString("selectedRoomId"));
-            var value1 = HttpContext.Session.GetString("BookRoomDto");
+            var value1 = HttpContext.Session.GetString("bookRoomDto");
             var bookRoom = JsonConvert.DeserializeObject<BookRoomCreateDto>(value1);
             var reservation = await _reservationService.GetReservation(bookRoom, selectedRoomId);
+
+            CreatedReservationModel model = new() {
+                StartingDate = reservation.StartingDate.ToString("d"),
+                FinishingDate = reservation.FinishingDate.ToString("d"),
+                ReservationCode = reservation.ReservationCode,
+                NZEmail = "info.nzhotel@gmail.com",
+                NZPhone = "(+90) 533 665 81 81",
+             
+            };
             var value2 = HttpContext.Session.GetString("guestInformation");
             var guestInformation = JsonConvert.DeserializeObject<List<GuestInfoCreateDto>>(value2);
             foreach (var guestInfo in guestInformation)
             {
                 guestInfo.ReservationId = reservation.Id;
+                guestInfo.GuestTypeId=guestInfo.GuestTypeId;
                 await _guestInfoService.Create(guestInfo);
             }
             HttpContext.Session.Clear();
-            return View();
+            
+            return View(model);
         }
 
-
+        public async Task<IActionResult> TermsAndCondition()
+        {
+            return View();
+        }
     }
 }

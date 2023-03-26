@@ -23,6 +23,8 @@ namespace NZHotel.Business.ValidationRules
             RuleFor(x => x.ReservationTypeId).NotEmpty();
             RuleFor(X => X.TotalAmount).NotEmpty();
             RuleFor(x =>x.PaymentStatusId).NotEmpty();
+            RuleFor(x => x.ReservationCode).NotEmpty();
+
         }
     }
 }

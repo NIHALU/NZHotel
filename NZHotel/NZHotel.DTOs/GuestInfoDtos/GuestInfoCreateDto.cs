@@ -18,5 +18,6 @@ namespace NZHotel.DTOs
 
         public int GuestTypeId { get; set; }
         public int ReservationId { get; set; }
+        public DateTime CreateDate { get; set; }=DateTime.Now;
     }
 }

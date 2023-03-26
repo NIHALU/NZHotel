@@ -1,0 +1,42 @@
+﻿@model BookRoomUpdateModel
+
+<div class="container">
+        <div class="card p-2 w-75 mx-auto" >
+            <div class="card-header">
+                <h5 class="card-title">Update Reservation</h5>
+            </div>
+            <form asp-action="BookRoomUpdate" asp-controller="Home" method="post" >
+                <input type="hidden" asp-for="@Model.RoomId"/>
+                <input type="hidden" asp-for="@Model.ReservationId"/>
+                <input type="hidden" asp-for="@Model.AdultNumber"/>
+                <input type="hidden" asp-for="@Model.ChildNumber"/>
+                <input type="hidden" asp-for="@Model.InfantNumber"/>
+                <input type="hidden" asp-for="@Model.OldAmount"/>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label asp-for="@Model.StartingDate" >Enterance Date</label>
+                        <input type="date" asp-for="@Model.StartingDate" class="form-control" placeholder="Enterance Date" />
+                        <span asp-validation-for="@Model.StartingDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.FinishingDate">Exist Date</label>
+                        <input type="date" asp-for="@Model.FinishingDate" class="form-control" placeholder="Exist Date" />
+                        <span asp-validation-for="@Model.FinishingDate" class="text-danger"></span>
+                    </div>
+                  
+                	<div class="my-3">
+			<select class="form-select" asp-items="@Model.ReservationOptions" asp-for="@Model.ReservationOptionId">
+				<option value="0">Choose Reservation Option</option>
+			</select>
+               <span asp-validation-for="@Model.ReservationOptionId" class="text-danger"></span>
+		</div>
+                <div class="card-footer mb-3">
+                    <div class="form-group ">
+                        <input type="submit" value="Check Availability" class="btn btn-outline-success btn-sm float-right" />
+                        <a asp-action="List" class="btn btn-outline-info btn-sm float-left">Back To List</a>
+                    </div>
+                </div>
+                </div>
+            </form>
+        </div>
+</div>

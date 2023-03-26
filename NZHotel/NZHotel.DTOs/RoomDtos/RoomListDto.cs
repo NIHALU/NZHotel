@@ -28,6 +28,8 @@ namespace NZHotel.DTOs
         public decimal EarlyBookingDisRate { get; set; }
         public decimal DiscountedAmount => MainAmount - (MainAmount * (EarlyBookingDisRate / 100));
 
+        public decimal PaymentDifference { get; set; }
+
 
         public decimal CalculateMainAmount(int childrenCount, int infantCount, int numberofDays)
         {
@@ -59,6 +61,14 @@ namespace NZHotel.DTOs
             //ne çocuk ne infant var sadece adult
             return roomPrice * numberofDays;
 
+        }
+
+        public decimal CalculatePaymentDifference(decimal oldAmount)
+        {
+            decimal paymentDifference = 0;
+            
+           return paymentDifference = Convert.ToDecimal((DiscountedAmount - oldAmount)/100);
+           
         }
 
 

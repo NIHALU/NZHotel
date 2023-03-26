@@ -16,6 +16,9 @@ namespace NZHotel.Entities
         public DateTime? PaymentDeadline { get; set; }
         public decimal TotalAmount { get; set; }
         public bool Active { get; set; } = true;
+        public string ReservationCode { get; set; }
+
+
 
         //Navigational Prop Begins
         public int RoomId { get; set; }
@@ -28,24 +31,24 @@ namespace NZHotel.Entities
         public PaymentStatus PaymentStatus { get; set; }
         public int ReservationTypeId { get; set; }
         public ReservationType ReservationType { get; set; }
-
         public PaymentType PaymentType { get; set; }
         public int PaymentTypeId { get; set; }
         public List<GuestReservation> GuestReservations { get; set; }
         public List<GuestInfo> GuestInformation { get; set; }
 
 
-        public bool InStart(DateTime enterance, DateTime exit)//False
+
+        public bool InStart(DateTime enterance, DateTime exit)
         {
-            return (StartingDate.Date < enterance.Date) && (exit.Date <= StartingDate.Date);
+            if ( exit.Date <= StartingDate.Date || enterance.Date >= FinishingDate.Date)
+            {
+                return true;
+            }
+            else //(exit.Date > StartingDate.Date || enterance.Date < FinishingDate.Date)
+            {
+                return false; 
+            }
         }
-        public bool InFinish(DateTime enterance, DateTime exit)//False 
-        {
-            return (FinishingDate.Date <= enterance.Date) && (exit.Date < FinishingDate.Date);
-        }
-
-
-
 
 
 

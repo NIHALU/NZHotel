@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NZHotel.Common;
 using NZHotel.Common.Enums;
 using NZHotel.DTOs;
+using NZHotel.DTOs.BookRoomDtos;
 using NZHotel.Entities;
 
 namespace NZHotel.Business.Interfaces
@@ -17,7 +18,9 @@ namespace NZHotel.Business.Interfaces
         Task<RoomListDto> GetFilteredRoom(int number);
 
         Task<List<RoomListDto>> GetNotBookedRoomList(BookRoomCreateDto dto,params int[] list);
-       
+        Task<List<RoomListDto>> GetNotBookedRoomListForUpdate(BookRoomUpdateDto dto, params int[] list);
+
+
     }
         
 }
