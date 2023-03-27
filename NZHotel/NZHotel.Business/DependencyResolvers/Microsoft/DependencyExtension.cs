@@ -8,6 +8,7 @@ using NZHotel.Business.ValidationRules;
 using NZHotel.DataAccess.Contexts;
 using NZHotel.DataAccess.UnitOfWork;
 using NZHotel.DTOs;
+using NZHotel.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,6 +63,15 @@ namespace NZHotel.Business.DependencyResolvers.Microsoft
             services.AddTransient<IValidator<PaymentTypeCreateDto>, PaymentTypeCreateDtoValidator>();
             services.AddTransient<IValidator<PaymentTypeUpdateDto>, PaymentTypeUpdateDtoValidator>();
 
+            services.AddTransient<IValidator<GuestTypeCreateDto>, GuestTypeCreateDtoValidator>();
+            services.AddTransient<IValidator<GuestTypeUpdateDto>, GuestTypeUpdateDtoValidator>();
+
+            services.AddTransient<IValidator<GenderCreateDto>, GenderCreateDtoValidator>();
+            services.AddTransient<IValidator<GenderUpdateDto>, GenderUpdateDtoValidator>();
+
+            services.AddTransient<IValidator<GuestReservationCreateDto>, GuestReservationCreateDtoValidator>();
+            services.AddTransient<IValidator<GuestReservationUpdateDto>, GuestReservationUpdateDtoValidator>();
+
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IRoomDetailService, RoomDetailService>();
             services.AddScoped<IRoomStatusService, RoomStatusService>();
@@ -73,6 +83,10 @@ namespace NZHotel.Business.DependencyResolvers.Microsoft
             services.AddScoped<IGuestService,GuestService>();
             services.AddScoped<IGuestInfoService,GuestInfoService>();
             services.AddScoped<IPaymentTypeService, PaymentTypeService>();
+            services.AddScoped<IGuestTypeService, GuestTypeService>();
+            services.AddScoped<IGenderService, GenderService>();
+            services.AddScoped<IGuestReservationService, GuestReservationService>();
+
 
 
 

@@ -1,0 +1,82 @@
+﻿@model List<GuestReservationListDto>
+
+	<h3 class="bg-dark my-3 text-white text-center">Check In & Out List</h3>
+		<div class="container-fluid">
+	@{
+	if (Model?.Count >= 0)
+	{
+		<table id="myTable" class="mt-3 table table-sm table-hover table-striped">
+	        <thead>
+				<tr>
+				   <th>Id</th>
+				   <th>Re-Code</th>
+				   <th>Gue-FullName</th>
+				   <th>Gue-Identity</th>
+				   <th>Ro-No </th>
+				   <th>Check In Time </th>
+				   <th>Check In Time</th>
+				   <th>Process</th>
+
+
+				</tr>
+			</thead>
+
+			<tbody>
+			@foreach(var checkInOut in Model)
+				{
+				<tr>
+				   <td>@checkInOut.Id</td>
+				   <td> @checkInOut.Reservation.ReservationCode</td>
+				   <td> @(checkInOut.Guest.Name +" "+checkInOut.Guest.Surname)</td>
+				   if(checkInOut.Guest.IsNoTurkishCitizen==false)
+				   {
+					 <td> @checkInOut.Guest.IdentityNumber</td>
+				   }
+				   else
+				  {
+					<td> @checkInOut.Guest.PassportNumber</td>
+				  }
+
+				   <td> @checkInOut.Reservation.Room.RoomNo</td>
+				   <td> @checkInOut.CheckInTime</td>
+				   <td> @checkInOut.CheckOutTime</td>
+
+				   <td>
+				       <a asp-action="" asp-controller="Guest" asp-route-roomId="@checkInOut.Reservation.RoomId"> Entrance To Room </a>
+				       <a asp-action="CheckInOutUpdate" asp-controller="Guest" asp-route-checkInOutId="@checkInOut.Id"> Update </a>
+				    
+				   </td>
+
+
+				</tr>
+				}
+			</tbody>
+
+		</table>
+	}
+	else
+	{
+	  <div class="text-center my-3 p-1">	 
+	     There is No Room Data For Now. 
+	  </div>
+	}
+}
+</div>
+
+
+
+
+
+
+
+
+@section script{
+   <script>
+
+	   //$('#myTable').DataTable();
+	let table = new DataTable('#myTable');
+
+
+	</script>
+}
+

@@ -8,7 +8,7 @@ namespace NZHotel.Entities
 {
     public class GuestType:BaseEntity
     {
-        public string Definiton { get; set; }
+        public string Definition { get; set; }
 
         public List<Guest> Guests { get; set; }
 

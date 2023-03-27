@@ -26,7 +26,10 @@ namespace NZHotel.Business.Helpers
                 new PaymentTypeProfile(),
                 new PaymentStatusProfile(),
                 new ReservationTypeProfile(),
-                new GuestTypeProfile()
+                new GuestTypeProfile(),
+                new GenderProfile(),
+                new GuestReservationProfile(),
+
             };
         }
     }

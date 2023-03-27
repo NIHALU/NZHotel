@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using NZHotel.Business.Interfaces;
 using NZHotel.DataAccess.UnitOfWork;
 using NZHotel.DTOs;
@@ -31,6 +32,24 @@ namespace NZHotel.Business.Services
                 await _uow.SaveChangesAsync();
             }
      
+        }
+
+        public List<GuestListDto> Getlist()
+        {
+            var query = _uow.GetRepository<Guest>().GetQuery();
+            var list = query.Include(x => x.GuestType).Include(x => x.Gender).Include(x => x.GuestReservations).ToList();
+            return _mapper.Map<List<GuestListDto>>(list);
+        }
+
+        public bool VisitedBefore(int id)
+        {
+            var query = _uow.GetRepository<Guest>().GetQuery();
+            var visitCount = query.Include(x => x.GuestReservations.Where(x => x.GuestId == id)).ToList().Count();
+            if (visitCount>0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

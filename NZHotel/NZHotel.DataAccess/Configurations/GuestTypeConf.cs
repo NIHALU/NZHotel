@@ -13,7 +13,7 @@ namespace NZHotel.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<GuestType> builder)
         {
-            builder.Property(x => x.Definiton).HasMaxLength(30).IsRequired();
+            builder.Property(x => x.Definition).HasMaxLength(30).IsRequired();
             builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
         }
     }

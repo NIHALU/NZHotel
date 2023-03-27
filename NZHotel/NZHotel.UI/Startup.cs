@@ -64,6 +64,7 @@ namespace NZHotel.UI
             profiles.Add(new GuestInfoCreateModelProfile());
 
             profiles.Add(new BookRoomUpdateModelProfile());
+
             profiles.Add(new GuestCreateModelProfile());
 
 

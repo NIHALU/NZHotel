@@ -23,9 +23,9 @@ namespace NZHotel.Entities
         
 
         //lookup
-        public int? GuestTypeId { get; set; }
+        public int GuestTypeId { get; set; }
         public GuestType GuestType { get; set; }
-        public int? GenderId { get; set; }
+        public int GenderId { get; set; }
         public Gender Gender { get; set; }
         public List<GuestReservation> GuestReservations { get; set; } = new();
 

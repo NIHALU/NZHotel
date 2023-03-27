@@ -1,0 +1,47 @@
+﻿@model GuestReservationCreateDto
+<div class="dummy mt-5"></div>
+
+<h3 class="bg-dark text-white text-center">Check In & Out</h3>
+
+<div class="card p-2 w-75 mx-auto">
+	<div class="card-header">
+		<h5 class="card-title">Book A Room</h5>
+	</div>
+
+	<form asp-action="CheckIn" asp-controller="Guest" method="post" >
+		<input type="hidden" asp-for="@Model.GuestId" />
+		<div class="card-body">
+			<div class="form-group mb-3">
+				<label>Reservation Code:</label>
+				<input type="text" class="form-control" asp-for="@Model.ReservationCode" />
+				<span asp-validation-for="@Model.ReservationCode" class="text-danger"></span>
+			</div>
+
+			<div class="form-group mb-3">
+				<label asp-for="@Model.CheckInTime">Check-In Time:</label>
+				<input type="datetime" asp-for="@Model.CheckInTime" class="form-control" placeholder="Check In Date" />
+				<span asp-validation-for="@Model.CheckInTime" class="text-danger"></span>
+			</div>
+
+			<div class="form-group mb-3">
+				<label asp-for="@Model.CheckOutTime">Check-Out Time:</label>
+				<input type="datetime" asp-for="@Model.CheckOutTime" class="form-control" placeholder="Check Out Date" />
+				<span asp-validation-for="@Model.CheckOutTime" class="text-danger"></span>
+			</div>
+
+	
+
+		<div class="card-footer mb-3">
+			<div class="text-end">
+				<button type="submit" class="btn btn-primary"> Save</button>
+			</div>
+		</div>
+		</div>
+		<div class="text-danger" asp-validation-summary="All">
+		</div>
+
+	</form>
+</div>
+<div class="dummy mb-5"></div>
+
+

@@ -226,7 +226,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             var value = HttpContext.Session.GetString("bookRoomUpdateDto");
             var result = JsonConvert.DeserializeObject<BookRoomUpdateDto>(value);
             var response = await _reservationService.GetByIdAsync<ReservationUpdateDto>(result.ReservationId);
-
+            
             CreatedReservationModel model = new()
             {
                 StartingDate = response.Data.StartingDate.ToString("d"),

@@ -1,6 +1,8 @@
 ﻿@model GuestCreateModel
 <div class="dummy mt-5"></div>
-<div class="mt-4">
+
+<h3 class="bg-dark text-white text-center">Guest Create</h3>
+<div class="mt-3">
 	<form asp-action="Create" asp-controller="Guest" method="post" class="p-5 w-75 mx-auto" >
 		<div class="mb-3">
 			<label>Guest Name:</label>
@@ -58,7 +60,7 @@
 		</div>
 		<div class="mb-3">
 			<select class="form-select" asp-items="@Model.GuestTypes" asp-for="@Model.GuestTypeId">
-				<option value="0">Choose Guest's Gender</option>
+				<option value="0">Choose Guest Type</option>
 			</select>
 				<span asp-validation-for="@Model.GuestTypeId" class="text-danger"></span>
 		</div>

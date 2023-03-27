@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace NZHotel.UI.Areas.Reception.Controllers
 {
+    [Area("Reception")]
     public class GuestController : Controller
     {
         private readonly IGuestTypeService _guestTypeService;
@@ -18,13 +19,17 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         private readonly IGuestService _guestService;
         private readonly IValidator<GuestCreateModel> _guestCreateValidator;
         private readonly IMapper _mapper;
-        public GuestController(IGuestTypeService guestTypeService, IGenderService genderService, IGuestService guestService, IMapper mapper, IValidator<GuestCreateModel> guestCreateValidator)
+        private readonly IGuestReservationService _guestReservationService;
+        private readonly IReservationService _reservationService;
+        public GuestController(IGuestTypeService guestTypeService, IGenderService genderService, IGuestService guestService, IMapper mapper, IValidator<GuestCreateModel> guestCreateValidator, IGuestReservationService guestReservationService, IReservationService reservationService)
         {
             _guestTypeService = guestTypeService;
             _genderService = genderService;
             _guestService = guestService;
             _mapper = mapper;
             _guestCreateValidator = guestCreateValidator;
+            _guestReservationService = guestReservationService;
+            _reservationService = reservationService;
         }
 
         public IActionResult Index()
@@ -70,10 +75,48 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> List()
+        public IActionResult List()
         {
-            var list = await _guestService.GetAllAsync();
+            var list =  _guestService.Getlist();
+            foreach (var item in list)
+            {
+                var visitedBefore =  _guestService.VisitedBefore(item.Id);
+                item.VisitedBefore=visitedBefore;
+            }
+            
             return View(list);
         }
+
+        public IActionResult CheckIn(int guestId)
+        {
+            GuestReservationCreateDto guestReservationCreateDto = new GuestReservationCreateDto()
+            {
+                 GuestId = guestId,
+            };
+              
+            return View(guestReservationCreateDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckIn(GuestReservationCreateDto dto)
+        {
+            var response = await _reservationService.GetReservation(dto.ReservationCode);
+            dto.ReservationId=response.Data.Id;
+            var response2 = await _guestReservationService.CreateAsync(dto);
+            return this.ResponseRedirectAction(response, "CheckInOutList");
+
+        }
+
+        public async Task<IActionResult> CheckInOutList()
+        {
+            var list = await _guestReservationService.CheckInOutList();
+            return View(list);
+         
+        }
+
+
+
+
+
     }
 }

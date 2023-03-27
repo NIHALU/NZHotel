@@ -37,10 +37,10 @@ namespace NZHotel.Business.Services
         public async Task<ArrayList> GetBookedRoomList(BookRoomCreateDto dto)
         {
             ArrayList bookedRooms = new ArrayList();
-            var reservationlist = await _uow.GetRepository<Reservation>().GetAllAsync(x =>x.Active==true);
-            if (reservationlist.Count>0)
+            var reservationlist = await _uow.GetRepository<Reservation>().GetAllAsync(x => x.Active == true);
+            if (reservationlist.Count > 0)
             {
-                
+
                 foreach (var reservation in reservationlist)
                 {
                     var start = reservation.InStart(dto.StartingDate, dto.FinishingDate);
@@ -77,7 +77,7 @@ namespace NZHotel.Business.Services
         public async Task<bool> CheckReservation(ReservationCreateDto dto)
         {
             ArrayList bookedRooms = new ArrayList();
-            var reservationlist = await  _uow.GetRepository<Reservation>().GetAllAsync(x => x.Active == true);
+            var reservationlist = await _uow.GetRepository<Reservation>().GetAllAsync(x => x.Active == true);
             if (reservationlist.Count > 0)
             {
 
@@ -89,7 +89,7 @@ namespace NZHotel.Business.Services
                         bookedRooms.Add(reservation.RoomId);
 
                     }
-  
+
                 }
                 if (bookedRooms.Contains(dto.RoomId))
                 {
@@ -98,7 +98,7 @@ namespace NZHotel.Business.Services
                 else
                 {
                     return true;
-                }   
+                }
             }
             return true;
         }
@@ -106,8 +106,8 @@ namespace NZHotel.Business.Services
         public async Task<bool> CheckUpdateReservation(ReservationUpdateDto dto)
         {
             ArrayList bookedRooms = new ArrayList();
-            var reservationlist = await _uow.GetRepository<Reservation>().GetAllAsync(x => x.Active == true && x.Id !=dto.Id);
-            
+            var reservationlist = await _uow.GetRepository<Reservation>().GetAllAsync(x => x.Active == true && x.Id != dto.Id);
+
             if (reservationlist.Count > 0)
             {
 
@@ -139,7 +139,7 @@ namespace NZHotel.Business.Services
             if (result.IsValid)
             {
                 var confirmed = await CheckReservation(dto);
-                if (confirmed==true)
+                if (confirmed == true)
                 {
                     var createdEntity = _mapper.Map<Reservation>(dto);
                     await _uow.GetRepository<Reservation>().CreateAsync(createdEntity);
@@ -148,18 +148,18 @@ namespace NZHotel.Business.Services
                 }
                 else
                 {
-                    return new Response<ReservationCreateDto>(ResponseType.NotFound,"Reservation has not been created!!");
+                    return new Response<ReservationCreateDto>(ResponseType.NotFound, "Reservation has not been created!!");
                 }
             }
             return new Response<ReservationCreateDto>(dto, result.ConvertToCustomValidationError());
         }
 
-       
-               
 
-        public async Task<ReservationListDto> GetReservation(BookRoomCreateDto dto,int roomId)
+
+
+        public async Task<ReservationListDto> GetReservation(BookRoomCreateDto dto, int roomId)
         {
-            var reservation = await _uow.GetRepository<Reservation>().GetByFilterFirstAsync(x => x.StartingDate==dto.StartingDate && x.FinishingDate==dto.FinishingDate && x.RoomId==roomId);
+            var reservation = await _uow.GetRepository<Reservation>().GetByFilterFirstAsync(x => x.StartingDate == dto.StartingDate && x.FinishingDate == dto.FinishingDate && x.RoomId == roomId);
             return _mapper.Map<ReservationListDto>(reservation);
         }
 
@@ -167,7 +167,7 @@ namespace NZHotel.Business.Services
         {
             var query = _uow.GetRepository<Reservation>().GetQuery();
             var list = await query.Include(x => x.Customer).Include(x => x.ReservationOption).Include(x => x.ReservationType).Include(x => x.Room).Include(x => x.PaymentStatus).Where(x => x.Active == true).ToListAsync();
-            var reservationList= _mapper.Map<List<ReservationListDto>>(list);
+            var reservationList = _mapper.Map<List<ReservationListDto>>(list);
             return new Response<List<ReservationListDto>>(ResponseType.Success, reservationList);
         }
 
@@ -182,11 +182,11 @@ namespace NZHotel.Business.Services
                 {
 
                     var updatedEntity = await _uow.GetRepository<Reservation>().FindAsync(dto.Id);
-                    if (updatedEntity==null)
+                    if (updatedEntity == null)
                     {
                         return new Response<ReservationUpdateDto>(ResponseType.NotFound, $"Data which has {dto.Id} cannot be found!");
                     }
-                    updatedEntity.UpdateDate=DateTime.Now;
+                    updatedEntity.UpdateDate = DateTime.Now;
                     _uow.GetRepository<Reservation>().Update(_mapper.Map<Reservation>(dto), updatedEntity);
                     await _uow.SaveChangesAsync();
                     return new Response<ReservationUpdateDto>(ResponseType.Success, dto);
@@ -199,6 +199,18 @@ namespace NZHotel.Business.Services
             return new Response<ReservationUpdateDto>(dto, result.ConvertToCustomValidationError());
         }
 
+        public async Task<IResponse<ReservationListDto>> GetReservation(string code)
+        {
+            var reservation = await _uow.GetRepository<Reservation>().GetByFilterAsync(x => x.ReservationCode == code);
+            if (reservation == null)
+            {
+                return new Response<ReservationListDto>(ResponseType.NotFound, $"Data which has {code} cannot be found!");
+            }
+            var dto = _mapper.Map<ReservationListDto>(reservation);
+            return new Response<ReservationListDto>(ResponseType.Success, dto);
+
+
+        }
     }
 }
 

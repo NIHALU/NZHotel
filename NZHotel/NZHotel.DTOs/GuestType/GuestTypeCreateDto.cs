@@ -9,7 +9,7 @@ namespace NZHotel.DTOs
 {
     public class GuestTypeCreateDto:IDto
     {
-        public int Id { get; set; }
+      
         public string Definition { get; set; }
     }
 }

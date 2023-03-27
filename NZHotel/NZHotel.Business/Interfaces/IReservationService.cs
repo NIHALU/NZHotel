@@ -21,6 +21,9 @@ namespace NZHotel.Business.Interfaces
         Task<IResponse<ReservationUpdateDto>> UpdateReservation(ReservationUpdateDto dto);
         Task<IResponse<List<ReservationListDto>>> GetActiveReservations();
         Task<ArrayList> GetBookedRoomListForUpdate(BookRoomUpdateDto dto);
-        
+
+        Task<IResponse<ReservationListDto>> GetReservation(string code);
+
+
     }
 }
