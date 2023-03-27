@@ -57,7 +57,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(RoomCreateViewModel model)
         {
-            RoomCreateDto dto1 = new();
+           
             var result = _roomCreateModelValidator.Validate(model);
             if (result.IsValid)
             {

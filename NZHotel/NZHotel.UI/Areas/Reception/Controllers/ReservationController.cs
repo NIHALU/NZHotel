@@ -249,7 +249,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
                 reservation.TotalAmount = payment.TotalAmount;
                 reservation.ReservationTypeId = (int)ReservationType.CallCenter;
                 reservation.CustomerId = customer.Id;
-                reservation.ReservationCode = bookRoom.StartingDate.Day.ToString() + bookRoom.StartingDate.Month.ToString() + bookRoom.StartingDate.Year.ToString() + reservation.RoomId.ToString();
+                reservation.ReservationCode ="NZ" + bookRoom.StartingDate.Day.ToString() + bookRoom.StartingDate.Month.ToString() + bookRoom.StartingDate.Year.ToString() + reservation.RoomId.ToString();
                 reservation.Active = true;
 
 

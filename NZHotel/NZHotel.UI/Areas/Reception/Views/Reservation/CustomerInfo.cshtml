@@ -7,7 +7,7 @@
 		@for (var i = 0; i < Model.adults.Count; i++)
 		{
 			<input type="hidden" asp-for="adults[i].GuestTypeId" />
-			<span class="mb-3 d-block p-2 bg-secondary text-white text-center ">ADULTS INFO</span>
+			<span class="mb-3 d-block p-2 bg-secondary text-white text-center ">ADULT @(i+1) INFO</span>
 			<div class="mb-3">
 				<label>Guest Name:</label>
 				<input type="text" class="form-control" asp-for="adults[i].Name" />
@@ -30,7 +30,7 @@
 			@for (var i = 0; i < Model.children.Count; i++)
 		{
 			<input type="hidden" asp-for="children[i].GuestTypeId" />
-			<span class="mb-3 d-block p-2 bg-primary text-white">CHILDREN @i INFO</span>
+			<span class="mb-3 d-block p-2 bg-primary text-white">CHILDREN @(i+1) INFO</span>
 			<div class="mb-3">
 				<label>Guest Name:</label>
 				<input type="text" class="form-control" asp-for="children[i].Name" />
@@ -53,7 +53,7 @@
 					@for (var i = 0; i < Model.infants.Count; i++)
 		{
 			<input type="hidden" asp-for="infants[i].GuestTypeId" />
-			<span class="mb-3 d-block p-2 bg-primary text-white">INFANTS INFO</span>
+			<span class="mb-3 d-block p-2 bg-primary text-white">INFANT @(i+1) INFO</span>
 			<div class="mb-3">
 				<label>Guest Name:</label>
 				<input type="text" class="form-control" asp-for="infants[i].Name" />

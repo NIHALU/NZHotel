@@ -43,7 +43,9 @@ namespace NZHotel.UI
             services.AddTransient<IValidator<BookRoomUpdateModel>, BookRoomUpdateModelValidator>();
             services.AddTransient<IValidator<GuestInfoCreateModel>, GuestInfoCreateModelValidator>();
             services.AddTransient<IValidator<PaymentCreateModel>, PaymentCreateModelValidator>();
-        
+            services.AddTransient<IValidator<GuestCreateModel>, GuestCreateModelValidator>();
+
+
 
 
 
@@ -62,6 +64,7 @@ namespace NZHotel.UI
             profiles.Add(new GuestInfoCreateModelProfile());
 
             profiles.Add(new BookRoomUpdateModelProfile());
+            profiles.Add(new GuestCreateModelProfile());
 
 
 
