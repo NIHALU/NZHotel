@@ -1,4 +1,4 @@
-﻿
+﻿@model BokingRoomModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -18,54 +18,69 @@
                 <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
                     <div class="booking-form">
                         <h3>Booking Your Hotel</h3>
-                        <form action="#">
+                        <form asp-action="Index" asp-controller="Home" method="post">
                             <div class="check-date">
                                 <label for="date-in">Check In:</label>
-                                <input type="text" class="date-input" id="date-in">
+                                <input asp-for="@Model.StartingDate" type="text" class="date-input" id="date-in">
                                 <i class="icon_calendar"></i>
+                                 <span asp-validation-for="@Model.StartingDate" class="text-danger"></span>
                             </div>
                             <div class="check-date">
                                 <label for="date-out">Check Out:</label>
-                                <input type="text" class="date-input" id="date-out">
+                                <input asp-for="@Model.FinishingDate" type="text" class="date-input" id="date-out">
                                 <i class="icon_calendar"></i>
+                                 <span asp-validation-for="@Model.FinishingDate" class="text-danger"></span>
                             </div>
                             <div class="select-option">
                                 <label for="guest">Guests:</label>
-                                <select id="guest">
-                                    <option value="">1 Adult</option>
-                                    <option value="">2 Adults</option>
-                                    <option value="">3 Adults</option>
-                                    <option value="">4 Adults</option>
-                                    <option value="">5 Adults</option>
-                                    <option value="">6 Adults</option>
-                                    <option value="">7 Adults</option>
-                                    <option value="">8 Adults</option>
-                                    <option value="">9 Adults</option>
-                                    <option value="">9+ Adults</option>
+                                <select asp-for="@Model.AdultNumber" id="guest">
+                                    <option value="0">Adult Number</option>
+                                    <option value="1">1 Adult</option>
+                                    <option value="2">2 Adults</option>
+                                    <option value="3">3 Adults</option>
+                                    <option value="4">4 Adults</option>
+                                    <option value="5">5 Adults</option>
+                                    <option value="6">6 Adults</option>
+                                    <option value="87">7 Adults</option>
+                                    <option value="9">8 Adults</option>
+                                    <option value="10">9 Adults</option>
+                                   
                                 </select>
+                                <span asp-validation-for="@Model.AdultNumber" class="text-danger"></span>
 
-                                  <select id="guest">
-                                    <option value="">1 Child</option>
-                                    <option value="">2 Children</option>
-                                    <option value="">3 Children</option>
-                                    <option value="">4 Children</option>
-                                    <option value="">5 Children</option>
-                                    <option value="">6 Children</option>
-                                    <option value="">7 Children </option>
-                                    <option value="">8 Children </option>
-                                    <option value="">9 Children </option>
-                                    <option value="">9+ Children </option>
+                                  <select asp-for="@Model.ChildNumber" id="guest" >
+                                    <option value="0">Child Number</option>
+                                    <option value="1">1 Child</option>
+                                    <option value="2">2 Children</option>
+                                    <option value="3">3 Children</option>
+                                    <option value="4">4 Children</option>
+                                    <option value="5">5 Children</option>
+                                    <option value="6">6 Children</option>
+                                    <option value="7">7 Children </option>
+                                    <option value="8">8 Children </option>
+                                  
                                 </select>
+                                <span asp-validation-for="@Model.ChildNumber" class="text-danger"></span>
+
+                                  <select asp-for="@Model.InfantNumber" id="guest">
+                                     <option value="0">Infant Number</option>
+                                    <option value="1">1 </option>
+                                    <option value="2">2 </option>
+                                    <option value="3">3 </option>
+                                </select>
+                                <span asp-validation-for="@Model.InfantNumber" class="text-danger"></span>
+
                             </div>
+
 @*
                             <div class="select-option">
-                                <label for="room">Room:</label>
+                                <label for="guest">Room:</label>
                                 <select id="room">
                                     <option value="">1 Room</option>
                                     <option value="">2 Room</option>
                                 </select>
-                            </div>*@
-
+                            </div>
+*@
                             <button type="submit" >Check Availability </button>
                         </form>
                     </div>

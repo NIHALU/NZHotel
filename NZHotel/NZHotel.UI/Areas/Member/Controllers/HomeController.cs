@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using NZHotel.Business.Interfaces;
 using NZHotel.UI.Models;
 
 namespace NZHotel.UI.Controllers
@@ -14,14 +16,27 @@ namespace NZHotel.UI.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IReservationOptionService _reservationOptionService;
+
+        public HomeController(ILogger<HomeController> logger, IReservationOptionService reservationOptionService)
         {
             _logger = logger;
+            _reservationOptionService = reservationOptionService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var response = await _reservationOptionService.GetAllAsync();
+            var model = new BookRoomModel()
+            {
+                ReservationOptions = new SelectList(response.Data, "Id", "Definition"),
+                StartingDate = DateTime.Today,
+                FinishingDate = DateTime.Today.AddDays(1),
+                AdultNumber=1
+
+            };
+
+            return View(model);
         }
 
         public IActionResult Privacy()

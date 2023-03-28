@@ -12,7 +12,7 @@ namespace NZHotel.DTOs
         public int Id { get; set; }
         public int GuestId { get; set; }
         public int ReservationId { get; set; }
-        public DateTime? CheckInTime { get; set; }
-        public DateTime? CheckOutTime { get; set; }
+        public DateTime CheckInTime { get; set; }
+        public DateTime CheckOutTime { get; set; }
     }
 }

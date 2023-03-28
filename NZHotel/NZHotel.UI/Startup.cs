@@ -40,6 +40,7 @@ namespace NZHotel.UI
 
             services.AddTransient<IValidator<CustomerCreateModel>, CustomerCreateModelValidator>();
             services.AddTransient<IValidator<BookRoomModel>, BookRoomModelValidator>();
+            services.AddTransient<IValidator<BookigRoomModel>, BookingRoomModelValidator>();
             services.AddTransient<IValidator<BookRoomUpdateModel>, BookRoomUpdateModelValidator>();
             services.AddTransient<IValidator<GuestInfoCreateModel>, GuestInfoCreateModelValidator>();
             services.AddTransient<IValidator<PaymentCreateModel>, PaymentCreateModelValidator>();
@@ -110,7 +111,7 @@ namespace NZHotel.UI
             {
                 endpoints.MapControllerRoute(
                    name: "areas",
-                   pattern: "{Area=Reception}/{controller=Home}/{action=Index}/{id?}");
+                   pattern: "{Area=Member}/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",

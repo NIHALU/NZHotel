@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
-using NZHotel.UI;
+using NZHotel.UI.Areas.Member.Models;
 using System;
 
 namespace NZHotel.UI.ValidationRules
 {
-    public class BookRoomModelValidator : AbstractValidator<BookRoomModel>
+    public class BookingRoomModelValidator:AbstractValidator<BookingRoomModel>
     {
-        public BookRoomModelValidator()
+        public BookingRoomModelValidator()
         {
 
             RuleFor(x => x.StartingDate).NotEmpty().WithMessage("Enterance date is required");
@@ -19,11 +19,11 @@ namespace NZHotel.UI.ValidationRules
                    .WithMessage("Exist date must after Enterance date");
 
             RuleFor(x => x.ReservationOptionId).NotEmpty().WithMessage("Please choose reservation option.");
-                
         }
         protected bool BeAValidDate(DateTime date)
         {
             return (date.Date >= DateTime.Today) ? true : false;
         }
+
     }
 }

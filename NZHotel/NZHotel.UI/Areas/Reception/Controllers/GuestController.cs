@@ -91,8 +91,11 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         {
             GuestReservationCreateDto guestReservationCreateDto = new GuestReservationCreateDto()
             {
-                 GuestId = guestId,
-            };
+                GuestId = guestId,
+                CheckInTime = DateTime.Now.Date,
+                CheckOutTime = DateTime.Now.Date,
+
+        };
               
             return View(guestReservationCreateDto);
         }

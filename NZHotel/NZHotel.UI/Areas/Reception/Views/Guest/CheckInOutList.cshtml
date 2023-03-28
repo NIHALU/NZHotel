@@ -28,7 +28,7 @@
 				   <td>@checkInOut.Id</td>
 				   <td> @checkInOut.Reservation.ReservationCode</td>
 				   <td> @(checkInOut.Guest.Name +" "+checkInOut.Guest.Surname)</td>
-				   if(checkInOut.Guest.IsNoTurkishCitizen==false)
+				   @if(checkInOut.Guest.IsNoTurkishCitizen==false)
 				   {
 					 <td> @checkInOut.Guest.IdentityNumber</td>
 				   }
