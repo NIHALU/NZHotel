@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using NZHotel.Business.DependencyResolvers.Microsoft;
 using NZHotel.Business.Helpers;
 using NZHotel.UI.Areas.Admin.Models;
+using NZHotel.UI.Areas.Member.Models;
 using NZHotel.UI.Areas.Reception.Models;
 using NZHotel.UI.Mappings.AutoMapper;
 using NZHotel.UI.ValidationRules;
@@ -40,10 +41,11 @@ namespace NZHotel.UI
 
             services.AddTransient<IValidator<CustomerCreateModel>, CustomerCreateModelValidator>();
             services.AddTransient<IValidator<BookRoomModel>, BookRoomModelValidator>();
-            services.AddTransient<IValidator<BookigRoomModel>, BookingRoomModelValidator>();
+            services.AddTransient<IValidator<BookingRoomModel>, BookingRoomModelValidator>();
             services.AddTransient<IValidator<BookRoomUpdateModel>, BookRoomUpdateModelValidator>();
             services.AddTransient<IValidator<GuestInfoCreateModel>, GuestInfoCreateModelValidator>();
             services.AddTransient<IValidator<PaymentCreateModel>, PaymentCreateModelValidator>();
+            services.AddTransient<IValidator<PaymentCreateModel2>, PaymentCreateModel2Validator>();
             services.AddTransient<IValidator<GuestCreateModel>, GuestCreateModelValidator>();
 
 
@@ -67,6 +69,7 @@ namespace NZHotel.UI
             profiles.Add(new BookRoomUpdateModelProfile());
 
             profiles.Add(new GuestCreateModelProfile());
+            profiles.Add(new BookingRoomModelProfile());
 
 
 

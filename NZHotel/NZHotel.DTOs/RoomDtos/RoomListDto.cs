@@ -30,7 +30,7 @@ namespace NZHotel.DTOs
 
         public decimal PaymentDifference { get; set; }
 
-
+        public string ReservationOption { get; set; }
         public decimal CalculateMainAmount(int childrenCount, int infantCount, int numberofDays)
         {
             decimal roomPrice = RoomPrice;

@@ -1,4 +1,4 @@
-﻿@model BokingRoomModel
+﻿@model BookingRoomModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -72,14 +72,15 @@
 
                             </div>
 
+                   	<div class="my-2">
+			<select class="form-select" asp-items="@Model.ReservationOptions" asp-for="@Model.ReservationOptionId">
+				<option value="0">Choose Reservation Option</option>
+			</select>
+               <span asp-validation-for="@Model.ReservationOptionId" class="text-danger"></span>
+		</div>
+                                    
 @*
-                            <div class="select-option">
-                                <label for="guest">Room:</label>
-                                <select id="room">
-                                    <option value="">1 Room</option>
-                                    <option value="">2 Room</option>
-                                </select>
-                            </div>
+                       
 *@
                             <button type="submit" >Check Availability </button>
                         </form>

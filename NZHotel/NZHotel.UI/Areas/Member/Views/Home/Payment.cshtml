@@ -1,4 +1,4 @@
-﻿@model (PaymentCreateModel payment,ReservationCreateDto reservation)
+﻿@model (PaymentCreateModel2 payment,ReservationCreateDto reservation)
 
 
 <div class="container mt-5 px-5">
@@ -26,12 +26,12 @@
 
 
 
-	<form asp-action="Payment" asp-controller="Reservation" method="post">
+	<form asp-action="Payment" asp-controller="Home" method="post">
 		<input type="hidden" asp-for="payment.TotalAmount" />
 		<div class="row">
 			<div class="col-md-8">
 				<div class="card p-3">
-					<h6 class="text-uppercase">Select Payment Type</h6>
+@*					<h6 class="text-uppercase">Select Payment Type</h6>
 					<div class="row mt-3">
 						<div class="col-md-6">
 							<select onchange="setInputVisibility()" class="form-select" asp-items="@ViewBag.PaymentTypes" asp-for="payment.PaymentTypeId">
@@ -59,13 +59,13 @@
 
 
 
-					</div>
+					</div>*@
 
 
 
 					<div class="mt-4 mb-4">
 						<h6 class="text-uppercase">Payment details</h6>
-						<div id="creditCardDiv" style="display:none">
+						<div id="creditCardDiv" >
 							<div class="inputbox mt-3"> <input type="text" class="form-control" asp-for="payment.CreditCardHolder"> <span>Name on card</span> </div>
 							 	<span asp-validation-for="payment.CreditCardHolder" class="text-danger"></span>
 
@@ -134,38 +134,5 @@
 		</div>
 <link href="~/css/payment.css" rel="stylesheet" />
 
-@section script{
-<script>
-	setInputVisibility();
-	function setInputVisibility(){
 
-		var selectElement =document.getElementById("Item1_PaymentTypeId");  //cash=3 card=4 paylater=5
-		var paymentStatusId= selectElement.value;
-		var dateDivElement= document.getElementById("dateDiv");
-		var cardDivElement=document.getElementById("creditCardDiv");
-		if(paymentStatusId==5)
-		{
-			dateDivElement.style.display="block";
-			cardDivElement.style.display="block";
-		}
-		
-		else if(paymentStatusId==4)
-		{
-            
-			cardDivElement.style.display="block";
-			dateDivElement.style.display="none";
-		}
-		
-		else if(paymentStatusId==3)
-		{
-			cardDivElement.style.display="none";
-			dateDivElement.style.display="none";
-		}
-		else{
-			dateDivElement.style.display="none";
-			cardDivElement.style.display="none";
-		}
-		
-	}
-</script>
-}
+
