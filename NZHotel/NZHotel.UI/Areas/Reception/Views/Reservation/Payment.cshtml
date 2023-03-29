@@ -143,20 +143,20 @@
 		var paymentStatusId= selectElement.value;
 		var dateDivElement= document.getElementById("dateDiv");
 		var cardDivElement=document.getElementById("creditCardDiv");
-		if(paymentStatusId==5)
+		if(paymentStatusId==3)
 		{
 			dateDivElement.style.display="block";
 			cardDivElement.style.display="block";
 		}
 		
-		else if(paymentStatusId==4)
+		else if(paymentStatusId==2)
 		{
             
 			cardDivElement.style.display="block";
 			dateDivElement.style.display="none";
 		}
 		
-		else if(paymentStatusId==3)
+		else if(paymentStatusId==1)
 		{
 			cardDivElement.style.display="none";
 			dateDivElement.style.display="none";

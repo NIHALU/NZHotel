@@ -17,11 +17,12 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         private readonly IGuestTypeService _guestTypeService;
         private readonly IGenderService _genderService;
         private readonly IGuestService _guestService;
+        private readonly ICustomerService _customerService;
         private readonly IValidator<GuestCreateModel> _guestCreateValidator;
         private readonly IMapper _mapper;
         private readonly IGuestReservationService _guestReservationService;
         private readonly IReservationService _reservationService;
-        public GuestController(IGuestTypeService guestTypeService, IGenderService genderService, IGuestService guestService, IMapper mapper, IValidator<GuestCreateModel> guestCreateValidator, IGuestReservationService guestReservationService, IReservationService reservationService)
+        public GuestController(IGuestTypeService guestTypeService, IGenderService genderService, IGuestService guestService, IMapper mapper, IValidator<GuestCreateModel> guestCreateValidator, IGuestReservationService guestReservationService, IReservationService reservationService, ICustomerService customerService)
         {
             _guestTypeService = guestTypeService;
             _genderService = genderService;
@@ -30,6 +31,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             _guestCreateValidator = guestCreateValidator;
             _guestReservationService = guestReservationService;
             _reservationService = reservationService;
+            _customerService = customerService;
         }
 
         public IActionResult Index()
@@ -75,13 +77,12 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             return View(model);
         }
 
-        public IActionResult List()
+        public async Task<IActionResult> List()
         {
             var list =  _guestService.Getlist();
             foreach (var item in list)
             {
-                var visitedBefore =  _guestService.VisitedBefore(item.Id);
-                item.VisitedBefore=visitedBefore;
+                item.VisitedBefore = await _guestService.VisitedBefore(item.Id);
             }
             
             return View(list);
@@ -115,6 +116,13 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             var list = await _guestReservationService.CheckInOutList();
             return View(list);
          
+        }
+
+        public async Task<IActionResult> CusList()
+        {
+            var list = await _customerService.GetAllAsync();
+            return View(list);
+
         }
 
 

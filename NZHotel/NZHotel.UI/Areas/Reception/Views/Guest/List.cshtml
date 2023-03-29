@@ -20,7 +20,9 @@
 						<th>IsForeign</th>
 						<th>Gender</th>
 						<th>Guest Type</th>
+						<th>Visited Before</th>
 						<th>Process</th>
+					
 
 
 					</tr>
@@ -36,24 +38,35 @@
 							<td> @guest.Age</td>
 							<td> @guest.PhoneNumber</td>
 							<td> @guest.Address</td>
-							@if(guest.IsNoTurkishCitizen==false)
+							@if  (guest.IsNoTurkishCitizen  ==  false)
 							{
-							<td> @guest.IdentityNumber </td>
+								<td> @guest.IdentityNumber </td>
 							}
 							else
 							{
-							<td> @guest.PassportNumber </td>
+								<td> @guest.PassportNumber </td>
 							}
 							<td> @guest.Nationality</td>
 							<td> @guest.CountryName</td>
 							<td> @guest.IsNoTurkishCitizen</td>
 							<td> @guest.Gender.Definition</td>
 							<td> @guest.GuestType.Definition</td>
-						
+							<td> @guest.VisitedBefore</td>
+
 
 							<td>
-								<a asp-action="CheckIn" asp-controller="Guest" asp-route-guestId="@guest.Id"> Check-In  </a>
-								<a asp-action="Update" asp-controller="Guest" asp-route-guestId="@guest.Id"> Update </a>
+								<div class="dropdown">
+									<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+										Process
+									</a>
+
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<li><a asp-action="CheckIn" asp-controller="Guest" asp-route-guestId="@guest.Id"> Check-In  </a></li>
+										<li><a asp-action="Update" asp-controller="Guest" asp-route-guestId="@guest.Id"> Update </a></li>
+
+									</ul>
+			                     </div>
+
 
 							</td>
 

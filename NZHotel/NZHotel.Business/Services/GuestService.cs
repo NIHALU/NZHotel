@@ -41,15 +41,18 @@ namespace NZHotel.Business.Services
             return _mapper.Map<List<GuestListDto>>(list);
         }
 
-        public bool VisitedBefore(int id)
+        public async Task<bool> VisitedBefore(int id)
         {
-            var query = _uow.GetRepository<Guest>().GetQuery();
-            var visitCount = query.Include(x => x.GuestReservations.Where(x => x.GuestId == id)).ToList().Count();
-            if (visitCount>0)
+            var entity = await _uow.GetRepository<Guest>().GetByFilterAsync(x => x.Id == id);
+            if (entity.VisitedBefore()==true)
             {
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }

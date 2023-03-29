@@ -12,6 +12,6 @@ namespace NZHotel.Business.Interfaces
     {
         Task Create(List<GuestCreateDto> dtos);
         List<GuestListDto> Getlist();
-        bool VisitedBefore(int id);
+        Task<bool> VisitedBefore(int id);
     }
 }
