@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NZHotel.DTOs.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace NZHotel.DTOs
+namespace NZHotel.UI.Areas.Management.Models
 {
-    public class EmployeeUpdateDto:IUpdateDto
+    public class EmployeeCreateModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
@@ -17,8 +11,13 @@ namespace NZHotel.DTOs
         public string Address { get; set; }
         public string IdentityNumber { get; set; }
         public string Title { get; set; }
-        public bool Active { get; set; }
         public int GenderId { get; set; }
+
         public int DepartmentId { get; set; }
+
+        public SelectList Genders { get; set; }
+
+        public SelectList Departments { get; set; }
+       
     }
 }

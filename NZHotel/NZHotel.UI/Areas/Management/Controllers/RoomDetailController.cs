@@ -10,8 +10,8 @@ using NZHotel.UI.Extensions;
 
 namespace NZHotel.UI.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class AdminRoomDetailController : Controller
+    [Area("Management")]
+    public class RoomDetailController : Controller
     {
         private readonly IRoomService _roomService;
         private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
 
 
 
-        public AdminRoomDetailController(IRoomDetailService roomDetailService, IRoomService roomService, IMapper mapper, IValidator<RoomDetailCreateModel> roomDetailCreateModelValidator, IValidator<RoomDetailUpdateModel> roomDetailUpdateModelValidator)
+        public RoomDetailController(IRoomDetailService roomDetailService, IRoomService roomService, IMapper mapper, IValidator<RoomDetailCreateModel> roomDetailCreateModelValidator, IValidator<RoomDetailUpdateModel> roomDetailUpdateModelValidator)
         {
             _roomDetailService = roomDetailService;
             _roomService = roomService;

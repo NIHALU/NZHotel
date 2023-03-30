@@ -67,7 +67,7 @@ namespace NZHotel.DTOs
         {
             decimal paymentDifference = 0;
             
-           return paymentDifference = Convert.ToDecimal((DiscountedAmount - oldAmount)/100);
+           return paymentDifference = Convert.ToDecimal((DiscountedAmount - oldAmount));
            
         }
 

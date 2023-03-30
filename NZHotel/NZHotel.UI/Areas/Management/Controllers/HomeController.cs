@@ -2,7 +2,7 @@
 
 namespace NZHotel.UI.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Management")]
     public class HomeController : Controller
     {
         public IActionResult Index()

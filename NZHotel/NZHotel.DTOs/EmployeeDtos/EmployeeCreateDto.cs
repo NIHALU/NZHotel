@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NZHotel.DTOs.Interfaces;
 
-namespace NZHotel.DTOs.EmployeeDetailDtos
+namespace NZHotel.DTOs
 {
     public class EmployeeCreateDto:IDto
     {
@@ -17,5 +17,7 @@ namespace NZHotel.DTOs.EmployeeDetailDtos
         public string IdentityNumber { get; set; }
         public string Title { get; set; }
         public int GenderId { get; set; }
+
+        public int DepartmentId { get; set; }
     }
 }

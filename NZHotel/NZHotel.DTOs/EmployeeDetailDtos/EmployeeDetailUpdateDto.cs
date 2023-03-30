@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NZHotel.DTOs.Interfaces;
 
-namespace NZHotel.DTOs.EmployeeDetailDtos
+namespace NZHotel.DTOs
 {
     public class EmployeeDetailUpdateDto:IUpdateDto
     {

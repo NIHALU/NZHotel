@@ -8,6 +8,7 @@ using NZHotel.Business.ValidationRules;
 using NZHotel.DataAccess.Contexts;
 using NZHotel.DataAccess.UnitOfWork;
 using NZHotel.DTOs;
+using NZHotel.DTOs.DepartmentDtos;
 using NZHotel.Entities;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,12 @@ namespace NZHotel.Business.DependencyResolvers.Microsoft
             services.AddTransient<IValidator<GuestReservationCreateDto>, GuestReservationCreateDtoValidator>();
             services.AddTransient<IValidator<GuestReservationUpdateDto>, GuestReservationUpdateDtoValidator>();
 
+            services.AddTransient<IValidator<EmployeeCreateDto>, EmployeeCreateDtoValidator>();
+            services.AddTransient<IValidator<EmployeeUpdateDto>, EmployeeUpdateDtoValidator>();
+
+            services.AddTransient<IValidator<DepartmentCreateDto>, DepartmentCreateDtoValidator>();
+            services.AddTransient<IValidator<DepartmentUpdateDto>, DepartmentUpdateDtoValidator>();
+
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IRoomDetailService, RoomDetailService>();
             services.AddScoped<IRoomStatusService, RoomStatusService>();
@@ -86,6 +93,9 @@ namespace NZHotel.Business.DependencyResolvers.Microsoft
             services.AddScoped<IGuestTypeService, GuestTypeService>();
             services.AddScoped<IGenderService, GenderService>();
             services.AddScoped<IGuestReservationService, GuestReservationService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+
 
 
 

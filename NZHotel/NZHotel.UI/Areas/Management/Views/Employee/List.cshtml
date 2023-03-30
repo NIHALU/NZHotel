@@ -1,0 +1,91 @@
+﻿@model List<EmployeeListDto>
+
+	<h3 class="bg-dark my-3 text-white text-center">Employee List</h3>
+		<div class="text-end btn-danger my-2"><a asp-action="Create" asp-controller="Employee"> Create New Employee </a> </div>
+<div class="container-fluid">
+	@{
+		if (Model?.Count >= 0)
+		{
+			<table id="myTable" class="mt-3 table table-sm table-hover table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Surname</th>
+						<th>Identity Number</th>
+						<th>Email</th>
+						<th>Phone</th>
+						<th>Address</th>
+						<th>Title</th>
+						<th>Department </th>
+						<th>Gender</th>
+						<th>Status</th>
+						<th>Process</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@foreach (var employee in Model)
+					{
+						<tr>
+							<td>@employee.Id</td>
+							<td> @employee.Name</td>
+							<td> @employee.Surname</td>
+							<td> @employee.IdentityNumber</td>
+							<td> @employee.Email</td>
+							<td> @employee.Phone</td>
+							<td> @employee.Address</td>
+							<td> @employee.Department.Title</td>
+							<td> @employee.Gender.Definition</td>
+							<td> @employee.Active</td>
+							<td>
+								<div class="dropdown">
+									<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+										Process
+									</a>
+
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<li>  <a asp-action="Update" asp-controller="Employee" asp-route-employeeId="@employee.Id"> Update </a> </li>
+										<li>    <a asp-action="Remove" asp-controller="Employee" asp-route-employeeId="@employee.Id"> Remove  </a> </li>
+										<li> <a asp-action="EmployeeDetail" asp-controller="Employee" asp-route-employeeId="@employee.Id"> See Details </a></li>
+									</ul>
+								</div>
+
+
+
+
+							</td>
+
+
+						</tr>
+					}
+				</tbody>
+
+			</table>
+		}
+		else
+		{
+			<div class="text-center my-3 p-1">
+				There is No Employee Data For Now.
+			</div>
+		}
+	}
+</div>
+
+
+
+
+
+
+
+
+@section script{
+<script>
+
+	   //$('#myTable').DataTable();
+	let table = new DataTable('#myTable');
+
+
+</script>
+}
+

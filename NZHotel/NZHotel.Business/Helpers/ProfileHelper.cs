@@ -29,6 +29,8 @@ namespace NZHotel.Business.Helpers
                 new GuestTypeProfile(),
                 new GenderProfile(),
                 new GuestReservationProfile(),
+                new DepartmentProfile(),
+                new EmployeeProfile()
 
             };
         }

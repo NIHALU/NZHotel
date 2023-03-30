@@ -1,8 +1,7 @@
-﻿@model RoomDetailUpdateModel
+﻿@model RoomDetailCreateModel
 <div class="dummy mt-5"></div>
 <div class="mt-4">
-	<form asp-action="Update" asp-controller="AdminRoomDetail" method="post" class="p-5 w-75 mx-auto">	
-		<input type="hidden" asp-for="@Model.Id" />
+	<form asp-action="Create" asp-controller="RoomDetail" method="post" class="p-5 w-75 mx-auto">	
 
         
        <div class="mb-3">
@@ -96,7 +95,7 @@
 </div>
 
 	<div class="mb-3 text-end">
-			<button type="submit" class="btn btn-primary"> Room Detail Update </button>
+			<button type="submit" class="btn btn-primary"> Room Detail Create </button>
 		</div>
 
 	</form>

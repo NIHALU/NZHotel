@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using NZHotel.DTOs.Interfaces;
 
-namespace NZHotel.DTOs.EmployeeDetailDtos
+namespace NZHotel.DTOs
 {
-    public class EmployeeUpdateListDto:IDto
+    public class EmployeeDetailListDto:IDto
     {
         public int Id { get; set; }
         public string Title { get; set; }

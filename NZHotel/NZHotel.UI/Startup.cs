@@ -1,18 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NZHotel.Business.DependencyResolvers.Microsoft;
 using NZHotel.Business.Helpers;
 using NZHotel.UI.Areas.Admin.Models;
+using NZHotel.UI.Areas.Management.Models;
 using NZHotel.UI.Areas.Member.Models;
 using NZHotel.UI.Areas.Reception.Models;
 using NZHotel.UI.Mappings.AutoMapper;
@@ -40,13 +37,19 @@ namespace NZHotel.UI
             services.AddTransient<IValidator<RoomDetailUpdateModel>, RoomDetailUpdateModelValidator>();
 
             services.AddTransient<IValidator<CustomerCreateModel>, CustomerCreateModelValidator>();
+
             services.AddTransient<IValidator<BookRoomModel>, BookRoomModelValidator>();
             services.AddTransient<IValidator<BookingRoomModel>, BookingRoomModelValidator>();
             services.AddTransient<IValidator<BookRoomUpdateModel>, BookRoomUpdateModelValidator>();
             services.AddTransient<IValidator<GuestInfoCreateModel>, GuestInfoCreateModelValidator>();
+
             services.AddTransient<IValidator<PaymentCreateModel>, PaymentCreateModelValidator>();
             services.AddTransient<IValidator<PaymentCreateModel2>, PaymentCreateModel2Validator>();
             services.AddTransient<IValidator<GuestCreateModel>, GuestCreateModelValidator>();
+
+            services.AddTransient<IValidator<EmployeeCreateModel>, EmployeeCreateModelValidator>();
+            services.AddTransient<IValidator<EmployeeUpdateModel>, EmployeeUpdateModelValidator>();
+
 
 
 
@@ -70,6 +73,9 @@ namespace NZHotel.UI
 
             profiles.Add(new GuestCreateModelProfile());
             profiles.Add(new BookingRoomModelProfile());
+
+            profiles.Add(new EmployeeCreateModelProfile());
+            profiles.Add(new EmployeeUpdateModelProfile());
 
 
 
@@ -114,7 +120,7 @@ namespace NZHotel.UI
             {
                 endpoints.MapControllerRoute(
                    name: "areas",
-                   pattern: "{Area=Member}/{controller=Home}/{action=Index}/{id?}");
+                   pattern: "{Area=Management}/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",

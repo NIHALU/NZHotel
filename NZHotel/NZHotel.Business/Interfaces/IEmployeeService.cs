@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using NZHotel.DTOs;
+using NZHotel.Entities.Employees;
+
+namespace NZHotel.Business.Interfaces
+{
+    public interface IEmployeeService : IService<EmployeeCreateDto, EmployeeUpdateDto, EmployeeListDto, Employee>
+    {
+        Task<List<EmployeeListDto>> GetEmployeeList();
+    }
+}

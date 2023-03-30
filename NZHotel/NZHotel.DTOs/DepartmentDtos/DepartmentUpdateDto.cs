@@ -11,6 +11,6 @@ namespace NZHotel.DTOs.DepartmentDtos
     {
         public int Id { get ; set; }
         public string Title { get; set; }
-        public bool IsActive { get; set; }
+        public bool Active { get; set; }
     }
 }

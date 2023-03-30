@@ -1,0 +1,67 @@
+﻿@model EmployeeCreateModel
+<div class="dummy mt-5"></div>
+
+<h3 class="bg-dark my-3 text-white text-center">Employee Create</h3>
+
+	
+<div class="mt-4">
+	<form asp-action="Create" asp-controller="Employee" method="post" class="p-5 w-75 mx-auto" >
+		<div class="mb-3">
+			<label>Name:</label>
+			<input type="text" class="form-control" asp-for="@Model.Name" />
+			<span asp-validation-for="@Model.Name" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label>Surname:</label>
+			<input type="number" class="form-control" asp-for="@Model.Surname" />
+			<span asp-validation-for="@Model.Surname" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label>Identity Number:</label>
+			<input class="form-control" asp-for="@Model.IdentityNumber" />
+			<span asp-validation-for="@Model.IdentityNumber" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label>Email:</label>
+			<input type="email" class="form-control" asp-for="@Model.Email" />
+			<span asp-validation-for="@Model.Email" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label>Phone:</label>
+			<input type="tel" class="form-control" asp-for="@Model.Phone"/>
+			<span asp-validation-for="@Model.Phone" class="text-danger"></span>
+		<div class="mb-3">
+			<label>Adress:</label>
+			<input type="text" class="form-control" asp-for="@Model.Address" />
+			<span asp-validation-for="@Model.Address" class="text-danger"></span>
+		</div>
+
+			<div class="mb-3">
+			<label>Title:</label>
+			<input type="text" class="form-control" asp-for="@Model.Title" />
+			<span asp-validation-for="@Model.Title" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<select class="form-select" asp-items="@Model.Departments" asp-for="@Model.DepartmentId">
+				<option value="0">Choose Department</option>
+			</select>
+			<span asp-validation-for="@Model.DepartmentId" class="text-danger"></span>
+		</div>
+			<div class="mb-3">
+			<select class="form-select" asp-items="@Model.Genders" asp-for="@Model.GenderId">
+				<option value="0">Choose Gender</option>
+			</select>
+			<span asp-validation-for="@Model.GenderId" class="text-danger"></span>
+		</div>
+
+
+		<div class="mb-3 text-end">
+			<button type="submit" class="btn btn-primary"> Create </button>
+		</div>
+
+		<div class="text-danger" asp-validation-summary="All">
+		</div>
+
+	</form>
+</div>
+

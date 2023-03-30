@@ -1,0 +1,23 @@
+﻿@model DepartmentUpdateDto
+<div class="dummy mt-5"></div>
+<h3 class="bg-dark my-3 text-white text-center">Department Update</h3>
+<div class="mt-4">
+	<form asp-action="Update" asp-controller="Department" method="post" class="p-5 w-75 mx-auto" enctype="multipart/form-data">
+		<input type="hidden" asp-for="@Model.Id"/>
+		<div class="mb-3">
+			<label>Department Name:</label>
+			<input type="text" class="form-control" asp-for="@Model.Title" />
+		</div>
+		
+
+
+		<div class="mb-3 text-end">
+			<button type="submit" class="btn btn-primary">  Update </button>
+		</div>
+
+		<div class="text-danger" asp-validation-summary="All">
+		</div>
+
+	</form>
+</div>
+

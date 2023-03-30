@@ -136,6 +136,7 @@ namespace NZHotel.UI.Controllers
 
         public IActionResult CustomerGuestInfo(decimal totalAmount, int roomId)
         {
+           
             HttpContext.Session.SetString("selectedRoomId", roomId.ToString());
             HttpContext.Session.SetString("totalAmount", totalAmount.ToString());
             var result = JsonConvert.DeserializeObject<BookRoomCreateDto>(HttpContext.Session.GetString("bookRoomDto"));
@@ -256,7 +257,7 @@ namespace NZHotel.UI.Controllers
                 reservation.NumberofGuests = bookRoom.AdultNumber + bookRoom.ChildNumber + bookRoom.InfantNumber;
       
                 reservation.ReservationOptionId = bookRoom.ReservationOptionId;
-                reservation.TotalAmount = payment.TotalAmount;
+                reservation.TotalAmount = payment.TotalAmount/100;
                 reservation.ReservationTypeId = (int)ReservationType.Web;
                 reservation.CustomerId = customer.Id;
                 reservation.ReservationCode = "NZ" + bookRoom.StartingDate.Day.ToString() + bookRoom.StartingDate.Month.ToString() + bookRoom.StartingDate.Year.ToString() + reservation.RoomId.ToString();

@@ -11,8 +11,8 @@ using NZHotel.UI.Extensions;
 
 namespace NZHotel.UI.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class AdminRoomController : Controller
+    [Area("Management")]
+    public class RoomController : Controller
     {
         private readonly IRoomService _roomService;
         private readonly IRoomStatusService _roomStatusService;
@@ -22,7 +22,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
         private readonly IValidator<RoomCreateViewModel> _roomCreateModelValidator;
         private readonly IValidator<RoomUpdateViewModel> _roomUpdateModelValidator;
 
-        public AdminRoomController(IRoomStatusService roomStatusService, IRoomTypeService roomTypeService, IRoomService roomService, IValidator<RoomCreateViewModel> roomCreateModelValidator, IMapper mapper, IValidator<RoomUpdateViewModel> roomUpdateModelValidator, ICleaningStatusService cleaningStatusService)
+        public RoomController(IRoomStatusService roomStatusService, IRoomTypeService roomTypeService, IRoomService roomService, IValidator<RoomCreateViewModel> roomCreateModelValidator, IMapper mapper, IValidator<RoomUpdateViewModel> roomUpdateModelValidator, ICleaningStatusService cleaningStatusService)
         {
             _roomService = roomService;
             _roomStatusService = roomStatusService;
