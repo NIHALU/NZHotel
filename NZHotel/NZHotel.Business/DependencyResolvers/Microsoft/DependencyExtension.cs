@@ -76,8 +76,18 @@ namespace NZHotel.Business.DependencyResolvers.Microsoft
             services.AddTransient<IValidator<EmployeeCreateDto>, EmployeeCreateDtoValidator>();
             services.AddTransient<IValidator<EmployeeUpdateDto>, EmployeeUpdateDtoValidator>();
 
+            services.AddTransient<IValidator<EmployeeFileCreateDto>, EmployeeFileCreateDtoValidator>();
+            services.AddTransient<IValidator<EmployeeFileUpdateDto>, EmployeeFileUpdateDtoValidator>();
+
+            services.AddTransient<IValidator<ShiftCreateDto>, ShiftCreateDtoValidator>();
+            services.AddTransient<IValidator<ShiftUpdateDto>,  ShiftUpdateDtoValidator>();
+
             services.AddTransient<IValidator<DepartmentCreateDto>, DepartmentCreateDtoValidator>();
             services.AddTransient<IValidator<DepartmentUpdateDto>, DepartmentUpdateDtoValidator>();
+
+
+            services.AddTransient<IValidator<WorkingTypeCreateDto>, WorkingTypeCreateDtoValidator>();
+            services.AddTransient<IValidator<WorkingTypeUpdateDto>, WorkingTypeUpdateDtoValidator>();
 
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IRoomDetailService, RoomDetailService>();
@@ -94,7 +104,10 @@ namespace NZHotel.Business.DependencyResolvers.Microsoft
             services.AddScoped<IGenderService, GenderService>();
             services.AddScoped<IGuestReservationService, GuestReservationService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IEmployeeFileService, EmployeeFileService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IWorkingTypeService, WorkingTypeService>();
+            services.AddScoped<IShiftService, ShiftService>();
 
 
 

@@ -1,0 +1,46 @@
+﻿@model ShiftUpdateModel
+<div class="dummy mt-5"></div>
+
+<h3 class="bg-dark my-3 text-white text-center">Editing Shift</h3>
+
+	
+<div class="mt-4">
+	<form asp-action="Update" asp-controller="Shift" method="post" class="p-5 w-75 mx-auto" >
+		   <input type="hidden" asp-for="@Model.Id" />
+			<div class="mb-3">
+			<select class="form-select" asp-items="@Model.Employees" asp-for="@Model.EmployeeId">
+				<option value="0">Choose For Employee</option>
+			</select>
+			<span asp-validation-for="@Model.EmployeeId" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3">
+			<label>Morning (08.00 - 16.00)</label>
+			<input type="text" class="form-control" asp-for="@Model.Morning" />
+			<span asp-validation-for="@Model.Morning" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label>Noon (16.00 - 00.00)</label>
+			<input type="text" class="form-control" asp-for="@Model.Noon" />
+			<span asp-validation-for="@Model.Noon" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label>Evening (00.00 - 08.00)</label>
+			<input type="text" class="form-control" asp-for="@Model.Evening" />
+			<span asp-validation-for="@Model.Evening" class="text-danger"></span>
+		</div>
+
+
+	
+		
+
+
+		<div class="mb-3 text-end">
+			<button type="submit" class="btn btn-primary"> Save </button>
+		</div>
+
+		<div class="text-danger" asp-validation-summary="All">
+		</div>
+
+	</form>
+</div>

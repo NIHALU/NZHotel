@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NZHotel.Common.Enums;
-using NZHotel.Entities.Employee;
+
 
 namespace NZHotel.Entities.Employees
 {
@@ -19,6 +19,8 @@ namespace NZHotel.Entities.Employees
         public string Title { get; set; }
         public bool Active { get; set; } = true;
 
+     
+
 
         //lookuptable
         public int GenderId { get; set; }
@@ -26,11 +28,16 @@ namespace NZHotel.Entities.Employees
 
 
         //Navigational Prop Begins
-        public int EmployeeDetailId { get; set; }
-        public EmployeeDetail EmployeeDetail { get; set; }
+        public int EmployeeFileId { get; set; }
+        public EmployeeFile EmployeeFile { get; set; }
+
+        public int ShiftId { get; set; }
+        public Shift Shift { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
-        //
+
+  
+ 
         
     }
 }

@@ -3,11 +3,14 @@ using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NZHotel.Business.DependencyResolvers.Microsoft;
 using NZHotel.Business.Helpers;
+using NZHotel.DataAccess.Contexts;
+using NZHotel.DataAccess.Entities;
 using NZHotel.UI.Areas.Admin.Models;
 using NZHotel.UI.Areas.Management.Models;
 using NZHotel.UI.Areas.Member.Models;
@@ -50,10 +53,34 @@ namespace NZHotel.UI
             services.AddTransient<IValidator<EmployeeCreateModel>, EmployeeCreateModelValidator>();
             services.AddTransient<IValidator<EmployeeUpdateModel>, EmployeeUpdateModelValidator>();
 
+            services.AddTransient<IValidator<EmployeeFileCreateModel>, EmployeeFileCreateModelValidator>();
+            services.AddTransient<IValidator<EmployeeFileUpdateModel>, EmployeeFileUpdateModelValidator>();
 
+            services.AddTransient<IValidator<ShiftCreateModel>, ShiftCreateModelValidator>();
+            services.AddTransient<IValidator<ShiftUpdateModel>, ShiftUpdateModelValidator>();
 
+            services.AddIdentity<AppUser, AppRole>(opt =>
+            {
+                opt.Password.RequireDigit = false; //number required or not? 
+                opt.Password.RequiredLength = 1;  //minimum lenght 
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.SignIn.RequireConfirmedEmail = false;    //default is False mail confirmed or not? 
+                opt.Lockout.MaxFailedAccessAttempts = 3;   //after howm many times? will be locked
+            }).AddEntityFrameworkStores<ProjectContext>();
 
+            services.ConfigureApplicationCookie(opt =>
+            {
+                opt.Cookie.HttpOnly = true;   // cannot be reached to the cookie via js 
+                opt.Cookie.SameSite = SameSiteMode.Strict; //cookie can be used on only related domain 
+                opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;  //https http
+                opt.Cookie.Name = "ProjectCookie";
+                opt.ExpireTimeSpan = TimeSpan.FromDays(25);   //cookie expiration time period (minutes)
+                opt.LoginPath = new PathString("/Home/SignIn");
+                opt.AccessDeniedPath = new PathString("/Home/AccessDenied");
 
+            });
 
             services.AddControllersWithViews();
 
@@ -76,6 +103,13 @@ namespace NZHotel.UI
 
             profiles.Add(new EmployeeCreateModelProfile());
             profiles.Add(new EmployeeUpdateModelProfile());
+
+            profiles.Add(new EmployeeFileCreateModelProfile());
+            profiles.Add(new EmployeeFileUpdateModelProfile());
+
+
+            profiles.Add(new ShiftCreateModelProfile());
+            profiles.Add(new ShiftUpdateModelProfile());
 
 
 
@@ -107,6 +141,7 @@ namespace NZHotel.UI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+           
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -120,11 +155,11 @@ namespace NZHotel.UI
             {
                 endpoints.MapControllerRoute(
                    name: "areas",
-                   pattern: "{Area=Management}/{controller=Home}/{action=Index}/{id?}");
+                   pattern: "{area:exists}/{controller=Home}/{action=SignIn}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=SignIn}/{id?}");
             });
         }
     }

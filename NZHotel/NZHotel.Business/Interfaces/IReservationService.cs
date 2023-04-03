@@ -24,6 +24,8 @@ namespace NZHotel.Business.Interfaces
 
         Task<IResponse<ReservationListDto>> GetReservation(string code);
 
+        Task<IResponse<List<ReservationListDto>>> GetNotActiveReservations();
+
 
     }
 }

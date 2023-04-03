@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NZHotel.Business.Interfaces;
 using NZHotel.DTOs.DepartmentDtos;
@@ -7,6 +8,7 @@ using NZHotel.UI.Extensions;
 namespace NZHotel.UI.Areas.Management.Controllers
 {
     [Area("Management")]
+    [Authorize(Roles = "Manager")]
     public class DepartmentController : Controller
     {
         private readonly IDepartmentService _departmentService;

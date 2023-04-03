@@ -166,7 +166,15 @@ namespace NZHotel.Business.Services
         public async Task<IResponse<List<ReservationListDto>>> GetActiveReservations()
         {
             var query = _uow.GetRepository<Reservation>().GetQuery();
-            var list = await query.Include(x => x.Customer).Include(x => x.ReservationOption).Include(x => x.ReservationType).Include(x => x.Room).Include(x => x.PaymentStatus).Where(x => x.Active == true).ToListAsync();
+            var list = await query.Include(x => x.Customer).Include(x => x.ReservationOption).Include(x => x.ReservationType).Include(x=>x.PaymentType).Include(x => x.Room).Include(x => x.PaymentStatus).Where(x => x.Active == true).ToListAsync();
+            var reservationList = _mapper.Map<List<ReservationListDto>>(list);
+            return new Response<List<ReservationListDto>>(ResponseType.Success, reservationList);
+        }
+
+        public async Task<IResponse<List<ReservationListDto>>> GetNotActiveReservations()
+        {
+            var query = _uow.GetRepository<Reservation>().GetQuery();
+            var list = await query.Include(x => x.Customer).Include(x => x.ReservationOption).Include(x => x.ReservationType).Include(x => x.Room).Include(x => x.PaymentStatus).Where(x => x.Active == false).ToListAsync();
             var reservationList = _mapper.Map<List<ReservationListDto>>(list);
             return new Response<List<ReservationListDto>>(ResponseType.Success, reservationList);
         }

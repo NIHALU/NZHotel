@@ -31,5 +31,12 @@ namespace NZHotel.Business.Services
             return _mapper.Map<List<GuestReservationListDto>>(list);
 
         }
+
+        public async Task<List<GuestReservationListDto>> GetReservations(int guestId)
+        {
+            var query = _uow.GetRepository<GuestReservation>().GetQuery();
+            var list = await query.Include(x => x.Guest).Include(x => x.Reservation).ThenInclude(x =>x.Room).Where(x => x.GuestId == guestId).ToListAsync();
+            return _mapper.Map<List<GuestReservationListDto>>(list);
+        }
     }
 }

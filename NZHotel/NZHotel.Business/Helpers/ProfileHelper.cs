@@ -30,7 +30,10 @@ namespace NZHotel.Business.Helpers
                 new GenderProfile(),
                 new GuestReservationProfile(),
                 new DepartmentProfile(),
-                new EmployeeProfile()
+                new EmployeeProfile(),
+                new EmployeeFileProfile(),
+                new ShiftProfile(),
+                new WorkingTypeProfile()
 
             };
         }

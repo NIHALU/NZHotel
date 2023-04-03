@@ -32,6 +32,8 @@ namespace NZHotel.DTOs
 
         public ReservationTypeListDto ReservationType { get; set; }
 
+        public PaymentTypeListDto PaymentType { get; set; }
+
         public int PaymentTypeId { get; set; }
 
         public DateTime CreateDate { get; set; }
@@ -39,7 +41,7 @@ namespace NZHotel.DTOs
         public DateTime FinishingDate { get; set; }
         public DateTime? UpdateDate { get; set; }
         public DateTime? DeleteDate { get; set; }
-        public bool IsActive { get; set; }
+        public bool Active { get; set; }
         public string ReservationCode { get; set; }
 
     }

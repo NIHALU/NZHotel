@@ -12,10 +12,12 @@ namespace NZHotel.UI.Controllers
     public class RoomController : Controller
     {
         private readonly IRoomService _roomService;
+        private readonly IRoomDetailService _roomDetailService;
 
-        public RoomController(IRoomService roomService)
+        public RoomController(IRoomService roomService, IRoomDetailService roomDetailService)
         {
             _roomService = roomService;
+            _roomDetailService = roomDetailService;
         }
 
         public async Task< IActionResult> Index()
@@ -29,5 +31,13 @@ namespace NZHotel.UI.Controllers
             }
             return View(filteredRooms);
         }
+
+        public async Task<IActionResult> SeeDetail(int roomId)
+        {
+            var result = await _roomDetailService.GetDetail(roomId);
+            return View(result);
+        }
+
+
     }
 }

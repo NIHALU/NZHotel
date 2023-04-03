@@ -10,7 +10,7 @@ namespace NZHotel.UI.ValidationRules
             RuleFor(x => x.Name).NotEmpty().MaximumLength(20);
             RuleFor(x => x.Surname).NotEmpty().MaximumLength(20);
             RuleFor(x => x.Address).NotEmpty().MaximumLength(40);
-            RuleFor(x => x.IdentityNumber).NotEmpty();
+            RuleFor(x => x.IdentityNumber).NotEmpty().Length(11);
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
             RuleFor(x => x.Phone).NotEmpty();
             RuleFor(x => x.Title).NotEmpty();

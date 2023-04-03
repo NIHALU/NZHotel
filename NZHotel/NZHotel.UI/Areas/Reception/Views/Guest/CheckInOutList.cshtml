@@ -14,7 +14,7 @@
 				   <th>Gue-Identity</th>
 				   <th>Ro-No </th>
 				   <th>Check In Time </th>
-				   <th>Check In Time</th>
+				   <th>Check Out Time</th>
 				   <th>Process</th>
 
 
@@ -42,9 +42,17 @@
 				   <td> @checkInOut.CheckOutTime</td>
 
 				   <td>
-                  
-				       <a asp-action="" asp-controller="Guest" asp-route-roomId="@checkInOut.Reservation.RoomId"> Entrance To Room </a>
-				      
+				   	<div class="dropdown">
+									<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+										Process
+									</a>
+
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<li> <a asp-action="CheckOut" asp-controller="Guest" asp-route-guestReservationId="@checkInOut.Id"> Check Out </a></li>
+										<li> <a asp-action="Passive" asp-controller="Guest" asp-route-reservationId="@checkInOut.Reservation.Id"> Make reservation passive to complete check out </a></li>
+
+									</ul>
+			                     </div>
 				    
 				   </td>
 

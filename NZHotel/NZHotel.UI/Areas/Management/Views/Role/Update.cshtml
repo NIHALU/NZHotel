@@ -1,0 +1,25 @@
+﻿@model RoleUpdateModel
+<div class="dummy mt-5"></div>
+
+<h3 class="bg-dark my-3 text-white text-center">Role Update</h3>
+<div class="container-fluid">
+<form asp-action="Update" asp-controller="Role" method="post" class="p-3 mx-auto w-75 shadow">
+	<input type="hidden" asp-for="@Model.Id"/>
+	<input type="hidden" asp-for="@Model.ConcurrencyStamp"/>
+
+	<div class="mb-3">
+		<label>User Name:</label>
+		<input asp-for="@Model.Name" class="form-control" />
+		<span class="text-danger" asp-validation-for="@Model.Name"></span>
+	</div>
+
+	<div class="mb-3">
+		<button type="submit" class="btn btn-primary">Save</button>
+	</div>
+
+
+	<div class="text-danger mt-2" asp-validation-summary="ModelOnly">
+
+	</div>
+</form>
+</div>

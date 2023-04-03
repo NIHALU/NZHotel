@@ -1,0 +1,55 @@
+﻿@model GuestReservationUpdateDto
+<div class="dummy mt-5"></div>
+
+
+
+<div class="card p-2 w-75 mx-auto">
+	<div class="card-header">
+		<h5 class="card-title">Check In & Out</h5>
+	</div>
+
+	<form asp-action="CheckOut" asp-controller="Guest" method="post" >
+		<input type="hidden" asp-for="@Model.GuestId" />
+		<input type="hidden" asp-for="@Model.ReservationId" />
+		<input type="hidden" asp-for="@Model.Id" />
+		<input type="hidden" asp-for="@Model.CheckInTime" />
+		<div class="card-body">
+		
+
+		@*	<div class="form-group mb-3">
+				<label asp-for="@Model.CheckInTime">Check-In Time:</label>
+				<input id="datetimepicker1" asp-for="@Model.CheckInTime" class="input-group date" placeholder="Check In Date" />
+				<span asp-validation-for="@Model.CheckInTime" class="text-danger"></span>
+			</div>*@
+
+			<div class="form-group mb-3">
+				<label asp-for="@Model.CheckOutTime">Check-Out Time:</label>
+				<input id="datetimepicker2" asp-for="@Model.CheckOutTime" class="input-group date" placeholder="Check Out Date" />
+				<span asp-validation-for="@Model.CheckOutTime" class="text-danger"></span>
+			</div>
+
+	
+
+		<div class="card-footer mb-3">
+			<div class="text-end">
+				<button type="submit" class="btn btn-primary"> Save</button>
+			</div>
+		</div>
+		</div>
+		<div class="text-danger" asp-validation-summary="All">
+		</div>
+
+	</form>
+</div>
+<div class="dummy mb-5"></div>
+
+
+
+@section script{
+	 <script type="text/javascript">
+         $(function () {
+             $('#datetimepicker1').datetimepicker();
+             $('#datetimepicker2').datetimepicker();
+         });
+      </script>
+}

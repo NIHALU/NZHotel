@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -19,6 +20,7 @@ using NZHotel.UI.Extensions;
 namespace NZHotel.UI.Areas.Reception.Controllers
 {
     [Area("Reception")]
+    [Authorize(Roles = "Reception")]
     public class ReservationController : Controller
     {
         private readonly IReservationService _reservationService;

@@ -9,6 +9,6 @@ namespace NZHotel.Common.Enums
     public enum ReservationType
     {
         Web=1,
-        CallCenter
+        CallCenter=2
     }
 }

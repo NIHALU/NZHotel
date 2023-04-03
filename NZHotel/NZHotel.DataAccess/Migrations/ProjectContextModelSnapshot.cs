@@ -340,67 +340,6 @@ namespace NZHotel.DataAccess.Migrations
                     b.ToTable("Departments");
                 });
 
-            modelBuilder.Entity("NZHotel.Entities.Employee.EmployeeDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<decimal?>("DailyWage")
-                        .HasColumnType("decimal(8,2)");
-
-                    b.Property<int?>("DailyWorkingHour")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("HourlyWage")
-                        .HasColumnType("decimal(4,2)");
-
-                    b.Property<decimal?>("MonthlyWage")
-                        .HasColumnType("decimal(8,2)");
-
-                    b.Property<int?>("MonthlyWorkingDay")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("OvertimeNumber")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("OvertimeWage")
-                        .HasColumnType("decimal(8,2)");
-
-                    b.Property<decimal?>("Salary")
-                        .HasColumnType("decimal(8,2)");
-
-                    b.Property<int>("ShiftType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
-
-                    b.ToTable("EmployeeDetails");
-                });
-
             modelBuilder.Entity("NZHotel.Entities.Employees.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -431,7 +370,7 @@ namespace NZHotel.DataAccess.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("EmployeeDetailId")
+                    b.Property<int>("EmployeeFileId")
                         .HasColumnType("int");
 
                     b.Property<int>("GenderId")
@@ -439,8 +378,7 @@ namespace NZHotel.DataAccess.Migrations
 
                     b.Property<string>("IdentityNumber")
                         .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -452,6 +390,9 @@ namespace NZHotel.DataAccess.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
+                    b.Property<int>("ShiftId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -459,8 +400,8 @@ namespace NZHotel.DataAccess.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
@@ -472,6 +413,102 @@ namespace NZHotel.DataAccess.Migrations
                     b.HasIndex("GenderId");
 
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("NZHotel.Entities.Employees.EmployeeFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("DailyWage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("DailyWorkingHour")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("HourlyWage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("MonthlyWage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("MonthlyWorkingDay")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OffDay")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OvertimeNumber")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("OvertimeWage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("Salary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("WorkingTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
+
+                    b.HasIndex("WorkingTypeId");
+
+                    b.ToTable("EmployeeFiles");
+                });
+
+            modelBuilder.Entity("NZHotel.Entities.Employees.Shift", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Evening")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Morning")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Noon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
+
+                    b.ToTable("Shift");
                 });
 
             modelBuilder.Entity("NZHotel.Entities.Gender", b =>
@@ -1144,6 +1181,33 @@ namespace NZHotel.DataAccess.Migrations
                     b.ToTable("RoomTypes");
                 });
 
+            modelBuilder.Entity("NZHotel.Entities.WorkingType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Definition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkingTypes");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("NZHotel.DataAccess.Entities.AppRole", null)
@@ -1195,17 +1259,6 @@ namespace NZHotel.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NZHotel.Entities.Employee.EmployeeDetail", b =>
-                {
-                    b.HasOne("NZHotel.Entities.Employees.Employee", "Employee")
-                        .WithOne("EmployeeDetail")
-                        .HasForeignKey("NZHotel.Entities.Employee.EmployeeDetail", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
             modelBuilder.Entity("NZHotel.Entities.Employees.Employee", b =>
                 {
                     b.HasOne("NZHotel.Entities.Department", "Department")
@@ -1223,6 +1276,36 @@ namespace NZHotel.DataAccess.Migrations
                     b.Navigation("Department");
 
                     b.Navigation("Gender");
+                });
+
+            modelBuilder.Entity("NZHotel.Entities.Employees.EmployeeFile", b =>
+                {
+                    b.HasOne("NZHotel.Entities.Employees.Employee", "Employee")
+                        .WithOne("EmployeeFile")
+                        .HasForeignKey("NZHotel.Entities.Employees.EmployeeFile", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NZHotel.Entities.WorkingType", "WorkingType")
+                        .WithMany("EmployeeFiles")
+                        .HasForeignKey("WorkingTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("WorkingType");
+                });
+
+            modelBuilder.Entity("NZHotel.Entities.Employees.Shift", b =>
+                {
+                    b.HasOne("NZHotel.Entities.Employees.Employee", "Employee")
+                        .WithOne("Shift")
+                        .HasForeignKey("NZHotel.Entities.Employees.Shift", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("NZHotel.Entities.Guest", b =>
@@ -1406,7 +1489,9 @@ namespace NZHotel.DataAccess.Migrations
 
             modelBuilder.Entity("NZHotel.Entities.Employees.Employee", b =>
                 {
-                    b.Navigation("EmployeeDetail");
+                    b.Navigation("EmployeeFile");
+
+                    b.Navigation("Shift");
                 });
 
             modelBuilder.Entity("NZHotel.Entities.Gender", b =>
@@ -1474,6 +1559,11 @@ namespace NZHotel.DataAccess.Migrations
             modelBuilder.Entity("NZHotel.Entities.RoomType", b =>
                 {
                     b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("NZHotel.Entities.WorkingType", b =>
+                {
+                    b.Navigation("EmployeeFiles");
                 });
 #pragma warning restore 612, 618
         }

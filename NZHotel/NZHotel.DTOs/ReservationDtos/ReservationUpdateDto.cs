@@ -20,6 +20,8 @@ namespace NZHotel.DTOs
         
         public string ReservationCode { get; set; }
 
+        public bool Active { get; set; }
+
 
         public int RoomId { get; set; }
         public int PaymentStatusId { get; set; }

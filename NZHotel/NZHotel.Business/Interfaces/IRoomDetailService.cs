@@ -11,5 +11,6 @@ namespace NZHotel.Business.Interfaces
     public interface IRoomDetailService:IService<RoomDetailCreateDto, RoomDetailUpdateDto, RoomDetailListDto, RoomDetail>
     {
         Task<List<RoomDetailListDto>> Getlist();
+        Task<List<RoomDetailListDto>> GetDetail(int roomId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NZHotel.UI.Areas.Reception.Models;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace NZHotel.UI.Areas.Reception.Controllers
 {
     [Area("Reception")]
+    [Authorize(Roles = "Reception")]
     public class ApiExchangeController : Controller
     {
         public async Task<IActionResult> Index()

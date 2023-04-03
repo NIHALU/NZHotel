@@ -42,9 +42,21 @@
 				   <td> @room.RoomStatus.Definition</td>
 				   <td> @room.Info</td>
 				   <td>
-				       <a asp-action="Update" asp-controller="Room" asp-route-roomId="@room.Id"> Update </a>
-				       <a asp-action="Remove" asp-controller="Room" asp-route-roomId="@room.Id" > Remove  </a>
-				       <a asp-action="RoomDetail" asp-controller="RoomDetail" asp-route-roomId="@room.Id" > See Details </a>
+
+				   	<div class="dropdown">
+									<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+										Process
+									</a>
+
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<li> <a asp-action="Update" asp-controller="Room" asp-route-roomId="@room.Id"> Update </a></li>
+										<li>   <a asp-action="Remove" asp-controller="Room" asp-route-roomId="@room.Id" > Remove  </a></li>
+										<li> <a asp-action="RoomDetail" asp-controller="RoomDetail" asp-route-roomId="@room.Id" > See Details </a></li>
+
+									</ul>
+			                     </div>
+				       
+				      
 
 				   </td>
 

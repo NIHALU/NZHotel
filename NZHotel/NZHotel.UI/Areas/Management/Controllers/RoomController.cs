@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NZHotel.Business.Interfaces;
@@ -12,6 +13,7 @@ using NZHotel.UI.Extensions;
 namespace NZHotel.UI.Areas.Admin.Controllers
 {
     [Area("Management")]
+    [Authorize(Roles = "Manager")]
     public class RoomController : Controller
     {
         private readonly IRoomService _roomService;
@@ -129,6 +131,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
 
         }
 
+     
 
         public async Task<IActionResult> Remove(int roomId)
         {

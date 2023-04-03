@@ -1,0 +1,82 @@
+﻿@model List<ShiftListDto>
+
+	<h3 class="bg-dark my-3 text-white text-center">Daily Shift Table</h3>
+		<a class="btn btn-danger" asp-controller="Shift" asp-action="Create">Add Shift For Employee</a>
+<div class="container-fluid mt-2">
+	@{
+		if (Model?.Count >= 0)
+		{
+			<table id="myTable" class="mt-3 table table-sm table-hover table-striped">
+				<thead>
+					<tr>
+						<th>ShiftId</th>
+						<th>E-FullName</th>
+						<th>E-Title</th>
+						<th>Morning (08.00 - 16.00)</th>
+						<th>Noon (16.00 - 00.00)</th>
+						<th>Evening (16.00 - 00.00)</th>
+						<th>Process</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@foreach (var shift in Model)
+					{
+						<tr>
+							<td>@shift.Id</td>
+							<td> @(shift.Employee.Name + " "+ shift.Employee.Surname)</td>
+							<td> @shift.Employee.Title</td>
+							<td> @shift.Morning</td>
+							<td> @shift.Noon</td>
+							<td> @shift.Evening</td>
+							<td>
+								<div class="dropdown">
+									<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+										Process
+									</a>
+
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<li>  <a asp-action="Update" asp-controller="Shift" asp-route-shiftId="@shift.Id"> Update </a> </li>
+										<li>    <a asp-action="Remove" asp-controller="Shift" asp-route-shiftId="@shift.Id"> Remove  </a> </li>
+										<li> <a asp-action="EmployeeDetail" asp-controller="Employee" asp-route-employeeId="@shift.Employee.Id"> See Details </a></li>
+									</ul>
+								</div>
+
+
+
+
+							</td>
+
+
+						</tr>
+					}
+				</tbody>
+
+			</table>
+		}
+		else
+		{
+			<div class="text-center my-3 p-1">
+				There is No Employee Data For Now.
+			</div>
+		}
+	}
+</div>
+
+
+
+
+
+
+
+
+@section script{
+<script>
+
+	   //$('#myTable').DataTable();
+	let table = new DataTable('#myTable');
+
+
+</script>
+}
+

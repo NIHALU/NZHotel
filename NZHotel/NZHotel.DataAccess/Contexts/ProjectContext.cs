@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using NZHotel.DataAccess.Configurations;
 using NZHotel.DataAccess.Entities;
 using NZHotel.Entities;
-using NZHotel.Entities.Employee;
+
+using NZHotel.Entities.Employees;
 
 namespace NZHotel.DataAccess.Contexts
 {
@@ -29,7 +30,7 @@ namespace NZHotel.DataAccess.Contexts
             builder.ApplyConfiguration(new CustomerConf());
             builder.ApplyConfiguration(new DepartmentConf());
             builder.ApplyConfiguration(new EmployeeConf());
-            builder.ApplyConfiguration(new EmployeeDetailConf());
+            builder.ApplyConfiguration(new EmployeeFileConf());
             builder.ApplyConfiguration(new GenderConf());
             builder.ApplyConfiguration(new ReservationConf());
             builder.ApplyConfiguration(new ReservationOptionConf());
@@ -40,6 +41,8 @@ namespace NZHotel.DataAccess.Contexts
             builder.ApplyConfiguration(new PaymentConf());
             builder.ApplyConfiguration(new PaymentTypeConf());
             builder.ApplyConfiguration(new GuestInfoConf());
+            //builder.ApplyConfiguration(new ShiftConf());
+            builder.ApplyConfiguration(new WorkingTypeConf());
             base.OnModelCreating(builder);
         }
 
@@ -51,8 +54,8 @@ namespace NZHotel.DataAccess.Contexts
         public DbSet<RoomStatus> RoomStatuses { get; set; }
         public DbSet<RoomType> RoomTypes { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<NZHotel.Entities.Employees.Employee> Employees { get; set; }
-        public DbSet<EmployeeDetail> EmployeeDetails { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<EmployeeFile> EmployeeFiles { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<GuestType> GuestTypes { get; set; }
@@ -65,6 +68,9 @@ namespace NZHotel.DataAccess.Contexts
         public DbSet<PaymentType> PaymentTypes  { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<GuestInfo> GuestInformation { get; set; }
+        //public DbSet<Shift> Shifts { get; set; }
+
+        public DbSet<WorkingType> WorkingTypes { get; set; }
 
     }
 }

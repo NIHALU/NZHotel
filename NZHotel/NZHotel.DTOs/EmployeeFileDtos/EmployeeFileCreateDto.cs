@@ -4,24 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NZHotel.Common.Enums;
+using NZHotel.DTOs.Interfaces;
 
-namespace NZHotel.Entities.Employee
+namespace NZHotel.DTOs
 {
-    public class EmployeeDetail:BaseEntity
+    public class EmployeeFileCreateDto:IDto
     {
-        public string Title { get; set; }
+       
         public decimal? HourlyWage { get; set; }
         public decimal? MonthlyWage { get; set; }
         public decimal? DailyWage { get; set; }
         public decimal? Salary { get; set; }
         public decimal? OvertimeWage { get; set; }
         public int? DailyWorkingHour { get; set; }
-        public int? MonthlyWorkingDay{ get; set; }
-        public ShiftType ShiftType { get; set; }
+        public int? MonthlyWorkingDay { get; set; }
+ 
         public int? OvertimeNumber { get; set; }
 
-        //Navigational Prop Begins
-        public int EmployeeId { get; set; }
-        public Employees.Employee Employee { get; set; }
+        public string OffDay { get; set; }
+
+        public int WorkingTypeId { get; set; }
+        public int EmployeeId { get; set; } 
+
+
+       
     }
 }

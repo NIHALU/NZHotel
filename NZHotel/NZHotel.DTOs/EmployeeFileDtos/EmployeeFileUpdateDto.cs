@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NZHotel.Common.Enums;
 using NZHotel.DTOs.Interfaces;
 
 namespace NZHotel.DTOs
 {
-    public class EmployeeDetailCreateDto:IDto
+    public class EmployeeFileUpdateDto:IUpdateDto
     {
-        public string Title { get; set; }
+        public int Id { get; set; }
         public decimal? HourlyWage { get; set; }
         public decimal? MonthlyWage { get; set; }
         public decimal? DailyWage { get; set; }
@@ -17,7 +18,14 @@ namespace NZHotel.DTOs
         public decimal? OvertimeWage { get; set; }
         public int? DailyWorkingHour { get; set; }
         public int? MonthlyWorkingDay { get; set; }
-        public int ShiftTypeId { get; set; }
+    
         public int? OvertimeNumber { get; set; }
+
+        public string OffDay { get; set; }
+
+        public int WorkingTypeId { get; set; }
+        public int EmployeeId { get; set; }
+
+
     }
 }

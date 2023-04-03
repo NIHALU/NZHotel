@@ -30,5 +30,17 @@ namespace NZHotel.Business.Services
             var list = await query.Include(x => x.Room).ToListAsync();
             return _mapper.Map<List<RoomDetailListDto>>(list);
         }
+
+
+        public async Task<List<RoomDetailListDto>> GetDetail(int roomId)
+        {
+            //var query =await _uow.GetRepository<RoomDetail>().GetByFilterFirstAsync(x=>x.RoomId == roomId);
+            //return  _mapper.Map<RoomDetailListDto>(query);
+
+            var query = _uow.GetRepository<RoomDetail>().GetQuery();
+            var list = await query.Include(x => x.Room).Where(x => x.RoomId == roomId).ToListAsync();
+            return _mapper.Map<List<RoomDetailListDto>>(list);
+
+        }
     }
 }

@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NZHotel.Business.Interfaces;
@@ -11,11 +13,13 @@ using NZHotel.UI.Extensions;
 namespace NZHotel.UI.Areas.Management.Controllers
 {
     [Area("Management")]
+    [Authorize(Roles = "Manager")]
     public class EmployeeController : Controller
     {
         private readonly IGenderService _genderService;
         private readonly IDepartmentService _departmentService;
         private readonly IEmployeeService _employeeService;
+        private readonly IEmployeeFileService _employeeFileService;
         private readonly IValidator<EmployeeCreateModel> _employeeCreateModelVal;
         private readonly IValidator<EmployeeUpdateModel> _employeeUpdateModelVal;
         private readonly IMapper _mapper;
@@ -122,6 +126,23 @@ namespace NZHotel.UI.Areas.Management.Controllers
             model.Departments = new SelectList(response2.Data, "Id", "Title");
             return View(model);
         }
+
+        public async Task<IActionResult> SeeDetail(int employeeId)
+        {
+          
+           var  list = await _employeeFileService.SeeFile(employeeId);
+         
+            foreach (var item in list)
+            {
+                if (item.OvertimeWage != null && item.OvertimeNumber != null)
+                {
+                    item.SalaryWithOverTime = item.CalculateOverTimeSalary();
+                }
+
+            }
+            return View(list);
+        }
+
 
         //public async Task<IActionResult> Remove(int roomId)
         //{

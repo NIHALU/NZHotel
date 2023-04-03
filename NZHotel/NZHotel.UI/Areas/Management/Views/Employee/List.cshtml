@@ -1,8 +1,8 @@
 ﻿@model List<EmployeeListDto>
 
 	<h3 class="bg-dark my-3 text-white text-center">Employee List</h3>
-		<div class="text-end btn-danger my-2"><a asp-action="Create" asp-controller="Employee"> Create New Employee </a> </div>
-<div class="container-fluid">
+		<a class="btn btn-danger" asp-controller="Employee" asp-action="Create">Create New Employee</a>
+<div class="container-fluid mt-2">
 	@{
 		if (Model?.Count >= 0)
 		{
@@ -35,6 +35,7 @@
 							<td> @employee.Email</td>
 							<td> @employee.Phone</td>
 							<td> @employee.Address</td>
+							<td> @employee.Title</td>
 							<td> @employee.Department.Title</td>
 							<td> @employee.Gender.Definition</td>
 							<td> @employee.Active</td>
@@ -47,16 +48,10 @@
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<li>  <a asp-action="Update" asp-controller="Employee" asp-route-employeeId="@employee.Id"> Update </a> </li>
 										<li>    <a asp-action="Remove" asp-controller="Employee" asp-route-employeeId="@employee.Id"> Remove  </a> </li>
-										<li> <a asp-action="EmployeeDetail" asp-controller="Employee" asp-route-employeeId="@employee.Id"> See Details </a></li>
+										
 									</ul>
 								</div>
-
-
-
-
 							</td>
-
-
 						</tr>
 					}
 				</tbody>

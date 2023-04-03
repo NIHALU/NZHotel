@@ -1,0 +1,61 @@
+﻿@model List<RoomDetailListDto>
+	<div class="row">
+			<div class="mb-2 mr-1 ml-3 col-sm">
+				   <img src="/theme/sona/img/room/room-5.jpg" class="img-thumbnail" alt="...">
+			</div>
+			<div class="mb-2 mr-1 col-sm">
+			 <img src="/theme/sona/img/room/room-2.jpg" class="img-thumbnail" alt="...">
+			</div>
+			<div class="form-group mb-2 col-sm">
+	             <img src="/theme/sona/img/room/room-4.jpg" class="img-thumbnail" alt="...">
+				
+			</div>
+			</div>
+
+
+
+ @{
+     @foreach(var item in Model)
+     {
+<div class="my-3 p-4">
+    <h4 class="text-center">@item.Room.RoomName </h4>
+    <ul class="list-group list-group-flush">
+  <li class="list-group-item">All rooms include Wifi,Tv,Air Conditioner,Hair Dryer,Mini Bar </li>
+
+		 @if(item.HasBalcony==true)
+    {
+            <li class="list-group-item">Balcony Exists</li>
+    }
+    @if(item.HasLivingRoom==true)
+    {
+            <li class="list-group-item">Living Room Exists</li>
+    }
+    @if(item.HasJakuzi==true)
+    {
+            <li class="list-group-item">Jakuzi Exists</li>
+    }
+
+     @if(item.HasSeaView==true)
+    {
+            <li class="list-group-item">Excellent Sea View </li>
+    }
+
+    @if(item.HasWashingMashine==true)
+    {
+            <li class="list-group-item">Washing Machine Exists </li>
+    }
+
+     @if(item.HasSafeDepositBox==true)
+    {
+            <li class="list-group-item">Safe Deposit Exists </li>
+    }
+     <li class="list-group-item">@item.Room.Info</li>
+     <li class="list-group-item">@item.Room.BedInfo</li>
+
+</ul>
+</div>
+
+   }
+
+
+}

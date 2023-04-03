@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NZHotel.Business.Interfaces;
@@ -11,6 +12,7 @@ using NZHotel.UI.Extensions;
 namespace NZHotel.UI.Areas.Admin.Controllers
 {
     [Area("Management")]
+   
     public class RoomDetailController : Controller
     {
         private readonly IRoomService _roomService;
@@ -30,6 +32,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             _roomDetailUpdateModelValidator = roomDetailUpdateModelValidator;
         }
 
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Create()
         {
             var response = await _roomService.GetAllAsync();
@@ -39,7 +42,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             };
             return View(model);
         }
-
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> Create(RoomDetailCreateModel model)
         {
@@ -59,13 +62,14 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Manager,Reception")]
         public async Task<IActionResult> List()
         {
             var list = await _roomDetailService.Getlist();
             return View(list);
         }
 
-
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Update(int roomDetailId)
         {
             var response = await _roomDetailService.GetByIdAsync<RoomDetailUpdateDto>(roomDetailId);
@@ -80,6 +84,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> Update(RoomDetailUpdateModel model)
         {
@@ -100,6 +105,7 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Remove(int roomDetailId)
         {
             var response = await _roomDetailService.RemoveAsync(roomDetailId);

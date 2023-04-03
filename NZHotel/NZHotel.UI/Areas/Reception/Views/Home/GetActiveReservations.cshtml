@@ -55,7 +55,7 @@
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<li><a asp-action="GuestInfo" asp-controller="Home" asp-route-reservationId="@reservation.Id">Guest Detail </a></li>
 										<li><a asp-action="BookRoomUpdate" asp-controller="Home" asp-route-reservationId="@reservation.Id"> Edit </a></li>
-										<li><a asp-action="RoomDetail" asp-controller="AdminRoomDetail" asp-route-reservationId="@reservation.Id"> See Details </a></li>
+
 									</ul>
 								</div>
 
@@ -71,7 +71,7 @@
 		else
 		{
 			<div class="text-center my-3 p-1">
-				There is No Room Data For Now.
+				There is No Reservation Data For Now.
 			</div>
 		}
 	}

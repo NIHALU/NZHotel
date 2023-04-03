@@ -1,0 +1,36 @@
+﻿@model UserSignInModel
+
+<div class="dummy mt-5"></div>
+
+<h3 class="bg-dark my-3 text-white text-center">Sign In For Management Module</h3>
+<div class="container-fluid mt-5">
+<form asp-action="SignIn" asp-controller="Home" method="post" class="p-3 mx-auto w-75 shadow">
+	<input type="hidden" asp-for=@Model.ReturnUrl />
+	<div class="mb-3">
+		<label>User Name:</label>
+		<input asp-for="@Model.UserName" class="form-control" />
+		<span class="text-danger" asp-validation-for="@Model.UserName"></span>
+	</div>
+	<div class="mb-3">
+		<label>Password:</label>
+		<input type="password" asp-for="@Model.Password" class="form-control" />
+		<span class="text-danger" asp-validation-for="@Model.Password"></span>
+	</div>
+
+	<div class="form-check">
+		<input class="form-check-input" type="checkbox" asp-for="@Model.RememberMe">
+		<label class="form-check-label" for="RememberMe"1">
+			Remember Me
+		</label>
+	</div>
+
+	<div class="mb-3">
+		<button type="submit" class="btn btn-primary">Log In</button>
+	</div>
+
+
+	<div class="text-danger mt-2" asp-validation-summary="ModelOnly">
+	</div>
+</form>
+
+</div>

@@ -8,8 +8,8 @@ namespace NZHotel.Common.Enums
 {
     public enum PaymentType
     {
-        Cash=3,
-        CreditCard=4,
-        PayLater=5
+        Cash=1,
+        CreditCard=2,
+        PayLater=3
     }
 }

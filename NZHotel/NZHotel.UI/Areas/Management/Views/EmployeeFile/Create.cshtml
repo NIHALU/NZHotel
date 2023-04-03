@@ -1,0 +1,98 @@
+﻿@model EmployeeFileCreateModel
+<div class="dummy mt-5"></div>
+
+<h3 class="bg-dark my-3 text-white text-center">Employee File Create</h3>
+
+	
+<div class="mt-4">
+	<form asp-action="Create" asp-controller="EmployeeFile" method="post" class="p-5 w-75 mx-auto" >
+
+		<div class="mb-3">
+			<select onchange="setInputVisibility()" class="form-select" asp-items="@Model.WorkingTypes" asp-for="@Model.WorkingTypeId">
+				<option value="0">Choose Working Type</option>
+			</select>
+			<span asp-validation-for="@Model.WorkingTypes" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3">
+			<select class="form-select" asp-items="@Model.Employees" asp-for="@Model.EmployeeId">
+				<option value="0">Choose For Employee</option>
+			</select>
+			<span asp-validation-for="@Model.Employees" class="text-danger"></span>
+		</div>
+
+
+		<div class="mb-3" id="hourlyWage"  style="display:none">
+			<label>Hourly Wage:</label>
+			<input type="number" class="form-control" asp-for="@Model.HourlyWage" />
+			<span asp-validation-for="@Model.HourlyWage" class="text-danger"></span>
+		</div>
+
+			<div class="mb-3" id="dailyWorkingHour"  style="display:none">
+			<label>Daily Working Hours:</label>
+			<input type="number" class="form-control" asp-for="@Model.DailyWorkingHour" />
+			<span asp-validation-for="@Model.DailyWorkingHour" class="text-danger"></span>
+		</div>
+
+			<div class="mb-3" id="monthlyWorkingDay"  style="display:none">
+			<label>Monthly Working Day:</label>
+			<input type="number" class="form-control" asp-for="@Model.MonthlyWorkingDay" />
+			<span asp-validation-for="@Model.MonthlyWorkingDay" class="text-danger"></span>
+		</div>
+		
+		<div class="mb-3" id="monthlyWage"  style="display:none">
+			<label>Montly Wage:</label>
+			<input type="number" class="form-control" asp-for="@Model.MonthlyWage" />
+			<span asp-validation-for="@Model.MonthlyWage" class="text-danger"></span>
+		</div>
+
+	
+		<div class="mb-3">
+			<label>Off Day:</label>
+			<input type="text" class="form-control" asp-for="@Model.OffDay" />
+			<span asp-validation-for="@Model.OffDay" class="text-danger"></span>
+		</div>
+	
+		<div class="mb-3 text-end">
+			<button type="submit" class="btn btn-primary"> Save </button>
+		</div>
+
+		<div class="text-danger" asp-validation-summary="All">
+		</div>
+
+	</form>
+</div>
+
+@section script{
+<script>
+	setInputVisibility();
+	function setInputVisibility(){
+
+		var selectElement =document.getElementById("WorkingTypeId");  //irregular=1, regular=2
+		var workingTypeId= selectElement.value;
+		var hourlyWageDivElement= document.getElementById("hourlyWage");
+		var dailyWorkingHourDivElement=document.getElementById("dailyWorkingHour");
+		var monthlyWorkingDayDivElement=document.getElementById("monthlyWorkingDay");
+		var monthlyWageDivElement=document.getElementById("monthlyWage");
+		if(workingTypeId==1)
+		{
+			hourlyWageDivElement.style.display="block";
+			dailyWorkingHourDivElement.style.display="block";
+			monthlyWorkingDayDivElement.style.display="block";
+			monthlyWageDivElement.style.display="none";
+
+		}
+		
+		else{
+			hourlyWageDivElement.style.display="none";
+			dailyWorkingHourDivElement.style.display="none";
+			monthlyWorkingDayDivElement.style.display="none";
+			monthlyWageDivElement.style.display="block";
+
+		}
+		
+	}
+</script>
+}
+
+

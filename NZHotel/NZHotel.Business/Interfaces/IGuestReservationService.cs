@@ -11,5 +11,6 @@ namespace NZHotel.Business.Interfaces
     public interface IGuestReservationService : IService<GuestReservationCreateDto, GuestReservationUpdateDto, GuestReservationListDto, GuestReservation>
     {
         Task<List<GuestReservationListDto>> CheckInOutList();
+        Task<List<GuestReservationListDto>> GetReservations(int guestId);
     }
 }

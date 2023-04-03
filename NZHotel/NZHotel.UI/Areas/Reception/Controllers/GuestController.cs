@@ -1,17 +1,19 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Threading.Tasks;
+using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NZHotel.Business.Interfaces;
 using NZHotel.DTOs;
 using NZHotel.UI.Areas.Reception.Models;
 using NZHotel.UI.Extensions;
-using System;
-using System.Threading.Tasks;
 
 namespace NZHotel.UI.Areas.Reception.Controllers
 {
     [Area("Reception")]
+    [Authorize(Roles = "Reception")]
     public class GuestController : Controller
     {
         private readonly IGuestTypeService _guestTypeService;
@@ -39,16 +41,16 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             return View();
         }
 
-        public async  Task<IActionResult> Create()
+        public async Task<IActionResult> Create()
         {
             var response1 = await _genderService.GetAllAsync();
             var response2 = await _guestTypeService.GetAllAsync();
-         
+
             var model = new GuestCreateModel()
             {
                 Genders = new SelectList(response1.Data, "Id", "Definition"),
                 GuestTypes = new SelectList(response2.Data, "Id", "Definition"),
-                BirthDay=DateTime.Now
+                BirthDay = DateTime.Now
             };
             return View(model);
         }
@@ -79,12 +81,12 @@ namespace NZHotel.UI.Areas.Reception.Controllers
 
         public async Task<IActionResult> List()
         {
-            var list =  _guestService.Getlist();
+            var list = _guestService.Getlist();
             foreach (var item in list)
             {
                 item.VisitedBefore = await _guestService.VisitedBefore(item.Id);
             }
-            
+
             return View(list);
         }
 
@@ -96,8 +98,8 @@ namespace NZHotel.UI.Areas.Reception.Controllers
                 CheckInTime = DateTime.Now.Date,
                 CheckOutTime = DateTime.Now.Date,
 
-        };
-              
+            };
+
             return View(guestReservationCreateDto);
         }
 
@@ -105,7 +107,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         public async Task<IActionResult> CheckIn(GuestReservationCreateDto dto)
         {
             var response = await _reservationService.GetReservation(dto.ReservationCode);
-            dto.ReservationId=response.Data.Id;
+            dto.ReservationId = response.Data.Id;
             var response2 = await _guestReservationService.CreateAsync(dto);
             return this.ResponseRedirectAction(response, "CheckInOutList");
 
@@ -115,13 +117,42 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         {
             var list = await _guestReservationService.CheckInOutList();
             return View(list);
-         
+
+        }
+
+        public async Task<IActionResult> CheckOut(int guestReservationId)
+        {
+            var response = await _guestReservationService.GetByIdAsync<GuestReservationUpdateDto>(guestReservationId);
+            if (response.ResponseType == ResponseType.NotFound)
+            {
+                return NotFound();
+            }
+
+            return View(response.Data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckOut(GuestReservationUpdateDto dto)
+        {
+            var response2 = await _guestReservationService.UpdateAsync(dto);
+            return this.ResponseRedirectAction(response2, "CheckInOutList");
+
         }
 
         public async Task<IActionResult> CusList()
         {
             var list = await _customerService.GetAllAsync();
-            return View(list);
+            return View(list.Data);
+
+        }
+
+
+        public async Task<IActionResult> Passive(int reservationId)
+        {
+            var result = await _reservationService.GetByIdAsync<ReservationUpdateDto>(reservationId);
+            result.Data.Active = false;
+           var response = await _reservationService.UpdateAsync(result.Data);
+            return this.ResponseRedirectAction(response, "GetNotActiveReservations", "Home");
 
         }
 
