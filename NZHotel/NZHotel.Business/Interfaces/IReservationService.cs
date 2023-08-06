@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using NZHotel.Common;
@@ -19,12 +20,13 @@ namespace NZHotel.Business.Interfaces
         Task<bool> CheckReservation(ReservationCreateDto dto);
         Task<ReservationListDto> GetReservation(BookRoomCreateDto dto, int roomId);
         Task<IResponse<ReservationUpdateDto>> UpdateReservation(ReservationUpdateDto dto);
-        Task<IResponse<List<ReservationListDto>>> GetActiveReservations();
-        Task<ArrayList> GetBookedRoomListForUpdate(BookRoomUpdateDto dto);
+        Task<IResponse<List<ReservationListDto>>> GetReservations(Expression<Func<Reservation, bool>> filter);
+
+		Task<ArrayList> GetBookedRoomListForUpdate(BookRoomUpdateDto dto);
 
         Task<IResponse<ReservationListDto>> GetReservation(string code);
 
-        Task<IResponse<List<ReservationListDto>>> GetNotActiveReservations();
+      
 
 
     }

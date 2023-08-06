@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using NZHotel.DTOs;
 
 namespace NZHotel.Business.ValidationRules
@@ -15,6 +10,12 @@ namespace NZHotel.Business.ValidationRules
             RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.GuestId).NotEmpty();
             RuleFor(x => x.ReservationId).NotEmpty();
-        }
+            RuleFor(x => x.CheckInTime).NotEmpty();
+
+			RuleFor(m => m.CheckOutTime)
+		  .NotEmpty().WithMessage("CheckOut date is required")
+		  .GreaterThan(m => m.CheckInTime)
+				   .WithMessage("CheckOut date must after CheckIn date");
+		}
     }
 }

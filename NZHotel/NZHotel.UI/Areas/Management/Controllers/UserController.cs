@@ -12,7 +12,7 @@ using NZHotel.UI.Areas.Management.Models;
 namespace NZHotel.UI.Areas.Management.Controllers
 {
     [Area("Management")]
-    [Authorize(Roles = "Manager")]
+    //[Authorize(Roles = "Manager")]
     public class UserController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -71,7 +71,7 @@ namespace NZHotel.UI.Areas.Management.Controllers
                 {
                     var appRole = await _roleManager.FindByIdAsync(model.RoleId.ToString());
                     var role = await _roleManager.FindByNameAsync(appRole.Name);
-                    if (role == null)  ///eğer member diye bir rol yoksa önce member adında bir role yarat 
+                    if (role == null)  ///if there is no member role , first create member role
                     {
                         await _roleManager.CreateAsync(new()
                         {
@@ -118,8 +118,7 @@ namespace NZHotel.UI.Areas.Management.Controllers
         [HttpPost]
         public async Task<IActionResult> AssignRole(RoleAssignSendModel model)
         {
-            //role ekleme => seçilen rolün userda olmaması gerek
-            //role cıkarma => seçilen rolün olması 
+           
 
             var user = _userManager.Users.SingleOrDefault(x => x.Id == model.UserId);
 
@@ -127,9 +126,9 @@ namespace NZHotel.UI.Areas.Management.Controllers
 
             foreach (var role in model.Roles)
             {
-                if (role.Exist)    //ekleme yapma yani role.Exist true
+                if (role.Exist)  
                 {
-                    if (!userRoles.Contains(role.RoleName))   //seçilen rolün olmaması gerek
+                    if (!userRoles.Contains(role.RoleName))   
                     {
                         await _userManager.AddToRoleAsync(user, role.RoleName);
                     }

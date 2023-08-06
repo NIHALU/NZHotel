@@ -55,6 +55,7 @@
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<li><a asp-action="GuestInfo" asp-controller="Home" asp-route-reservationId="@reservation.Id">Guest Detail </a></li>
 										<li><a asp-action="BookRoomUpdate" asp-controller="Home" asp-route-reservationId="@reservation.Id"> Edit </a></li>
+										<li><a asp-action="CancelReservation" asp-controller="Home" asp-route-reservationId="@reservation.Id" onclick="return confirmDel();">Cancel Reservation </a> </li>
 
 									</ul>
 								</div>
@@ -91,6 +92,11 @@
 	let table = new DataTable('#myTable2');
 
 
+
+
+
 </script>
+
+	<script language="javascript">function confirmDel() { var agree = confirm("Are you sure you want to cancel the reservation? ?\nThis action cannot be revoked!"); if (agree) { return true; } else { return false; } }</script>
 }
 

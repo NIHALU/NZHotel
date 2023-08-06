@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using NZHotel.Business.Extensions;
 using NZHotel.Business.Interfaces;
+using NZHotel.Business.ValidationRules;
 using NZHotel.Common;
 using NZHotel.DataAccess.UnitOfWork;
 using NZHotel.DTOs;
+using NZHotel.DTOs.Interfaces;
 using NZHotel.Entities;
 
 namespace NZHotel.Business.Services
@@ -18,6 +21,7 @@ namespace NZHotel.Business.Services
     {
         private readonly IUow _uow;
         private readonly IMapper _mapper;
+       
         public GuestReservationService(IMapper mapper, IValidator<GuestReservationCreateDto> createDtoValidator, IValidator<GuestReservationUpdateDto> updateDtoValidator, IUow uow) : base(mapper, createDtoValidator, updateDtoValidator, uow)
         {
             _mapper = mapper;
@@ -27,7 +31,7 @@ namespace NZHotel.Business.Services
         public async Task<List<GuestReservationListDto>> CheckInOutList()
         {
             var query = _uow.GetRepository<GuestReservation>().GetQuery();
-            var list = await query.Include(x => x.Guest).Include(x => x.Reservation).ThenInclude(x =>x.Room).ToListAsync();
+            var list = await query.Include(x => x.Guest).Include(x => x.Reservation).ThenInclude(x => x.Room).ToListAsync();
             return _mapper.Map<List<GuestReservationListDto>>(list);
 
         }
@@ -35,8 +39,11 @@ namespace NZHotel.Business.Services
         public async Task<List<GuestReservationListDto>> GetReservations(int guestId)
         {
             var query = _uow.GetRepository<GuestReservation>().GetQuery();
-            var list = await query.Include(x => x.Guest).Include(x => x.Reservation).ThenInclude(x =>x.Room).Where(x => x.GuestId == guestId).ToListAsync();
+            var list = await query.Include(x => x.Guest).Include(x => x.Reservation).ThenInclude(x => x.Room).Where(x => x.GuestId == guestId).ToListAsync();
             return _mapper.Map<List<GuestReservationListDto>>(list);
         }
+
+       
+
     }
 }

@@ -112,6 +112,13 @@ namespace NZHotel.UI.Areas.Admin.Controllers
             return this.ResponseRedirectAction(response, "List");
         }
 
+        public async Task<IActionResult> GetDetail(int roomId)
+        {
+           var detail = await _roomDetailService.GetDetail(roomId);
+
+            return View(detail);
+        }
+
 
     }
 }

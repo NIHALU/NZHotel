@@ -77,8 +77,8 @@ namespace NZHotel.UI
                 opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;  //https http
                 opt.Cookie.Name = "ProjectCookie";
                 opt.ExpireTimeSpan = TimeSpan.FromDays(25);   //cookie expiration time period (minutes)
-                opt.LoginPath = new PathString("/Home/SignIn");
-                opt.AccessDeniedPath = new PathString("/Home/AccessDenied");
+                opt.LoginPath = new PathString("/Account/LogIn");
+                opt.AccessDeniedPath = new PathString("/Account/AccessDenied");
 
             });
 

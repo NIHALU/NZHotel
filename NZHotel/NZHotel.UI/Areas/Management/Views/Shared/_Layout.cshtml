@@ -12,8 +12,8 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 
 	<link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
-	
-	
+
+
 	<link href="~/theme/admin/css/styles.css" rel="stylesheet" />
 </head>
 <body class="d-flex flex-column h-100">
@@ -21,119 +21,128 @@
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container px-5">
-				<a class="navbar-brand" href="index.html">Start Bootstrap</a>
+				<a class="navbar-brand" asp-controller="Home" asp-action="Index">NZ HOTEL</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-	@{
-		if(User.Identity.IsAuthenticated)
-		{
-			@if(User.IsInRole("Manager"))
-			{
+						@{
+							if (User.Identity.IsAuthenticated)
+							{
+								@if (User.IsInRole("Manager"))
+								{
 
-			
-				<li class="nav-item"><a class="nav-link" asp-area="Member" asp-controller="Home" asp-action="Index"> Home</a></li>
+									//pages
+							        
+		
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Other Modules</a>
+										<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+											<li><a class="dropdown-item"  asp-controller="Account" asp-action="SignIn">Home Page</a></li>
+											<li ><a class="dropdown-item" asp-area="Member" asp-controller="Home" asp-action="Index">Web Site</a></li>
+											<li><a class="dropdown-item" asp-area="Reception" asp-controller="Home" asp-action="Index">Reception Module</a></li>
+										</ul>
+									</li>
 
-//Room
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Room</a>
-							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-								<li><a class="dropdown-item" asp-controller="Room" asp-action="Create">Room Create</a></li>
-								<li><a class="dropdown-item" asp-controller="Room" asp-action="List">Room List</a></li>
-							</ul>
-						</li>
-
-
-//Room Detail
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Room Detail</a>
-							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-								<li><a class="dropdown-item" asp-controller="RoomDetail" asp-action="Create">Room Detail Create</a></li>
-								<li><a class="dropdown-item" asp-controller="RoomDetail" asp-action="List">Room Detail List</a></li>
-							</ul>
-						</li>
-
-//Department
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Department</a>
-							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-								<li><a class="dropdown-item" asp-controller="Department" asp-action="Create">Department Create</a></li>
-								<li><a class="dropdown-item" asp-controller="Department" asp-action="List">Department List</a></li>
-							</ul>
-						</li>
-//Employee
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Employee</a>
-							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-								<li><a class="dropdown-item" asp-controller="Employee" asp-action="Create">Employee Create</a></li>
-								<li><a class="dropdown-item" asp-controller="Employee" asp-action="List">Employee List</a></li>
-
-							</ul>
-						</li>
-
-//Employee File
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Employee File</a>
-							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-								<li><a class="dropdown-item" asp-controller="EmployeeFile" asp-action="Create">Employee File</a></li>
-								<li><a class="dropdown-item" asp-controller="EmployeeFile" asp-action="List">Employee File List</a></li>
-							</ul>
-						</li>
-//Shift
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shift</a>
-							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-								<li><a class="dropdown-item" asp-controller="Shift" asp-action="Create">Shift Create</a></li>
-								<li><a class="dropdown-item" asp-controller="Shift" asp-action="List">Shift List</a></li>
-							</ul>
-						</li>
-
-//User
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">User</a>
-							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-								<li><a class="dropdown-item" asp-controller="User" asp-action="Create">User Create</a></li>
-								<li><a class="dropdown-item" asp-controller="User" asp-action="List">User List</a></li>
-							</ul>
-						</li>
-
-//Role
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Role</a>
-							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-								<li><a class="dropdown-item" asp-controller="Role" asp-action="Create">Role Create</a></li>
-								<li><a class="dropdown-item" asp-controller="Role" asp-action="List">Role List</a></li>
-							</ul>
-						</li>
+									//Room
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Room</a>
+										<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+											<li><a class="dropdown-item" asp-controller="Room" asp-action="Create">Room Create</a></li>
+											<li><a class="dropdown-item" asp-controller="Room" asp-action="List">Room List</a></li>
+										</ul>
+									</li>
 
 
-						<li class="nav-item"><a class="nav-link" asp-action="SignOut" asp-controller="Home">Log Out</a></li>
+									//Room Detail
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Room Detail</a>
+										<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+											<li><a class="dropdown-item" asp-controller="RoomDetail" asp-action="Create">Room Detail Create</a></li>
+											<li><a class="dropdown-item" asp-controller="RoomDetail" asp-action="List">Room Detail List</a></li>
+										</ul>
+									</li>
+
+									//Department
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Department</a>
+										<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+											<li><a class="dropdown-item" asp-controller="Department" asp-action="Create">Department Create</a></li>
+											<li><a class="dropdown-item" asp-controller="Department" asp-action="List">Department List</a></li>
+										</ul>
+									</li>
+									//Employee
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Employee</a>
+										<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+											<li><a class="dropdown-item" asp-controller="Employee" asp-action="Create">Employee Create</a></li>
+											<li><a class="dropdown-item" asp-controller="Employee" asp-action="List">Employee List</a></li>
+
+										</ul>
+									</li>
+
+									//Employee File
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Employee File</a>
+										<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+											<li><a class="dropdown-item" asp-controller="EmployeeFile" asp-action="Create">Employee File</a></li>
+											<li><a class="dropdown-item" asp-controller="EmployeeFile" asp-action="List">Employee File List</a></li>
+										</ul>
+									</li>
+									//Shift
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shift</a>
+										<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+											<li><a class="dropdown-item" asp-controller="Shift" asp-action="Create">Shift Create</a></li>
+											<li><a class="dropdown-item" asp-controller="Shift" asp-action="List">Shift List</a></li>
+										</ul>
+									</li>
+
+									//User
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">User</a>
+										<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+											<li><a class="dropdown-item" asp-controller="User" asp-action="Create">User Create</a></li>
+											<li><a class="dropdown-item" asp-controller="User" asp-action="List">User List</a></li>
+										</ul>
+									</li>
+
+									//Role
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Role</a>
+										<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+											<li><a class="dropdown-item" asp-controller="Role" asp-action="Create">Role Create</a></li>
+											<li><a class="dropdown-item" asp-controller="Role" asp-action="List">Role List</a></li>
+										</ul>
+									</li>
+
+
+									<li class="nav-item"><a class="nav-link" asp-area="" asp-action="SignOut" asp-controller="Account">Log Out</a></li>
+								}
+							}
 						}
-		}
-	}
-					
+
 					</ul>
 				</div>
 			</div>
 		</nav>
-	@*	<!-- Header Start -->
-		<header class="bg-dark py-5">
+		@*	<!-- Header Start -->
+			<header class="bg-dark py-5">
 			<div class="container px-5">
-				<div class="row gx-5 align-items-center justify-content-center">
-					<div class="col-lg-8 col-xl-7 col-xxl-6">
-						<div class="my-5 text-center text-xl-start">
-							<h1 class="display-5 fw-bolder text-white mb-2">A Bootstrap 5 template for modern businesses</h1>
-							<p class="lead fw-normal text-white-50 mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit!</p>
-							<div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-								<a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
-								<a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
-				</div>
+			<div class="row gx-5 align-items-center justify-content-center">
+			<div class="col-lg-8 col-xl-7 col-xxl-6">
+			<div class="my-5 text-center text-xl-start">
+			<h1 class="display-5 fw-bolder text-white mb-2">A Bootstrap 5 template for modern businesses</h1>
+			<p class="lead fw-normal text-white-50 mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit!</p>
+			<div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+			<a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
+			<a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a>
 			</div>
-		</header>*@
+			</div>
+			</div>
+			<div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
+			</div>
+			</div>
+			</header>*@
 		<!-- Header Finishes -->
 		@RenderBody()
 		<!-- Footer Starts-->
@@ -155,7 +164,7 @@
 		<script src="~/lib/jquery/dist/jquery.min.js"> </script>
 		<!-- Bootstrap core JS-->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-		
+
 		<script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 		<!-- Core theme JS-->
 		<script src="~/theme/admin/js/scripts.js"></script>

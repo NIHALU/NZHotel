@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NZHotel.Business.Interfaces;
+using NZHotel.Common.Enums;
 
 namespace NZHotel.UI.Areas.Management.Controllers
 {
@@ -51,15 +52,25 @@ namespace NZHotel.UI.Areas.Management.Controllers
 
         public async Task<IActionResult> GetReservations()
         {
-           var response = await _reservationService.GetActiveReservations();
+           var response = await _reservationService.GetReservations(x => x.Active==true);
 
 
             return View(response.Data);
 
         }
 
+		public async Task<IActionResult> GetPayLaterReservations()
+		{
+			var response = await _reservationService.GetReservations(x => x.PaymentTypeId==(int)PaymentType.PayLater);
+
+			return View(response.Data);
+
+		}
 
 
 
-    }
+
+
+
+	}
 }

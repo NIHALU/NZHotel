@@ -42,7 +42,7 @@ namespace NZHotel.Business.Services
                 var createdEntity = _mapper.Map<T>(dto);
                 await _uow.GetRepository<T>().CreateAsync(createdEntity);
                 await _uow.SaveChangesAsync();
-                return new Response<CreateDto>(ResponseType.Success, dto);
+                return new Response<CreateDto>(ResponseType.Success, dto,"Successfully created!");
             }
             return new Response<CreateDto>(dto, result.ConvertToCustomValidationError());
         }
@@ -88,7 +88,7 @@ namespace NZHotel.Business.Services
                 unchangedData.UpdateDate = DateTime.Now;
                 _uow.GetRepository<T>().Update(_mapper.Map<T>(dto), unchangedData);
                 await _uow.SaveChangesAsync();
-                return new Response<UpdateDto>(ResponseType.Success, dto);
+                return new Response<UpdateDto>(ResponseType.Success, dto,"Successfully updated!");
             }
             return new Response<UpdateDto>(dto, result.ConvertToCustomValidationError());
         }

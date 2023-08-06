@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using NZHotel.Business.Extensions;
 using NZHotel.Business.Interfaces;
 using NZHotel.Common;
+using NZHotel.Common.Enums;
 using NZHotel.DataAccess.UnitOfWork;
 using NZHotel.DTOs;
 using NZHotel.DTOs.BookRoomDtos;
@@ -163,18 +165,10 @@ namespace NZHotel.Business.Services
             return _mapper.Map<ReservationListDto>(reservation);
         }
 
-        public async Task<IResponse<List<ReservationListDto>>> GetActiveReservations()
+        public async Task<IResponse<List<ReservationListDto>>> GetReservations(Expression<Func<Reservation, bool>> filter)
         {
             var query = _uow.GetRepository<Reservation>().GetQuery();
-            var list = await query.Include(x => x.Customer).Include(x => x.ReservationOption).Include(x => x.ReservationType).Include(x=>x.PaymentType).Include(x => x.Room).Include(x => x.PaymentStatus).Where(x => x.Active == true).ToListAsync();
-            var reservationList = _mapper.Map<List<ReservationListDto>>(list);
-            return new Response<List<ReservationListDto>>(ResponseType.Success, reservationList);
-        }
-
-        public async Task<IResponse<List<ReservationListDto>>> GetNotActiveReservations()
-        {
-            var query = _uow.GetRepository<Reservation>().GetQuery();
-            var list = await query.Include(x => x.Customer).Include(x => x.ReservationOption).Include(x => x.ReservationType).Include(x => x.Room).Include(x => x.PaymentStatus).Where(x => x.Active == false).ToListAsync();
+            var list = await query.Include(x => x.Customer).Include(x => x.ReservationOption).Include(x => x.ReservationType).Include(x=>x.PaymentType).Include(x => x.Room).Include(x => x.PaymentStatus).Where(filter).ToListAsync();
             var reservationList = _mapper.Map<List<ReservationListDto>>(list);
             return new Response<List<ReservationListDto>>(ResponseType.Success, reservationList);
         }
@@ -219,6 +213,8 @@ namespace NZHotel.Business.Services
 
 
         }
-    }
+
+
+	}
 }
 

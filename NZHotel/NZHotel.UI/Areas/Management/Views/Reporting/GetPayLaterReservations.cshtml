@@ -1,6 +1,6 @@
 ﻿@model List<ReservationListDto>
 
-<h3 class="bg-dark mt-3 text-white text-center">Canceled Reservation List</h3>
+<h3 class="bg-dark mt-3 text-white text-center">PayLater Reservations</h3>
 <div class="container-fluid">
 	@{
 		if (Model?.Count >= 0)
@@ -12,11 +12,12 @@
 						<th>Re-Code</th>
 						<th>Cu-FullName</th>
 						<th>Cu-IDNo</th>
+						<th>Cu-Phone</th>
 						<th>Re-Amount</th>
+						<th>Re-PaymentType</th>
+						<th>Re-Expected Payment Date</th>
 						<th>Re-Dates</th>
-						<th>Ro-Name</th>
-						<th>Ro-No</th>
-						<th>Re-Opt</th>
+					
 						<th>Re-Type</th>
 						<th>Re-IsPaid</th>
 						<th>Actions</th>
@@ -30,7 +31,7 @@
 						<tr>
 							<td>@reservation.Id</td>
 							<td> @reservation.ReservationCode </td>
-							<td> @(reservation.Customer.ContactName +" "+reservation.Customer.ContactSurname)  </td>
+							<td> @(reservation.Customer.ContactName + " " + reservation.Customer.ContactSurname)  </td>
 							@if (reservation.Customer.IsNoTurkishCitizen == false)
 							{
 								<td> @reservation.Customer.TurkishIDNo</td>
@@ -39,11 +40,13 @@
 							{
 								<td> @reservation.Customer.PassportNo</td>
 							}
+							<td> @reservation.Customer.ContactPhone</td>
+
 							<td> @reservation.TotalAmount</td>
-							<td> @(reservation.StartingDate.ToString("d") +" - "+reservation.FinishingDate.ToString("d"))</td>
-							<td> @reservation.Room.RoomName</td>
-							<td> @reservation.Room.RoomNo</td>
-							<td> @reservation.ReservationOption.Definition</td>
+							<td> @reservation.PaymentType.Definition</td>
+							<td> @reservation.PaymentDeadline</td>
+							<td> @(reservation.StartingDate.ToString("d") + " - " + reservation.FinishingDate.ToString("d"))</td>
+						
 							<td> @reservation.ReservationType.Definition</td>
 							<td> @reservation.PaymentStatus.Definition</td>
 							<td>
@@ -53,8 +56,8 @@
 									</a>
 
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										<li><a asp-action="GuestInfo" asp-controller="Home" asp-route-reservationId="@reservation.Id">Guest Detail </a></li>
-
+									
+										<li><a asp-action="BookRoomUpdate" asp-controller="Home" asp-route-reservationId="@reservation.Id"> Edit </a></li>
 
 									</ul>
 								</div>
@@ -85,11 +88,11 @@
 
 
 @section script{
-<script>
+	<script>
 
-	   //$('#myTable').DataTable();
-	let table = new DataTable('#myTable2');
+		//$('#myTable').DataTable();
+		let table = new DataTable('#myTable2');
 
 
-</script>
+	</script>
 }

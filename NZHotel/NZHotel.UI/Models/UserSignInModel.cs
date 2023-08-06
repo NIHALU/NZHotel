@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NZHotel.UI.Areas.Management.Models
+namespace NZHotel.UI.Models
 {
     public class UserSignInModel
     {

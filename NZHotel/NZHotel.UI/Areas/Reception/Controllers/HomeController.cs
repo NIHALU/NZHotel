@@ -23,6 +23,7 @@ using NZHotel.UI.Extensions;
 namespace NZHotel.UI.Areas.Reception.Controllers
 {
     [Area("Reception")]
+    [Authorize(Roles = "Reception")]
     public class HomeController : Controller
     {
         private readonly IReservationService _reservationService;
@@ -54,101 +55,39 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             _roleManager = roleManager;
         }
 
-        [Authorize(Roles ="Reception")]
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult AccessDenied()
-        {
-            return View();
-        }
-
-
-        public IActionResult SignIn(string returnUrl)
-        {
-
-            return View(new UserSignInModel() { ReturnUrl = returnUrl });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> SignIn(UserSignInModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByNameAsync(model.UserName);
-                var signInResult = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
-                //signInResult needs to return as (succeeded, IsLockedOut,IsNotAllowed vs.) IsNotAllowed means email is not confirmed)
-
-                if (signInResult.Succeeded)
-                {
-                    if (!string.IsNullOrEmpty(model.ReturnUrl))
-                    {
-                        return Redirect(model.ReturnUrl);
-                    }
-                    var roles = await _userManager.GetRolesAsync(user);
-                    if (roles.Contains("Reception"))
-                    {
-                        return Redirect("/Reception/Home/Index");
-                    }
-                    else
-                    {
-                        return Redirect("/Reception/Home/AccessDenied");
-                    }
-                }
-                else if (signInResult.IsLockedOut)
-                {
-
-                    var lockOutEnd = await _userManager.GetLockoutEndDateAsync(user);  //hesap lockout oldugu zaman ne kadar süre lockout olacagını bize söyler
-                    ModelState.AddModelError("", $"Your account will be {(lockOutEnd.Value.UtcDateTime - DateTime.UtcNow).Minutes} minutes locked!");
-                }
-                else
-                {
-                    var message = string.Empty;
-                    if (user != null)
-                    {
-                        var failedCount = await _userManager.GetAccessFailedCountAsync(user);
-                        message = $"Your account will be temporarily locked after {(_userManager.Options.Lockout.MaxFailedAccessAttempts - failedCount)} incorret login attempts! ";
-                    }
-                    else
-                    {
-                        message = "Username or Password is wrong!";
-                    }
-                    ModelState.AddModelError("", message);
-                }
-            }
-            return View(model);
-        }
-
-
-        public async Task<IActionResult> SignOut()
-        {
-            await _signInManager.SignOutAsync();
-            return  Redirect("/Reception/Home/Index");
-        }
-
-        [Authorize(Roles = "Reception")]
         public async Task<IActionResult> GetActiveReservations()
         {
-            var response = await _reservationService.GetActiveReservations();
+            var response = await _reservationService.GetReservations(x => x.Active == true);
             return View(response.Data);
         }
-        [Authorize(Roles = "Reception")]
+        
         public async Task<IActionResult> GetNotActiveReservations() // Not Active 
         {
-            var response = await _reservationService.GetNotActiveReservations();
+            var response = await _reservationService.GetReservations(x => x.Active == false);
             return View(response.Data);
         }
 
-        [Authorize(Roles = "Reception")]
+        public async Task<IActionResult> CancelReservation(int reservationId)
+        {
+
+            var response = await _reservationService.RemoveAsync(reservationId);
+            return this.ResponseRedirectAction(response, "GetActiveReservations");
+
+		}
+
+        
         public async Task<IActionResult> GuestInfo(int reservationId)
         {
             var response = await _guestInfoService.GuestInfo(reservationId);
             return View(response.Data);
         }
 
-        [Authorize(Roles = "Reception")]
+        
         public async Task<IActionResult> BookRoomUpdate(int reservationId)
         {
             var response = await _reservationService.GetByIdAsync<ReservationListDto>(reservationId);
@@ -184,7 +123,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Reception")]
+       
         public async Task<IActionResult> BookRoomUpdate(BookRoomUpdateModel model)
         {
             var result = _bookRoomUpdateValidator.Validate(model);
@@ -215,7 +154,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             model.ReservationOptions = new SelectList(response.Data, "Id", "Definition");
             return View(model);
         }
-        [Authorize(Roles = "Reception")]
+        
         public IActionResult CheckNotBookedRoomsForUpdate()
         {
 
@@ -234,7 +173,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             return View(result2);
         }
 
-        [Authorize(Roles = "Reception")]
+       
         public async Task<IActionResult> Payment(decimal differenceAmount, int roomId)
         {
             var value = HttpContext.Session.GetString("bookRoomUpdateDto");
@@ -249,7 +188,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             ViewBag.DifferenceAmount = differenceAmount;
             var items = Enum.GetValues(typeof(PaymentType));
             var list = new List<PaymentTypeListDto>();
-            foreach (int item in items)   //3,4,5
+            foreach (int item in items)   
             {
                 list.Add(new PaymentTypeListDto
                 {
@@ -264,7 +203,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Reception")]
+        
         public async Task<IActionResult> Payment([Bind(Prefix = "Item1")] PaymentCreateModel payment, [Bind(Prefix = "Item2")] ReservationUpdateDto reservation)
         {
             var result = _paymentCreateModelValidator.Validate(payment);
@@ -308,7 +247,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             return View(tuple);
         }
 
-        [Authorize(Roles = "Reception")]
+       
         public async Task<IActionResult> UpdatedReservation()
         {
             var value = HttpContext.Session.GetString("bookRoomUpdateDto");

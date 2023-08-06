@@ -209,7 +209,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             ViewBag.TotalAmount = totalAmount;
             var items = Enum.GetValues(typeof(PaymentType));
             var list = new List<PaymentTypeListDto>();
-            foreach (int item in items)   //3,4,5
+            foreach (int item in items) 
             {
                 list.Add(new PaymentTypeListDto
                 {
@@ -312,7 +312,7 @@ namespace NZHotel.UI.Areas.Reception.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> TermsAndCondition()
+        public IActionResult TermsAndCondition()
         {
             return View();
         }

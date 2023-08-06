@@ -10,7 +10,7 @@ using NZHotel.UI.Areas.Management.Models;
 namespace NZHotel.UI.Areas.Management.Controllers
 {
     [Area("Management")]
-    [Authorize(Roles = "Manager")]
+    //[Authorize(Roles = "Manager")]
     public class RoleController : Controller
     {
         private readonly RoleManager<AppRole> _roleManager;
