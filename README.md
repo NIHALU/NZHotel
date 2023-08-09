@@ -1,17 +1,17 @@
 # NZHotel
 **Bu proje, Full Stack .Net Software kursunun bitirme projesidir.**
-NZ Hotel, tatil bölgesinde bir otelin kullanabileceği bir uygulamadır.
-Proje, yönetim , resepsiyon ve web modülleri ile karmaşık bir yapıya sahiptir.
---Resepsiyon modülü, rezervasyon alma, otel konuklarının kaydı, giriş çıkış işlemleri, odaların durumu ve takibi gibi kısımları içerecektir.
+NZ Hotel is an application that a hotel can use in a resort area.
+The project has a complex structure with management, reception and web modules.
+--The reception module will include parts such as taking reservations, registration of hotel guests, check-in and check-out procedures, status and tracking of rooms.
 
---Ayrıca web modülü üzerinden müşterilerin yaptıkları rezervasyonları görüntüleyebilmektedir.Günlük kurlarıda içermektedir.WebApi kullanılmıştır.
+--Also, it can display the reservations made by the customers through the web module. It also includes the daily rates. WebApi is used.
 
---Yönetim modülü, resepsiyon modülünün yaptığı tüm işleri takip edebilmektedir.Ayrıca çalışanlarla ilgili kayıt ve muhasebe kısımları bu modülde yer alır. Çalışanlarn kullanıcı olarak kaydı ve yetkilendirme işlemleri de bu modülde gerçekleştirilir.
+--The management module can follow all the work done by the reception module. In addition, the records and accounting sections related to the employees are included in this module. Registration and authorization of employees as users are also performed in this module.
 
---Web modülü, müşteriye otelin tanıtımını yapan, internet üzerinden rezervasyon yapabilmesini sağlayan kısımdır.
+The web module is the part that promotes the hotel to the customer and enables them to make reservations over the internet.
 
-Proje N-tier architecture yapıdadır.
-VS de açtığımız Blank Solution içerisine biri Asp.Net Core Web App (MVC eklenerek) olmak üzere  6 proje ekledik.Bunlar ;
+The project is  N-tier architecture.
+We added 6 projects, one of which is Asp.Net Core Web App (by adding MVC), to the Blank Solution we opened in VS. These are;
 - Entities
 - Data Access Layer
 - Business Logic Layer
@@ -19,15 +19,56 @@ VS de açtığımız Blank Solution içerisine biri Asp.Net Core Web App (MVC ek
 - Common (Response ve Enums)
 - UI
 
-  ORM  teknolojisi olan **Entity Framework Core(Code First yaklaşımıyla)** kullanılmıştır. Gerekli Configuration&Mapping işlemleri FluentApi ile yapılmıştır. MSSQL server veritabanı kullanılmıştır.
-  (Microsoft.AspNetCore.Identity.EntityFrameworkCore 5.0.17 & Microsoft.EntityFrameworkCore.SqlServer 5.0.17 && Microsoft.EntityFrameworkCore.Tools 5.0.17)
+**Nuget Package Manager was used to add the necessary packages and libraries to our project.**
+  DAL =>  (Microsoft.AspNetCore.Identity.EntityFrameworkCore 5.0.17 & Microsoft.EntityFrameworkCore.SqlServer 5.0.17 && Microsoft.EntityFrameworkCore.Tools 5.0.17)
+  (Microsoft.AspNetCore.Identity 2.2.0 &)
   
-Üyelik sistemi için **Asp.NET Core Identity** kütüphanesinden faydalanılmıştır.(Microsoft.AspNetCore.Identity 2.2.0 &)
-Katmanlar arası veri transferi için DTO lar ve gerektiği noktada UI da  ViewModel ler kullanılmştır.
-Bu farklı tipte olan nesneleri dinamik bir şekilde birbirine dönüştüren **AutoMapper** kütüphanesini kullandık.
+ ORM technology **Entity Framework Core(with Code First approach)** is used and necessary Configurations&Mapping operations are done with FluentApi. 
+ MSSQL server database is used.
+The **Asp.NET Core Identity** library was used for the membership system.
+
+Generic Repository Design Pattern is used for CRUD operations for each model
+we have established a general structure for our common operations and ensure that each model performs that operation through this general structure.
+
+**what is a generic repository Design Pattern and what are its advantages?**
+--The repository pattern is used to create an abstraction layer between the data access layer and the business layer of an application
+--This pattern helps to reduce code duplication and follows the DRY principle.
+--It also helps to create loose coupling between multiple components, when we want to change something inside the data access layer that time does not need to change another layer where we consume that functionality.
+--Separation of concern makes things easier to maintain the code.
+--Implementing repository patterns helps us write unit test cases efficiently and easily.
+
+**In addition to the Generic Repository, we also used the Unit Of Work model.**
+We created another folder called UnitOfWork and define the IUnitOfWork interface in it.
+We defined the GetRepository generic method, which will bring us the type of repository we want, and the SaveChanges methods, which will allow us to batch save operations.
+
+The dependency injection of DbContex is handled by the constructor method of the Unit Of Work class and All Repositories use the same DbContext type.
+
+**we added a folder is called DependencyResolver into BLL, and then in this folder we opened a static class called dependency Extension**
+we installed the **Microsoft.Extensions.DependencyInjection** package
+In this way we expanded the IServiceCollection interface
+We  pulled our connection string from appsetting.jsons via IConfiguration
+
+
+
+DTOs are used for data transfer between layers and ViewModels are used in the UI when they are necessary.
+We used the **AutoMapper** library which dynamically converts these different types of objects to each other.
 (AutoMapper 12.0.1)
-  
-  **Projemize gerekli olan paketleri ve kütüphaneleri eklemek için  Nuget Package Manager kullanıldı.**
+
+In order to ensure the security of the applications we develop and the accuracy of the data to be recorded, we need to verify the data sent by the users.
+
+Thanks to the flexible structure of **FluentValidation**; It allows us to write complex rules easier to understand and customize more easily when we add.
+
+Using Client-Side and Server-Side together is a safer approach to guarantee data accuracy.
+
+Using “Data Annotation”, we can also validate by adding attributes in our entity model classes.
+
+This is a preferred and easy-to-use structure, but we also make validation adjustments to a class that is functionally designed as an entity, which is against the **"Single Responsibility Principle" of SOLID Principles**.
+
+so we added the **Fluent Validation** library to our project.
+BLL => FluentValidation (11.4.0)
+(FluentValidation.DependencyInjectionExtensions 11.4.0)
+
+**Thanks to FluentValidation library, We can perform both Client-Side and Server-Side verification.**
   
   
  
