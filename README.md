@@ -47,6 +47,12 @@ The dependency injection of DbContex is handled by the constructor method of the
 we installed the **Microsoft.Extensions.DependencyInjection** package
 In this way we expanded the IServiceCollection interface
 We  pulled our connection string from appsetting.jsons via IConfiguration
+Finally, we called our extension via services(IServiceCollection) in startup.
+
+UI => (Microsof.EntityFrameworkCore.Design 5.0.17)
+We created our migration to be the default project data access and startup project UI via the package manager console.
+(add-migration InitialCreate -outputDir Migrations)
+and then saved our migration to the database(update-database)
 
 
 
