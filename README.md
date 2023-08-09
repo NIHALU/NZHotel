@@ -1,7 +1,7 @@
 # NZHotel
-**Bu proje, Full Stack .Net Software kursunun bitirme projesidir.**
-NZ Hotel is an application that a hotel can use in a resort area.
-The project has a complex structure with management, reception and web modules.
+**Bu proje, Full Stack .Net Software kursunun bitirme projesidir.**  
+NZ Hotel is an application that a hotel can use in a resort area.  
+The project has a complex structure with management, reception and web modules.  
 --The reception module will include parts such as taking reservations, registration of hotel guests, check-in and check-out procedures, status and tracking of rooms.
 
 --Also, it can display the reservations made by the customers through the web module. It also includes the daily rates. WebApi is used.
