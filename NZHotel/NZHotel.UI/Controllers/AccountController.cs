@@ -73,7 +73,7 @@ namespace NZHotel.UI.Areas.Management.Controllers
                 else if (signInResult.IsLockedOut)
                 {
 
-                    var lockOutEnd = await _userManager.GetLockoutEndDateAsync(user);  //hesap lockout oldugu zaman ne kadar süre lockout olacagını bize söyler
+                    var lockOutEnd = await _userManager.GetLockoutEndDateAsync(user);  //when account locked out, it says that how long account will lock out
                     ModelState.AddModelError("", $"Your account will be {(lockOutEnd.Value.UtcDateTime - DateTime.UtcNow).Minutes} minutes locked!");
                 }
                 else
@@ -100,21 +100,17 @@ namespace NZHotel.UI.Areas.Management.Controllers
             return Redirect("/Account/SignIn");
         }
 
-        //[Authorize]
-        //public IActionResult GetUserInfo()
-        //{
-        //    var userName = User.Identity.Name; //Cookie Data kept trough User Class
-        //    var role = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
-        //    return View();
-        //}
+		public IActionResult ChangePassword()
+		{
 
-        //public async Task<IActionResult> SignOut()
-        //{
-        //    await _signInManager.SignOutAsync();
-        //    return RedirectToAction("Index", "Home");
-        //}
+            return View();
+		}
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		
+		
+
+
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

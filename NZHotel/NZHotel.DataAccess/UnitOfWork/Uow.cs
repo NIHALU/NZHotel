@@ -16,7 +16,7 @@ namespace NZHotel.DataAccess.UnitOfWork
 
         public Uow(ProjectContext context)
         {
-            _context = context;
+            _context = context;""
         }
 
         public IRepository<T> GetRepository<T>() where T : BaseEntity

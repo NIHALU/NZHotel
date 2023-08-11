@@ -121,7 +121,6 @@ namespace NZHotel.UI.Areas.Reception.Controllers
 		{
 			var list = await _guestReservationService.CheckInOutList();
 			return View(list);
-
 		}
 
 		public async Task<IActionResult> CheckOut(int guestReservationId)
@@ -151,19 +150,12 @@ namespace NZHotel.UI.Areas.Reception.Controllers
 
 		}
 
-
-
 		public async Task<IActionResult> Passive(int reservationId)
 		{
 			var result = await _reservationService.GetByIdAsync<ReservationUpdateDto>(reservationId);
 			result.Data.Active = false;
 			var response = await _reservationService.UpdateAsync(result.Data);
 			return this.ResponseRedirectAction(response, "GetNotActiveReservations", "Home");
-
-
-
-
-
 
 		}
 

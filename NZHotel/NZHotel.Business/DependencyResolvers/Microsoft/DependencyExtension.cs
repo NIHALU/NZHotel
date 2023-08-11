@@ -9,12 +9,6 @@ using NZHotel.DataAccess.Contexts;
 using NZHotel.DataAccess.UnitOfWork;
 using NZHotel.DTOs;
 using NZHotel.DTOs.DepartmentDtos;
-using NZHotel.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NZHotel.Business.DependencyResolvers.Microsoft
 {

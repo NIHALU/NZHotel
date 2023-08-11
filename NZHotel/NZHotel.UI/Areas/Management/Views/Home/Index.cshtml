@@ -1,4 +1,14 @@
-﻿
+﻿@if (TempData["success"] != null)
+{
+    <div class="success-message mt-3">
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
+            <div>
+               @TempData["success"].ToString()
+            </div>
+        </div>
+    </div>
+}
             <!-- Features section-->
             <section class="py-5" id="features">
                 <div class="container px-5 my-5">
