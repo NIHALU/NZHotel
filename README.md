@@ -78,7 +78,17 @@ BLL => FluentValidation (11.4.0)
 
 **Thanks to FluentValidation library, We can perform both Client-Side and Server-Side verification.**  
   
+  Three areas was used for web, reception and management modules in UI  
+  Different Boostrap templates were used for each area.  
+  We have customized all modules using CSS and also all our websites are responsive.
+
+ (Bootstrap v5.1.3 & Bootstrap v4.4.1)  
+ We  used JQuery Datatables to make our html tables more dynamic, so downloaded jquery.datatables package via the manage nuget packages. Then we added the cdn plugin as a script to the layouts  
+ In this way, we increased data accessibility in our html tables. We were able to easily integrate advanced features such as pagination, filtering and sorting into our tables. It supports both client-side processing and server-side processing.  
+
+ 
   
+We have included the current exchange that hotel employees will use when determining room prices, via Web API.
  
 
 
